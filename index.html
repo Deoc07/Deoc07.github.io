@@ -46,22 +46,48 @@
     </header>
 
     <main>
-        <h2>Estructura básica de 2026</h2>
-        <p>Este es un ejemplo de cómo se estructura una página moderna. Puedes editar este texto para personalizar tu contenido.</p>
-        
+        <h2>Proposito  del portafolio</h2>
+        <p>Este portafolio tiene como proposito la recopilacion de diferentes practicas y proyectos realizados en la maateria de CNO V Seguridad informatica.</p>
+        <h2>Enfoque del curso</h2>
+        <p>seguridad informática, pruebas de penetración, análisis de vulnerabilidades</p>
+        <p>El portafolio de evidencias es fundamental porque permite al estudiante visualizar su propio progreso, 
+            transformando cada práctica técnica en un proceso de reflexión que consolida el aprendizaje y 
+            refuerza la capacidad de documentar soluciones críticas en seguridad informática.</p>
         <button onclick="saludar()">Haz clic aquí</button>
         
         <p id="mensaje"></p>
     </main>
 
-    <!-- JavaScript para interactividad -->
-    <script>
-        function saludar() {
-            const fecha = new Date().getFullYear();
-            document.getElementById("mensaje").innerHTML = 
-                "¡Hola! Estás visualizando este código en el año " + fecha;
-        }
-    </script>
+    <!-- Formulario -->
+<form id="miFormulario">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" required placeholder="Tu nombre...">
+    
+    <button type="submit">Enviar</button>
+</form>
 
+<!-- Contenedor donde aparecerá la respuesta inmediata -->
+<div id="respuesta" style="margin-top: 20px; padding: 10px; display: none;"></div>
+
+<script>
+    document.getElementById('miFormulario').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita que la página se recargue
+
+        // Obtener el valor del input
+        const nombre = document.getElementById('nombre').value;
+        const cajaRespuesta = document.getElementById('respuesta');
+
+        // Generar respuesta inmediata
+        cajaRespuesta.style.display = 'block';
+        cajaRespuesta.style.backgroundColor = '#d4edda';
+        cajaRespuesta.innerHTML = `<strong>¡Gracias, ${nombre}!</strong> Tu mensaje ha sido recibido con éxito.`;
+        
+        // Opcional: Limpiar el formulario
+        this.reset();
+    });
+</script>
+     <footer>
+          <p>Pide de pagina<p>
+     </footer>
 </body>
 </html>
