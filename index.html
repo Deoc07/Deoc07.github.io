@@ -1,1 +1,67 @@
-<h1>Hola seguridad</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Primera Página Web 2026</title>
+    
+    <!-- Estilos CSS internos para diseño rápido -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background: white;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenido a mi sitio web</h1>
+    </header>
+
+    <main>
+        <h2>Estructura básica de 2026</h2>
+        <p>Este es un ejemplo de cómo se estructura una página moderna. Puedes editar este texto para personalizar tu contenido.</p>
+        
+        <button onclick="saludar()">Haz clic aquí</button>
+        
+        <p id="mensaje"></p>
+    </main>
+
+    <!-- JavaScript para interactividad -->
+    <script>
+        function saludar() {
+            const fecha = new Date().getFullYear();
+            document.getElementById("mensaje").innerHTML = 
+                "¡Hola! Estás visualizando este código en el año " + fecha;
+        }
+    </script>
+
+</body>
+</html>
