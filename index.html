@@ -1,73 +1,174 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html> 
+<!-- Indica que el documento está escrito en HTML5 -->
+
+<html lang="es"> 
+<!-- Define que el idioma principal del contenido es español -->
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portafolio CNOV</title>
+  <meta charset="UTF-8"> 
+  <!-- Configura la codificación de caracteres para soportar acentos y caracteres especiales -->
 
-  <!-- CSS externo -->
-  <link rel="stylesheet" href="estilos.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- Permite que la página sea adaptable a dispositivos móviles (diseño responsivo) -->
+
+  <title>Portafolio | Juan Diego Aguilar Espinoza</title> 
+  <!-- Título que aparece en la pestaña del navegador -->
+
+  <link rel="stylesheet" href="estilos.css"> 
+  <!-- Vincula la hoja de estilos externa llamada estilos.css -->
 </head>
-<body>
 
-  <header>
-    <h1>
-      Juan Diego Aguilar Espinoza <br>
-      CNO V – Seguridad Informática <br>
-      Universidad Politécnica de San Luis Potosí <br>
-      Periodo 2020
-    </h1>
+<body>
+  <!-- Contenido visible de la página -->
+
+  <!-- Barra de navegación con enlaces internos a distintas secciones -->
+  <nav class="nav">
+    <a href="#presentacion">Presentación</a>
+    <a href="#proposito">Propósito</a>
+    <a href="#enfoque">Enfoque</a>
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#informacion">Información</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <!-- Sección principal (hero/header) con nombre, descripción y foto -->
+  <header class="hero" id="presentacion">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Juan Diego Aguilar Espinoza</h1>
+        <!-- Nombre principal en encabezado grande -->
+
+        <p>
+          Estudiante de la asignatura <strong>CNO V – Seguridad Informática</strong>,
+          Universidad Politécnica de San Luis Potosí.
+        </p>
+        <!-- Breve descripción académica -->
+
+        <p class="sub">
+          Portafolio académico correspondiente al periodo escolar 2020.
+        </p>
+        <!-- Subtítulo con información adicional -->
+      </div>
+
+      <div class="hero-img">
+        <!-- Imagen del estudiante -->
+        <img src="foto.jpg" alt="Juan Diego">
+      </div>
+    </div>
   </header>
 
-  <main>
+  <!-- Sección de propósito del portafolio -->
+  <section class="section" id="proposito">
     <h2>Propósito del portafolio</h2>
     <p>
-      Este portafolio tiene como propósito la recopilación de diferentes
-      prácticas y proyectos realizados en la materia de CNO V Seguridad Informática.
+      Explica la finalidad del portafolio: recopilar prácticas y proyectos de la materia.
     </p>
-
-    <h2>Enfoque del curso</h2>
-    <p>Seguridad informática, pruebas de penetración, análisis de vulnerabilidades.</p>
-
     <p>
-      El portafolio de evidencias es fundamental porque permite al estudiante
-      visualizar su propio progreso y consolidar el aprendizaje.
+      Describe cómo se documenta el aprendizaje y las competencias adquiridas.
     </p>
-  </main>
+  </section>
 
-  <!-- Formulario -->
-  <div class="form-container">
-    <h2>Formulario de contacto</h2>
+  <!-- Sección de enfoque del curso -->
+  <section class="section dark" id="enfoque">
+    <h2>Enfoque del curso</h2>
+    <p>
+      Explica las áreas clave de la seguridad informática que se estudian en el curso.
+    </p>
+    <p>
+      Menciona cómo el portafolio ayuda a reflexionar y consolidar el aprendizaje.
+    </p>
+  </section>
 
-<form id="form">
-  <div class="field">
-    <label for="name">name</label>
-    <input type="text" name="name" id="name">
-  </div>
-  <div class="field">
-    <label for="message">message</label>
-    <input type="text" name="message" id="message">
-  </div>
-  <div class="field">
-    <label for="email">email</label>
-    <input type="text" name="email" id="email">
-  </div>
+  <!-- Sección sobre el perfil del estudiante -->
+  <section class="section" id="sobre-mi">
+    <h2>Perfil del estudiante</h2>
+    <p>
+      Información sobre intereses académicos y áreas de especialización.
+    </p>
+    <p>
+      Ejemplos de proyectos desarrollados durante la formación académica.
+    </p>
+    <p>
+      Explica el interés en la convergencia de seguridad, datos y software.
+    </p>
+  </section>
 
-  <input type="submit" id="button" value="Send Email" >
-</form>
+  <!-- Sección de proyectos -->
+  <section class="section" id="proyectos">
+    <h2>Proyectos</h2>
+    <div class="card-grid">
+      <!-- Cada tarjeta representa un proyecto (aquí placeholders para futuros proyectos) -->
+      <a href="#" class="card placeholder">
+        <h3>Proyecto futuro</h3>
+        <p>Espacio reservado para un proyecto próximo.</p>
+      </a>
+      <a href="#" class="card placeholder">
+        <h3>Proyecto futuro</h3>
+        <p>Espacio reservado para un proyecto próximo.</p>
+      </a>
+      <a href="#" class="card placeholder">
+        <h3>Proyecto futuro</h3>
+        <p>Espacio reservado para un proyecto próximo.</p>
+      </a>
+    </div>
+  </section>
 
-    <div id="respuesta"></div>
-  </div>
+  <!-- Sección de información técnica -->
+  <section class="section" id="informacion">
+    <h2>Información técnica</h2>
+    <p>
+      Lista de tecnologías y lenguajes utilizados en los proyectos.
+    </p>
+    <p>
+      Ejemplos: Python, Power BI, HTML, CSS, JavaScript, C++.
+    </p>
+    <p>
+      Explica que el portafolio está publicado en GitHub Pages y gestionado con Git.
+    </p>
+  </section>
 
-  <footer>
-    <p>Pie de página editado</p>
+  <!-- Sección de contacto con formulario -->
+  <section class="section dark" id="contacto">
+    <div class="form-container">
+      <h2>Formulario de contacto</h2>
+
+      <!-- Formulario para enviar nombre, correo y mensaje -->
+      <form id="form">
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input type="text" name="name" id="name" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Correo</label>
+          <input type="email" name="email" id="email" required>
+        </div>
+
+        <div class="field">
+          <label for="message">Mensaje</label>
+          <input type="text" name="message" id="message" required>
+        </div>
+
+        <!-- Botón para enviar el formulario -->
+        <input type="submit" id="button" value="Enviar mensaje">
+      </form>
+
+      <!-- Contenedor para mostrar respuesta del envío -->
+      <div id="respuesta"></div>
+    </div>
+  </section>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <p>Portafolio académico — Juan Diego Aguilar Espinoza</p>
   </footer>
 
-  <!-- EmailJS -->
+  <!-- Scripts externos -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- Librería EmailJS para enviar correos desde el formulario -->
 
-  <!-- JS externo -->
   <script src="contacto.js"></script>
-
+  <!-- Archivo JavaScript propio para manejar el formulario de contacto -->
 </body>
 </html>
