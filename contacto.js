@@ -1,31 +1,38 @@
-emailjs.init('UqThZHhRETFeKbc-f')
+emailjs.init('UqThZHhRETFeKbc-f');
+
+const form = document.getElementById('form');
 const btn = document.getElementById('button');
-const cajaRespuesta = document.getElementById("respuesta");
-document.getElementById('form')
- .addEventListener('submit', function(event) {
-   event.preventDefault();
+const cajaRespuesta = document.getElementById('respuesta');
 
-   btn.value = 'Sending...';
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
 
-   const serviceID = 'default_service';
-   const templateID = 'template_wk0nxy7';
+  btn.value = 'Enviando...';
 
-   emailjs.sendForm(serviceID, templateID, this)
-    .then(() => {
-      btn.value = 'Send Email';
-      //alert('Sent!');
-     cajaRespuesta.style.display = "block";
+  const nombre = document.getElementById("name").value;
+
+  emailjs.sendForm(
+    'service_97vc3cp',      // tu servicio REAL
+    'template_wk0nxy7',     // tu template
+    this
+  ).then(() => {
+
+    cajaRespuesta.style.display = "block";
     cajaRespuesta.style.backgroundColor = "#d4edda";
     cajaRespuesta.innerHTML = `
       <strong>¡Gracias, ${nombre}!</strong><br>
       Tu mensaje fue enviado correctamente.
     `;
-     this.reset(); // Limpia el formulario
-    }, (err) => {
-     cajaRespuesta.style.display = "block";
+
+    btn.value = 'Send Email';
+    this.reset(); // ✅ ahora SÍ se limpia
+
+  }).catch((error) => {
+
+    cajaRespuesta.style.display = "block";
     cajaRespuesta.style.backgroundColor = "#f8d7da";
     cajaRespuesta.innerHTML = `Error al enviar: ${error.text}`;
-      btn.value = 'Send Email';
-      alert(JSON.stringify(err));
-    });
+
+    btn.value = 'Send Email';
+  });
 });
