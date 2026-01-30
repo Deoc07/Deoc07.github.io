@@ -1,28 +1,20 @@
-// Inicializar EmailJS
-emailjs.init("UqThZHhRETFeKbc-f");
+const btn = document.getElementById('button');
 
-document.getElementById("miFormulario").addEventListener("submit", function (event) {
-  event.preventDefault();
+document.getElementById('form')
+ .addEventListener('submit', function(event) {
+   event.preventDefault();
 
-  const nombre = document.getElementById("user_name").value;
-  const correo = document.getElementById("user_email").value;
-  const cajaRespuesta = document.getElementById("respuesta");
+   btn.value = 'Sending...';
 
-  emailjs.sendForm(
-    "service_97vc3cp",
-    "template_wk0nxy7",
-    this
-  ).then(() => {
-    cajaRespuesta.style.display = "block";
-    cajaRespuesta.style.backgroundColor = "#d4edda";
-    cajaRespuesta.innerHTML = `
-      <strong>¡Gracias, ${nombre}!</strong><br>
-      Tu mensaje fue enviado correctamente.
-    `;
-    this.reset(); // Limpia el formulario
-  }).catch((error) => {
-    cajaRespuesta.style.display = "block";
-    cajaRespuesta.style.backgroundColor = "#f8d7da";
-    cajaRespuesta.innerHTML = `Error al enviar: ${error.text}`;
-  });
+   const serviceID = 'default_service';
+   const templateID = 'template_wk0nxy7';
+
+   emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      btn.value = 'Send Email';
+      alert('Sent!');
+    }, (err) => {
+      btn.value = 'Send Email';
+      alert(JSON.stringify(err));
+    });
 });
