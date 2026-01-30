@@ -19,6 +19,8 @@ form.addEventListener('submit', function (event) {
 
     cajaRespuesta.style.display = "block";
     cajaRespuesta.style.backgroundColor = "#d4edda";
+    cajaRespuesta.style.color = "black";
+
     cajaRespuesta.innerHTML = `
       <strong>¡Gracias, ${nombre}!</strong><br>
       Tu mensaje fue enviado correctamente.
@@ -31,6 +33,8 @@ form.addEventListener('submit', function (event) {
 
     cajaRespuesta.style.display = "block";
     cajaRespuesta.style.backgroundColor = "#f8d7da";
+    cajaRespuesta.style.color = "black";
+
     cajaRespuesta.innerHTML = `Error al enviar: ${error.text}`;
 
     btn.value = 'Send Email';
