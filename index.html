@@ -53,8 +53,6 @@
         <p>El portafolio de evidencias es fundamental porque permite al estudiante visualizar su propio progreso, 
             transformando cada práctica técnica en un proceso de reflexión que consolida el aprendizaje y 
             refuerza la capacidad de documentar soluciones críticas en seguridad informática.</p>
-        <!--<button onclick="saludar()">Haz clic aquí</button> -->
-        
         <p id="mensaje"></p>
     </main>
 
@@ -80,9 +78,9 @@
   document.getElementById("miFormulario").addEventListener("submit", function(event) {
     event.preventDefault(); // Evita recargar la página
 
-    const nombre = document.getElementById("nombre").value;
-    const correo = document.getElementById("correo").value;
-    const comentario = document.getElementById("comentario").value;
+    const nombre = document.getElementById("user_name").value;
+    const correo = document.getElementById("user_email").value;
+    const comentario = document.getElementById("message").value;
     const cajaRespuesta = document.getElementById("respuesta");
 
     // Enviar correo con EmailJS
