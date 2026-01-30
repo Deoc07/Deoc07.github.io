@@ -37,6 +37,20 @@
         button:hover {
             background: #2980b9;
         }
+        .form-container {
+          max-width: 500px;
+          margin: 40px auto;
+          background: white;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        input, textarea {
+          width: 100%;
+          padding: 8px;
+        }
+
     </style>
 </head>
 <body>
@@ -57,18 +71,24 @@
     </main>
 
     <!-- Formulario -->
-<h2>Formulario de contacto</h2> 
-    <form id="miFormulario"> <label>Nombre:</label><br> 
-        <input type="text" name="user_name" required><br><br>
-        <label>Correo:</label><br> 
-        <input type="email" name="user_email" required><br><br>
-        <label>Comentario:</label><br>
-        <textarea name="message" required></textarea><br><br>
-        <button type="submit">Enviar</button> 
-    </form>
+<div class="form-container">
+  <h2>Formulario de contacto</h2>
+  <form id="miFormulario">
+    <label>Nombre:</label><br>
+    <input type="text" id="user_name" name="user_name" required><br><br>
+
+    <label>Correo:</label><br>
+    <input type="email" id="user_email" name="user_email" required><br><br>
+
+    <label>Comentario:</label><br>
+    <textarea id="message" name="message" required></textarea><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
 
 <!-- Contenedor donde aparecerá la respuesta inmediata -->
-<div id="respuesta" style="margin-top: 20px; padding: 10px; display: none;"></div>
+  <div id="respuesta" style="margin-top: 20px; display: none;"></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
@@ -84,19 +104,22 @@
     const cajaRespuesta = document.getElementById("respuesta");
 
     // Enviar correo con EmailJS
-    emailjs.sendForm("service_97vc3cp", "__ejs-test-mail-service__", this)
-      .then(() => {
+    emailjs.sendForm(
+          "service_97vc3cp",
+          "template_wk0nxy7",
+          this
+        ).then(() => {
         // Mensaje de confirmación
         cajaRespuesta.style.display = "block";
         cajaRespuesta.style.backgroundColor = "#d4edda";
-        cajaRespuesta.innerHTML = `<strong>¡Gracias, ${nombre}!</strong> Tu mensaje fue enviado a ${correo}.<br>Comentario: "${comentario}"`;
+        cajaRespuesta.innerHTML = `
+        <strong>¡Gracias, ${nombre}!</strong> Tu mensaje fue enviado a ${correo}.<br>Comentario: "${comentario}"`;
         this.reset(); // Limpia el formulario
-      }, (error) => {
-        // Mensaje de error
-        cajaRespuesta.style.display = "block";
-        cajaRespuesta.style.backgroundColor = "#f8d7da";
-        cajaRespuesta.innerHTML = `Error al enviar: ${JSON.stringify(error)}`;
-      });
+      }).catch((error) => {
+      cajaRespuesta.style.display = "block";
+      cajaRespuesta.style.backgroundColor = "#f8d7da";
+      cajaRespuesta.innerHTML = `Error al enviar: ${error.text}`;
+    });
   });
 </script>
 
