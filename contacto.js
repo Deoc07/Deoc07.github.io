@@ -1,3 +1,4 @@
+emailjs.init('UqThZHhRETFeKbc-f')
 const btn = document.getElementById('button');
 
 document.getElementById('form')
