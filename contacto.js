@@ -18,8 +18,9 @@ form.addEventListener('submit', function (event) {
   ).then(() => {
 
     cajaRespuesta.style.display = "block";
+    cajaRespuesta.style.color = "#000000";
     cajaRespuesta.style.backgroundColor = "#d4edda";
-    cajaRespuesta.style.color = "black";
+    
 
     cajaRespuesta.innerHTML = `
       <strong>¡Gracias, ${nombre}!</strong><br>
@@ -32,8 +33,9 @@ form.addEventListener('submit', function (event) {
   }).catch((error) => {
 
     cajaRespuesta.style.display = "block";
+    cajaRespuesta.style.color = "#000000";
     cajaRespuesta.style.backgroundColor = "#f8d7da";
-    cajaRespuesta.style.color = "black";
+    
 
     cajaRespuesta.innerHTML = `Error al enviar: ${error.text}`;
 
