@@ -1,15 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portafolio | Juan Diego Aguilar Espinoza</title>
+<!DOCTYPE html> 
+<!-- Indica que el documento está escrito en HTML5 -->
 
-  <link rel="stylesheet" href="estilos.css">
+<html lang="es"> 
+<!-- Define que el idioma principal del contenido es español -->
+
+<head>
+  <meta charset="UTF-8"> 
+  <!-- Configura la codificación de caracteres para soportar acentos y caracteres especiales -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- Permite que la página sea adaptable a dispositivos móviles (diseño responsivo) -->
+
+  <title>Portafolio | Juan Diego Aguilar Espinoza</title> 
+  <!-- Título que aparece en la pestaña del navegador -->
+
+  <link rel="stylesheet" href="estilos.css"> 
+  <!-- Vincula la hoja de estilos externa llamada estilos.css -->
 </head>
 <body>
+  <!-- Contenido visible de la página -->
 
-  <!-- NAV -->
+  <!-- Barra de navegación con enlaces internos a distintas secciones -->
   <nav class="nav">
     <a href="#presentacion">Presentación</a>
     <a href="#proposito">Propósito</a>
@@ -20,28 +31,33 @@
     <a href="#contacto">Contacto</a>
   </nav>
 
-  <!-- HERO / HEADER -->
+  <!-- Sección principal (hero/header) con nombre, descripción y foto -->
   <header class="hero" id="presentacion">
     <div class="hero-content">
       <div class="hero-text">
         <h1>Juan Diego Aguilar Espinoza</h1>
+        <!-- Nombre principal en encabezado grande -->
+
         <p>
           Estudiante de la asignatura <strong>CNO V – Seguridad Informática</strong>,
           Universidad Politécnica de San Luis Potosí.
         </p>
+        <!-- Breve descripción académica -->
+
         <p class="sub">
           Portafolio académico correspondiente al periodo escolar 2020.
         </p>
+        <!-- Subtítulo con información adicional -->
       </div>
 
       <div class="hero-img">
-        <!-- AQUÍ COLOCAS TU FOTO -->
+        <!-- Imagen del estudiante -->
         <img src="foto.jpg" alt="Juan Diego">
       </div>
     </div>
   </header>
 
-  <!-- PROPÓSITO -->
+  <!-- Sección de propósito del portafolio -->
   <section class="section" id="proposito">
     <h2>Propósito del portafolio</h2>
     <p>
@@ -57,7 +73,7 @@
     </p>
   </section>
 
-  <!-- ENFOQUE -->
+  <!-- Sección de enfoque del curso -->
   <section class="section dark" id="enfoque">
     <h2>Enfoque del curso</h2>
     <p>
@@ -72,7 +88,7 @@
     </p>
   </section>
 
-  <!-- SOBRE MI -->
+  <!-- Sección sobre el perfil del estudiante -->
   <section class="section" id="sobre-mi">
     <h2>Perfil del estudiante</h2>
     <p>
@@ -113,7 +129,7 @@
     </div>
   </section>
 
-  <!-- INFORMACIÓN -->
+  <!-- Sección de información técnica -->
   <section class="section" id="informacion">
     <h2>Información técnica</h2>
     <p>
@@ -136,11 +152,12 @@
     </p>
   </section>
 
-  <!-- CONTACTO -->
+  <!-- Sección de contacto con formulario -->
   <section class="section dark" id="contacto">
     <div class="form-container">
       <h2>Formulario de contacto</h2>
 
+      <!-- Formulario para enviar nombre, correo y mensaje -->
       <form id="form">
         <div class="field">
           <label for="name">Nombre</label>
@@ -157,19 +174,25 @@
           <input type="text" name="message" id="message" required>
         </div>
 
+        <!-- Botón para enviar el formulario -->
         <input type="submit" id="button" value="Enviar mensaje">
       </form>
 
+      <!-- Contenedor para mostrar respuesta del envío -->
       <div id="respuesta"></div>
     </div>
   </section>
 
+  <!-- Pie de página -->
   <footer class="footer">
     <p>Portafolio académico — Juan Diego Aguilar Espinoza</p>
   </footer>
 
+  <!-- Scripts externos -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="contacto.js"></script>
+  <!-- Librería EmailJS para enviar correos desde el formulario -->
 
+  <script src="contacto.js"></script>
+  <!-- Archivo JavaScript propio para manejar el formulario de contacto -->
 </body>
 </html>
