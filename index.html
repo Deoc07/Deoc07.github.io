@@ -1,131 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio CNOV</title>
-    
-    <!-- Estilos CSS internos para diseño rápido -->
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        header {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-        main {
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-            background: white;
-        }
-        button {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #2980b9;
-        }
-        .form-container {
-          max-width: 500px;
-          margin: 40px auto;
-          background: white;
-          padding: 20px;
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        
-        input, textarea {
-          width: 100%;
-          padding: 8px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio CNOV</title>
 
-    </style>
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
-    <header>
-        <h1>Juan Diego Aguilar Espinoza <br> CNO V – Seguridad Informática. <br> Universidad Politecnica de San Luis Potosi <br> Periodo 2020</h1>
-    </header>
+  <header>
+    <h1>
+      Juan Diego Aguilar Espinoza <br>
+      CNO V – Seguridad Informática <br>
+      Universidad Politécnica de San Luis Potosí <br>
+      Periodo 2020
+    </h1>
+  </header>
 
-    <main>
-        <h2>Proposito  del portafolio</h2>
-        <p>Este portafolio tiene como proposito la recopilacion de diferentes practicas y proyectos realizados en la maateria de CNO V Seguridad informatica.</p>
-        <h2>Enfoque del curso</h2>
-        <p>seguridad informática, pruebas de penetración, análisis de vulnerabilidades</p>
-        <p>El portafolio de evidencias es fundamental porque permite al estudiante visualizar su propio progreso, 
-            transformando cada práctica técnica en un proceso de reflexión que consolida el aprendizaje y 
-            refuerza la capacidad de documentar soluciones críticas en seguridad informática.</p>
-        <p id="mensaje"></p>
-    </main>
+  <main>
+    <h2>Propósito del portafolio</h2>
+    <p>
+      Este portafolio tiene como propósito la recopilación de diferentes
+      prácticas y proyectos realizados en la materia de CNO V Seguridad Informática.
+    </p>
 
-    <!-- Formulario -->
-<div class="form-container">
-  <h2>Formulario de contacto</h2>
-  <form id="miFormulario">
-    <label>Nombre:</label><br>
-    <input type="text" id="user_name" name="user_name" required><br><br>
+    <h2>Enfoque del curso</h2>
+    <p>Seguridad informática, pruebas de penetración, análisis de vulnerabilidades.</p>
 
-    <label>Correo:</label><br>
-    <input type="email" id="user_email" name="user_email" required><br><br>
+    <p>
+      El portafolio de evidencias es fundamental porque permite al estudiante
+      visualizar su propio progreso y consolidar el aprendizaje.
+    </p>
+  </main>
 
-    <label>Comentario:</label><br>
-    <textarea id="message" name="message" required></textarea><br><br>
+  <!-- Formulario -->
+  <div class="form-container">
+    <h2>Formulario de contacto</h2>
 
-    <button type="submit">Enviar</button>
-  </form>
+    <form id="miFormulario">
+      <label>Nombre:</label>
+      <input type="text" id="user_name" name="user_name" required>
 
-<!-- Contenedor donde aparecerá la respuesta inmediata -->
-  <div id="respuesta" style="margin-top: 20px; display: none;"></div>
-</div>
+      <label>Correo:</label>
+      <input type="email" id="user_email" name="user_email" required>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  // Inicializa EmailJS
-  emailjs.init("UqThZHhRETFeKbc-f");
+      <label>Comentario:</label>
+      <textarea id="message" name="message" required></textarea>
 
-  document.getElementById("miFormulario").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evita recargar la página
+      <button type="submit">Enviar</button>
+    </form>
 
-    const nombre = document.getElementById("user_name").value;
-    const correo = document.getElementById("user_email").value;
-    const comentario = document.getElementById("message").value;
-    const cajaRespuesta = document.getElementById("respuesta");
+    <div id="respuesta"></div>
+  </div>
 
-    // Enviar correo con EmailJS
-    emailjs.sendForm(
-          "service_97vc3cp",
-          "template_wk0nxy7",
-          this
-        ).then(() => {
-        // Mensaje de confirmación
-        cajaRespuesta.style.display = "block";
-        cajaRespuesta.style.backgroundColor = "#d4edda";
-        cajaRespuesta.innerHTML = `
-        <strong>¡Gracias, ${nombre}!</strong> Tu mensaje fue enviado a ${correo}.<br>Comentario: "${comentario}"`;
-        this.reset(); // Limpia el formulario
-      }).catch((error) => {
-      cajaRespuesta.style.display = "block";
-      cajaRespuesta.style.backgroundColor = "#f8d7da";
-      cajaRespuesta.innerHTML = `Error al enviar: ${error.text}`;
-    });
-  });
-</script>
+  <footer>
+    <p>Pie de página</p>
+  </footer>
 
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-     <footer>
-          <p>Pide de pagina<p>
-     </footer>
+  <!-- JS externo -->
+  <script src="contacto.js"></script>
+
 </body>
 </html>
