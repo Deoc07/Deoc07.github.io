@@ -188,4 +188,39 @@ body {
   .hero-img {
     margin-top: 20px;
   }
+  /* Estilo para artículos técnicos */
+.article-container {
+  background: #0f172a;
+  padding: 40px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+/* Botón PDF */
+.btn-pdf {
+  background: #ef4444; /* Rojo para identificar PDF */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px 0;
+}
+
+/* Sistema de comentarios */
+#comment-form textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  color: white;
+  border: 1px solid #38bdf8;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Ocultar elementos innecesarios al imprimir (Exportar a PDF) */
+@media print {
+  .nav, .footer, #comment-form, .btn-pdf {
+    display: none;
+  }
+}
 }
