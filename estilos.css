@@ -218,9 +218,18 @@ body {
 }
 
 /* Ocultar elementos innecesarios al imprimir (Exportar a PDF) */
+/* Configuración de impresión: oculta el formulario al generar el PDF */
 @media print {
-  .nav, .footer, #comment-form, .btn-pdf {
-    display: none;
-  }
+    .nav, #comment-form, .btn-pdf, #button {
+        display: none !important;
+    }
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    .article-container {
+        background: white !important;
+        padding: 0;
+    }
 }
 }
