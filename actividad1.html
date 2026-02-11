@@ -1,29 +1,30 @@
-<main class="section article-container">
-  <h1>ACTIVIDAD 01 - Análisis en grupo de un ciberataque real y su impacto empresarial</h1>
-  
-  <section class="intro">
-    <h3>1. Introducción</h3>
-    <p>Contexto del ataque analizado...</p>
-  </section>
+<head>
+    <title>Actividad 01 | Ciberataque</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
 
-  <section class="desarrollo">
-    <h3>2. Desarrollo Técnico</h3>
-    <pre><code>sudo nmap -sV [IP_OBJETIVO]</code></pre>
-  </section>
+<body class="section">
+    <main class="article-container">
+        <h1>ACTIVIDAD 01 - Análisis de Ciberataque</h1>
+        <p>Introducción, desarrollo y multimedia aquí...</p>
 
-  <section class="reflexion">
-    <h3>4. Opinión y Reflexión Técnica</h3>
-    <p>Mi análisis sobre este escenario es...</p>
-  </section>
+        <button onclick="window.print()" class="btn-pdf">Exportar a PDF</button>
 
-  <button onclick="window.print()" class="btn-pdf">Exportar a PDF</button>
+        <hr style="margin: 40px 0; border: 0.5px solid #38bdf8; opacity: 0.3;">
 
-  <div id="comentarios-container">
-    <h3>Comentarios</h3>
-    <form id="comment-form">
-      <textarea id="user-comment" placeholder="Deja tu opinión técnica..."></textarea>
-      <button type="submit">Publicar</button>
-    </form>
-    <div id="display-comments"></div>
-  </div>
-</main>
+        <div id="comentarios-seccion">
+            <h3>Comentarios de la Comunidad</h3>
+            <div id="display-comments" style="margin-bottom: 20px;">
+                </div>
+            
+            <form id="comment-form">
+                <div class="field">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica..." rows="3" required></textarea>
+                </div>
+                <button type="submit" id="button">Publicar Comentario</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="comentarios.js"></script>
+</body>
