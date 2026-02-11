@@ -1,26 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>Actividad 01 | Ciberataque</title>
-    <link rel="stylesheet" href="estilos.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 03 | Filtrado en iptables</title>
+    <link rel="stylesheet" href="estilos.css"> </head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Portafolio</a>
+    </nav>
 
-<body class="section">
-    <main class="article-container">
-        <h1>ACTIVIDAD 01 - Análisis de Ciberataque</h1>
-        <p>Introducción, desarrollo y multimedia aquí...</p>
+    <main class="section article-container">
+        <header class="hero-text">
+            <h1>ACTIVIDAD 03 - Políticas de filtrado en iptables</h1>
+            <p class="sub">Interpretación y traducción de flujo de paquetes.</p>
+        </header>
 
-        <button onclick="window.print()" class="btn-pdf">Exportar a PDF</button>
+        <section class="content-box">
+            <h3>1. Introducción al flujo de paquetes</h3>
+            <p>Cuando un paquete llega al sistema, primero pasa por una <strong>Tabla</strong>, después por una <strong>Cadena</strong> y finalmente se ejecuta una <strong>Rule/action</strong>.</p>
+            
+            <h3>2. Tabla de Propósitos Principales</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tabla</th>
+                            <th>Propósito Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>FILTER</td><td>Filtrar tráfico / paquetes</td></tr>
+                        <tr><td>NAT</td><td>Traducir direcciones</td></tr>
+                        <tr><td>MANGLE</td><td>Modificar paquetes (marcas de cabezal)</td></tr>
+                        <tr><td>RAW</td><td>Excepciones al seguimiento</td></tr>
+                        <tr><td>SECURITY</td><td>Auditoría de servicios</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-        <hr style="margin: 40px 0; border: 0.5px solid #38bdf8; opacity: 0.3;">
+        <div style="margin-top: 30px;">
+            <a href="Act03.pdf" download="Actividad_03_Aguilar.pdf" class="btn-pdf" style="text-decoration:none; display:inline-block;">
+                📥 Descargar Versión Formal (PDF)
+            </a>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0.2px solid rgba(56, 189, 248, 0.2);">
 
         <div id="comentarios-seccion">
             <h3>Comentarios de la Comunidad</h3>
-            <div id="display-comments" style="margin-bottom: 20px;">
-                </div>
-            
+            <div id="display-comments"></div>
             <form id="comment-form">
-                <div class="field">
-                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica..." rows="3" required></textarea>
-                </div>
+                <textarea id="user-comment" placeholder="Deja tu opinión técnica sobre iptables..." required></textarea>
                 <button type="submit" id="button">Publicar Comentario</button>
             </form>
         </div>
@@ -28,3 +60,4 @@
 
     <script src="comentarios.js"></script>
 </body>
+</html>
