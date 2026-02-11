@@ -188,23 +188,52 @@ body {
   .hero-img {
     margin-top: 20px;
   }
-  /* Estilo para artículos técnicos */
+ /* Contenedor del Artículo */
 .article-container {
-  background: #0f172a;
-  padding: 40px;
-  border-radius: 15px;
-  margin-bottom: 30px;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    margin-top: 30px;
 }
 
-/* Botón PDF */
+/* Estilo de la Tabla */
+.table-container {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+th {
+    color: #38bdf8;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Botón PDF (Color Rojo para destacar) */
 .btn-pdf {
-  background: #ef4444; /* Rojo para identificar PDF */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 20px 0;
+    background: #e11d48;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-pdf:hover {
+    background: #be123c;
+    box-shadow: 0 0 15px rgba(225, 29, 72, 0.4);
 }
 
 /* Sistema de comentarios */
