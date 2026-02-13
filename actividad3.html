@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 03 | Interpretación y traducción de políticas de filtrado en iptables</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Contenedor principal para centrar el papel */
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background: #020617; /* Mantiene el fondo de tu web */
+        }
+
+        /* El "Papel" blanco centrado */
+        .white-paper {
+            background-color: #ffffff !important;
+            color: #1a202c !important; /* Texto oscuro para legibilidad */
+            max-width: 850px;
+            width: 100%;
+            padding: 60px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            line-height: 1.6;
+        }
+
+        /* Estilos internos para el contenido blanco */
+        .white-paper h1 {
+            color: #111827;
+            font-size: 2.2rem;
+            border-bottom: 3px solid #38bdf8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .white-paper h2 {
+            color: #1f2937;
+            margin-top: 30px;
+            border-left: 5px solid #38bdf8;
+            padding-left: 15px;
+            font-size: 1.5rem;
+        }
+
+        .white-paper p, .white-paper li {
+            color: #374151 !important;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Botón de descarga estilizado */
+        .download-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-download {
+            background-color: #ef4444; /* Rojo PDF */
+            color: white !important;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-download:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        /* Ajuste de comentarios para el fondo blanco */
+        #comentarios-seccion {
+            margin-top: 50px;
+            border-top: 2px solid #f3f4f6;
+            padding-top: 30px;
+        }
+
+        #user-comment {
+            width: 100%;
+            background: #f9fafb;
+            border: 1px solid #d1d5db;
+            color: #111827;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+table.paleBlueRows {
+  font-family: "Times New Roman", Times, serif;
+  border: 2px solid #000000;
+  width: auto;
+  height: auto;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.paleBlueRows td, table.paleBlueRows th {
+  border: 1px solid #000000;
+  padding: 3px 2px;
+}
+table.paleBlueRows tbody td {
+  font-size: 13px;
+}
+table.paleBlueRows thead {
+  background: #191F29;
+  border-bottom: 5px solid #FFFFFF;
+}
+table.paleBlueRows thead th {
+  font-size: 17px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  border-left: 2px solid #FFFFFF;
+}
+table.paleBlueRows thead th:first-child {
+  border-left: none;
+}
+
+table.paleBlueRows tfoot td {
+  font-size: 14px;
+}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1> Interpretación y traducción de políticas de filtrado en iptables</h1>
+<h2>1. Completa los espacios conforme se explica el flujo del paquete</h2>
+<p>Cuando un paquete llega al sistema, primero pasa por una <u>Tabla</u>,
+después por una <u>Cadena</u> y finalmente se ejecuta una <u>Rule/action</u>.</p>
+<h2>2. Relaciona cada tabla con su propósito principal</h2>
+<table class="paleBlueRows">
+<thead>
+<tr>
+<th>Tabla</th>
+<th>Prop&oacute;sito principa</th>
+<th>Ejemplo de uso (01 palabra o frase corta)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FILTER</td>
+<td>Filtrar trafico</td>
+<td>Filtrar paquetes</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>Traducir direcciones</td>
+<td>Cuando se conectan diferentes dispositivos a una red</td>
+</tr>
+<tr>
+<td>MANGLE</td>
+<td>Modificar paquetes</td>
+<td>Poner marcas a los cabezales</td>
+</tr>
+<tr>
+<td>RAW</td>
+<td>Excepciones al seguimiento de paquetes</td>
+<td>No inspecciona ciertos paquetes</td>
+</tr>
+<tr>
+<td><span style="font-family: 'Times New Roman', Times, serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400;">SECURITY</span></td>
+<td>Auditoria a los servicios</td>
+<td>Permite o no un servicio</td>
+</tr>
+</tbody>
+</table>
+<h2>3. Anatomía de un comando iptables:</h2>
+<p>iptables -A <u>INPUT</u> -p tcp -m <u>multiport</u> --dports 80,443 -j <u>ACCEPT</u></p>
+<h2>4. Este comando permite:</h2>
+<p>Permitir trafico tcp a travez de los puertos de destino 80 y 443</p>
+<h2>5. Variables y opciones communes</h2>
+<p><b>a)Limitar intentos por minuto</b><br>
+-m –limit 5/min<br>
+<b>b) Filtrar por IP de origen</b><br>
+-s 192.168.1.10<br>
+<b>c)Ver solo números, sin DNS (ni resolución de puertos)</b><br>
+Iptables -L -n<br>
+<b>d) Ver reglas con contadores (paquetes y bytes)</b><br>
+Iptables -L -v<br>
+</p>
+<h2>6. ¿Que hace esta regla? <br>iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 \
+-m state --state NEW,ESTABLISHED -j ACCEPT </h2>
+<p>Permitir trafico tcp entrante por la interfaz eth0 en los puertos 22,80,443 solo si el paquete
+pertenece a una conexión NEW o ESTABLISHED</p>
+<h2>7. Permitir tráfico HTTP entrante</h2>
+<p>iptables -A INPUT -p tcp --dport 80 -j ACCEPT</p>
+<h2>8. Permitir todo el tráfico saliente</h2>
+<p>iptables -A OUTPUT -j ACCEPT</p>
+<h2>9. Permitir SSH solo desde la IP 192.168.1.50</h2>
+<p>iptables -A INPUT -p tcp -s 192.168.1.50 --dport 22 -j ACCEPT</p>
+<h2>10. Permitir tráfico TCP entrante a puertos 80 y 443 solo si es conexión establecida o relacionada</h2>
+<p>iptables -A INPUT -p tcp -m multiport --dports 80,443 \ -m state --state ESTABLISHED,RELATED
+-j ACCEPT</p>
+<h2>11. Permitir tráfico TCP entrante por eth0 a 22, 80 y 443, registrar intentos y permitir solo NEW y ESTABLISHED</h2>
+<p>REGISTRAR INTENTOS<br>
+iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 \ -m state --state NEW -j LOG --
+log-prefix "INTENTO_TCP: "
+``</p>
+<p>PERMITIR CONEXIONES NEW Y ESTABLISHED<br>
+iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 \-m state --state
+NEW,ESTABLISHED -j ACCEPT</p>
+<div class="download-container">
+                <a href="Act01_Equipo1-converted.html" download="Actividad_01_Análisis_Equifax.html" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

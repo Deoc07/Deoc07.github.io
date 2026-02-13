@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 04 | MECANISMOS DE DEFENSA EN RED</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Contenedor principal para centrar el papel */
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background: #020617; /* Mantiene el fondo de tu web */
+        }
+
+        /* El "Papel" blanco centrado */
+        .white-paper {
+            background-color: #ffffff !important;
+            color: #1a202c !important; /* Texto oscuro para legibilidad */
+            max-width: 850px;
+            width: 100%;
+            padding: 60px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            line-height: 1.6;
+        }
+
+        /* Estilos internos para el contenido blanco */
+        .white-paper h1 {
+            color: #111827;
+            font-size: 2.2rem;
+            border-bottom: 3px solid #38bdf8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .white-paper h2 {
+            color: #1f2937;
+            margin-top: 30px;
+            border-left: 5px solid #38bdf8;
+            padding-left: 15px;
+            font-size: 1.5rem;
+        }
+
+        .white-paper p, .white-paper li {
+            color: #374151 !important;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Botón de descarga estilizado */
+        .download-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-download {
+            background-color: #ef4444; /* Rojo PDF */
+            color: white !important;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-download:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        /* Ajuste de comentarios para el fondo blanco */
+        #comentarios-seccion {
+            margin-top: 50px;
+            border-top: 2px solid #f3f4f6;
+            padding-top: 30px;
+        }
+
+        #user-comment {
+            width: 100%;
+            background: #f9fafb;
+            border: 1px solid #d1d5db;
+            color: #111827;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        table.minimalistBlack {
+  border: 3px solid #000000;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.minimalistBlack td, table.minimalistBlack th {
+  border: 1px solid #000000;
+  padding: 5px 4px;
+}
+table.minimalistBlack tbody td {
+  font-size: 13px;
+}
+table.minimalistBlack thead {
+  background: #CFCFCF;
+  background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  border-bottom: 3px solid #000000;
+}
+table.minimalistBlack thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+}
+table.minimalistBlack tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
+  border-top: 3px solid #000000;
+}
+table.minimalistBlack tfoot td {
+  font-size: 14px;
+}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>MECANISMOS DE DEFENSA EN RED.</h1>
+<p>Iptables es una herramienta esencial en Linux para gestionar el tráfico de red mediante reglas que
+permiten o deniegan el paso de paquetes.<br>
+¿Qué es Iptables?<br>
+Iptables es un sistema de firewall integrado en el kernel de Linux que permite a los
+administradores gestionar y controlar el tráfico de red. Funciona mediante la creación de reglas
+que determinan cómo se deben tratar los paquetes de datos entrantes, salientes y reenviados.</p>
+<p><img src="actividad4.jpg" alt="description" width="400" height="300" /></p>
+<h2>1. Establecer una política restrictiva</h2>
+<p>iptables -P INPUT DROP<br>
+iptables -P OUTPUT DROP<br>
+iptables -P FORWARD DROP<br>
+``<br>
+-P: nos dice que política se usara INPUT, OUTPUT, FORWARD<br>
+INPUT: tráfico que entra<br>
+OUTPUT: tráfico que sale<br>
+FORWARD: tráfico que cruza el firewall<br>
+DRIP: descarta el paquete</p>
+
+<h2>2. Permitir el tráfico de conexiones ya establecidas</h2>
+<p>iptables -A INPUT -m state --state ESTABLISHED, RELATED -j ACCEPT<br>
+iptables -A OUTPUT -m state --state ESTABLISHED, RELATED -j ACCEPT<br>
+-A: agrega una regla al final de la cadena<br>
+INPUT, OUTPUT: para tráfico de entrada o salida<br>
+-m state: el mudulo state se usa para seguimiento de conexiones<br>
+--state ESTABLISHED, RELATED: permite tráfico de conexiones ya establecidas o
+relacionadas<br>
+-j ACCEPT: permite la acción<br>
+</p>
+
+<h2>3. Aceptar tráfico DNS (TCP) saliente de la red local. </h2>
+<p>iptables -A FORWARD -s 192.1.2.0/24 -p tcp --dport 53 -m state --state NEW -j ACCEPT<br>
+-A FORWARD: tráfico que cruza el firewall<br>
+-s 192.1.2.0/24: definimos el origen /red local<br>
+-p tcp: definimos el protocolo a usar<br>
+--dport 53: seleccionamos el puerto de destino<br>
+-m state –state NEW: para conexiones nuevas entrantes</p>
+
+<h2>4. Aceptar correo entrante proveniente de Internet en el servidor de correo.</h2>
+<p>iptables -A FORWARD -p tcp -d 192.1.2.10 --dport 25 -m state --state NEW -j ACCEPT<br>
+-A FORWARD: tráfico que cruza el firewall<br>
+-p tcp: definimos el protocolo a usar<br>
+-d 192.1.2.10: definimos el destino del correo</p>
+
+<h2>5. Permitir correo saliente a Internet desde el servidor de correo. </h2>
+<p>iptables -A FORWARD -p tcp -s 192.1.2.10 --dport 25 -m state --state NEW -j ACCEPT<br>
+-s 192.1.2.10: definimos la fuente<br>
+--dport 25: puerto 25 como destino (internet)</p>
+
+<h2>6. Aceptar conexiones HTTP desde Internet a nuestro servidor web.</h2>
+<p>iptables -A FORWARD -p tcp -d 192.1.2.11 --dport 80 -m state --state NEW -j ACCEPT<br>
+-d 192.1.2.11: servidor web de destino<br>
+--dport 80: puerto HTTP de destino</p>
+
+<h2>7. Permitir tráfico HTTP desde la red local a Internet</h2>
+<p>iptables -A FORWARD -s 192.1.2.0/24 -p tcp --dport 80 -m state --state NEW -j ACCEPT<br>
+-s 192.1.2.0/24: se define la LAN de origen<br>
+--dport 80: puerto HTTP de destino</p>
+
+<h3>Conclusiones</h3>
+<p>Configurar un firewall usando iptables nos permite proteger la red al aplicar ciertas políticas
+restrictivas que autorizaran el trafico necesario como puede ser el permitir solo conexiones que ya
+se habían establecido lo cual podría controlar el riesgo de ataques con accesos no autorizados y
+asegurando un control adecuado del tráfico entre la red local e internet.</p>
+<h3>Referencias</h3>
+<p>De Luz, S. (2025, January 30). Configura el firewall de Linux con IPtables y protege tu servidor.
+RedesZone. https://www.redeszone.net/tutoriales/seguridad/iptables-firewall-linuxconfiguracion/</p>
+<div class="download-container">
+                <a href="Act01_Equipo1-converted.html" download="Actividad_01_Análisis_Equifax.html" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

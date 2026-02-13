@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 05 | Cartografiando el pentesting: análisis comparativo de metodologías de seguridad informática</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Contenedor principal para centrar el papel */
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background: #020617; /* Mantiene el fondo de tu web */
+        }
+
+        /* El "Papel" blanco centrado */
+        .white-paper {
+            background-color: #ffffff !important;
+            color: #1a202c !important; /* Texto oscuro para legibilidad */
+            max-width: 850px;
+            width: 100%;
+            padding: 60px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            line-height: 1.6;
+        }
+
+        /* Estilos internos para el contenido blanco */
+        .white-paper h1 {
+            color: #111827;
+            font-size: 2.2rem;
+            border-bottom: 3px solid #38bdf8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .white-paper h2 {
+            color: #1f2937;
+            margin-top: 30px;
+            border-left: 5px solid #38bdf8;
+            padding-left: 15px;
+            font-size: 1.5rem;
+        }
+
+        .white-paper p, .white-paper li {
+            color: #374151 !important;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Botón de descarga estilizado */
+        .download-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-download {
+            background-color: #ef4444; /* Rojo PDF */
+            color: white !important;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-download:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        /* Ajuste de comentarios para el fondo blanco */
+        #comentarios-seccion {
+            margin-top: 50px;
+            border-top: 2px solid #f3f4f6;
+            padding-top: 30px;
+        }
+
+        #user-comment {
+            width: 100%;
+            background: #f9fafb;
+            border: 1px solid #d1d5db;
+            color: #111827;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+table {
+  border: 1px solid #000000;
+}
+table td, table th {
+  border: 1px solid #AAAAAA;
+}
+table thead {
+  background: #DDDDDD;
+}
+table thead th {
+}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1> Cartografiando el pentesting: análisis comparativo de metodologías de seguridad informática</h1>
+<h2>1. Completa los espacios conforme se explica el flujo del paquete</h2>
+<p>En la ciberseguridad las metodologías de pruebas de penetración y evaluación son
+marcos de trabajo estructurados que guían a los profesionales para identificar,
+analizar y mitigar vulnerabilidades, aunque no todas las metodologías sirven para lo
+mismo ya que algunas se enfocan en aplicaciones web, otras en ataques reales y
+algunas en procesos técnicos a su vez utilizarlas garantica que las evaluaciones sean
+profesionales.</p>
+<h2>Tabla de comparacion de metodologias</h2>
+<table>
+<thead>
+<tr>
+<th><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Aspecto</span></th>
+<th><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">MITRE ATT&amp;CK</span></th>
+<th><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">OWASP WSTG</span></th>
+<th><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">NIST SP 800-115</span></th>
+<th><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">OSSTMM</span></th>
+<th><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">PTES</span></th>
+<th><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">ISSAF</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">A. Descripci&oacute;n</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Base de conocimiento global de t&aacute;cticas y t&eacute;cnicas de adversarios basada en observaciones reales.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Gu&iacute;a exhaustiva para probar la seguridad de aplicaciones y servicios web.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Gu&iacute;a t&eacute;cnica para planificar y realizar evaluaciones de seguridad inform&aacute;tica.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Metodolog&iacute;a cient&iacute;fica para el testeo de seguridad operacional y m&eacute;tricas.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Est&aacute;ndar dise&ntilde;ado para definir un lenguaje com&uacute;n y fases para pruebas de penetraci&oacute;n.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Marco detallado para evaluaciones t&eacute;cnicas de sistemas de informaci&oacute;n.</span></td>
+</tr>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">B. Fases</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">T&aacute;cticas (Reconocimiento, Acceso Inicial, Ejecuci&oacute;n, Persistencia, etc.).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Recopilaci&oacute;n de info, Configuraci&oacute;n, Identidad, Autenticaci&oacute;n, Autorizaci&oacute;n, etc.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Planificaci&oacute;n, Ejecuci&oacute;n, Post-ejecuci&oacute;n.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Seguridad Operacional, Confianza, Humana, F&iacute;sica, Inal&aacute;mbrica, Telecomm, Datos.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Pre-acuerdo, Recolecci&oacute;n de inteligencia, Modelado de amenazas, An&aacute;lisis de vuln, Explotaci&oacute;n, Post-explotaci&oacute;n, Reporte.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Planificaci&oacute;n, Evaluaci&oacute;n (Reconocimiento, Escaneo, Enumeraci&oacute;n, Explotaci&oacute;n), Post-evaluaci&oacute;n.</span></td>
+</tr>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">C. Objetivo Principal</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Modelado de comportamiento de atacantes y detecci&oacute;n de t&eacute;cnicas.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Pruebas t&eacute;cnicas espec&iacute;ficas para aplicaciones web.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Evaluaci&oacute;n t&eacute;cnica de controles y procesos de seguridad.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Medici&oacute;n de la seguridad operativa mediante m&eacute;tricas (RAV).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Estandarizaci&oacute;n de la calidad y profundidad de un Pentest.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Evaluaci&oacute;n t&eacute;cnica profunda de infraestructuras y sistemas.</span></td>
+</tr>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">D. Escenarios</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Centros de Operaciones de Seguridad (SOC), Threat Hunting, Red Teaming.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Auditor&iacute;as de aplicaciones web, desarrollo de software seguro (DevSecOps).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Auditor&iacute;as gubernamentales y corporativas generales</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Auditor&iacute;as de cumplimiento, seguridad f&iacute;sica y de redes complejas.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Pruebas de penetraci&oacute;n comerciales de alta calidad.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Evaluaciones t&eacute;cnicas detalladas de red y sistemas cr&iacute;ticos.</span></td>
+</tr>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">E. Orientaci&oacute;n</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Defensa (Detecci&oacute;n y respuesta).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Evaluaci&oacute;n / Ataque (Web).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Evaluaci&oacute;n (Procesos).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Evaluaci&oacute;n (Operativa/Cient&iacute;fica).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Ataque (Pentesting).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Ataque / Evaluaci&oacute;n (T&eacute;cnica).</span></td>
+</tr>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">F. Autores</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">MITRE Corporation.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">OWASP Foundation.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">NIST (EE. UU.).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">ISECOM (Pete Herzog).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">PTES Team (Expertos de la industria).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">OISSG.</span></td>
+</tr>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">G. URL Oficial</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">attack.mitre.org</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">owasp.org</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">csrc.nist.gov</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">isecom.org</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">pentest-standard.org</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">oissg.org</span></td>
+</tr>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">H. Certificaciones</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Certificaciones de vendor (ej. ATT&amp;CK Defender).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">No tiene una propia, pero influye en el OSWA de OffSec.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Ninguna espec&iacute;fica (usada en certificaciones federales).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">OPST, OPSA, OPSE.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">No tiene certificaci&oacute;n propia (es un est&aacute;ndar abierto).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">No tiene certificaci&oacute;n vigente activa.</span></td>
+</tr>
+<tr>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">I. Versi&oacute;n / Actualizaci&oacute;n</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">v14 (Actualizaci&oacute;n constante anual).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">v4.2 (Actualizada peri&oacute;dicamente).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">Versi&oacute;n Final (2008) - Sigue siendo referencia base.</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">v3.0 (v4 en desarrollo/borrador).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">v1.0 (Actualizaci&oacute;n comunitaria).</span></td>
+<td><span lang="ES-MX" style="font-size: 8.0pt; line-height: 115%; font-family: 'Aptos',sans-serif; mso-ascii-theme-font: minor-latin; mso-fareast-font-family: Aptos; mso-fareast-theme-font: minor-latin; mso-hansi-theme-font: minor-latin; mso-bidi-font-family: 'Times New Roman'; mso-bidi-theme-font: minor-bidi; mso-ansi-language: ES-MX; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;">v0.2.1 (Actualmente en desuso pero referencial).</span></td>
+</tr>
+</tbody>
+</table>
+<h3>Conclusiones</h3>
+<p>Como podemos observar en la tabla elegir una metodología depende del objetivo del
+proyecto, por ejemplo MITRE ATT&CK es indispensable para la defensa y entender al
+atacante, OWASP WSTG es el estándar por defecto para aplicaciones web, pero
+también PTES es la mejor opción para un consultor que busca entregar un reporte de
+pruebas de penetración completo, aunque en general se suelen combinar varias de
+estas para cubrir los requerimientos por completo.</p>
+<h3>Referencias</h3>
+<p>(No date) MITRE ATT&CK®. Available at: https://attack.mitre.org/ (Accessed: 13
+February 2026).<br>
+OWASP Web Security Testing Guide (no date) OWASP Foundation. Available at:
+https://owasp.org/www-project-web-security-testing-guide/ (Accessed: 13 February
+2026).<br>
+Scarfone, K., Souppaya, M., Cody, A. and Orebaugh, A. (2008) Technical Guide to
+Information Security Testing and Assessment, CSRC. Available at:
+https://csrc.nist.gov/pubs/sp/800/115/final (Accessed: 13 February 2026).<br>
+RESEARCH (no date) ISECOM. Available at: https://www.isecom.org/research.html
+(Accessed: 13 February 2026).<br>
+Main Page (no date) The Penetration Testing Execution Standard. Available at:
+http://www.pentest-standard.org/index.php/Main_Page (Accessed: 13 February
+2026).</p>
+<div class="download-container">
+                <a href="Act01_Equipo1-converted.html" download="Actividad_01_Análisis_Equifax.html" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>
