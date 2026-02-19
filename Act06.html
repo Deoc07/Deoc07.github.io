@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 06 | Implementación IPsec VPN</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Contenedor principal para centrar el papel */
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background: #020617; /* Mantiene el fondo de tu web */
+        }
+
+        /* El "Papel" blanco centrado */
+        .white-paper {
+            background-color: #ffffff !important;
+            color: #1a202c !important; /* Texto oscuro para legibilidad */
+            max-width: 850px;
+            width: 100%;
+            padding: 60px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            line-height: 1.6;
+        }
+
+        /* Estilos internos para el contenido blanco */
+        .white-paper h1 {
+            color: #111827;
+            font-size: 2.2rem;
+            border-bottom: 3px solid #38bdf8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .white-paper h2 {
+            color: #1f2937;
+            margin-top: 30px;
+            border-left: 5px solid #38bdf8;
+            padding-left: 15px;
+            font-size: 1.5rem;
+        }
+
+        .white-paper p, .white-paper li {
+            color: #374151 !important;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Botón de descarga estilizado */
+        .download-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-download {
+            background-color: #ef4444; /* Rojo PDF */
+            color: white !important;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-download:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        /* Ajuste de comentarios para el fondo blanco */
+        #comentarios-seccion {
+            margin-top: 50px;
+            border-top: 2px solid #f3f4f6;
+            padding-top: 30px;
+        }
+
+        #user-comment {
+            width: 100%;
+            background: #f9fafb;
+            border: 1px solid #d1d5db;
+            color: #111827;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        table.minimalistBlack {
+  border: 3px solid #000000;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.minimalistBlack td, table.minimalistBlack th {
+  border: 1px solid #000000;
+  padding: 5px 4px;
+}
+table.minimalistBlack tbody td {
+  font-size: 13px;
+}
+table.minimalistBlack thead {
+  background: #CFCFCF;
+  background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  border-bottom: 3px solid #000000;
+}
+table.minimalistBlack thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+}
+table.minimalistBlack tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
+  border-top: 3px solid #000000;
+}
+table.minimalistBlack tfoot td {
+  font-size: 14px;
+}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Implementación IPsec VPN.</h1>
+<p>Una VPN (Red Privada Virtual) permite conectar dos redes de manera segura a través de Internet. 
+  Con IPSec, los datos que viajan entre los dispositivos se cifran y se protegen contra accesos no autorizados.
+En Packet Tracer, la práctica de configurar una VPN IPSec ayuda a entender cómo se establece un túnel seguro entre routers y <br>
+  cómo se asegura la comunicación entre dos redes distintas. El objetivo es aprender los pasos básicos de configuración y 
+  comprobar que la información puede viajar de forma segura.</p>
+<p><img src="/imagenesA6/imagen 1.jpg" alt="description" width="400" height="300" /></p>
+<h2>Configuración inicial</h2>
+<p>Esto asegura que las interfaces estén activas y con la dirección correcta para que los routers puedan comunicarse.</p>
+
+<h2>Router ISP</h2>
+<p><img src="/imagenesA6/cmds1.jpg" alt="description" width="400" height="300" /></p><br>
+
+
+
+<h3>Conclusiones</h3>
+<p>Conclusión
+En la práctica de configuración de la VPN IPSec en Packet Tracer se intentó establecer un túnel seguro entre dos redes. 
+  Sin embargo, al probar la conexión con ping, no hubo respuesta. Esto significa que la comunicación no funcionó y la VPN no se configuró correctamente. 
+  El fallo muestra que es necesario revisar la configuración paso a paso para encontrar el error y lograr que el túnel funcione.</p>
+<div class="download-container">
+                <a href="Act04.pdf" download="173877-Act04.pdf" class="btn-download">
+                    📥 Descargar Versión Completa
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+
+</html>
