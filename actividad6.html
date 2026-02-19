@@ -153,53 +153,53 @@ En Packet Tracer, la práctica de configurar una VPN IPSec ayuda a entender cóm
 <p>Router ISP</p>
 <p><img src="/imagesA6/cmds1.jpg" alt="description" width=auto height=auto /></p><br>
 <p>Router 1</p>
-<p><img src="/imagesA6/cmds2.jpg" alt="description" width="400" height="200" /></p><br>
- <p><img src="/imagesA6/cmds3.jpg" alt="description" width="400" height="200" /></p><br>           
+<p><img src="/imagesA6/cmds2.jpg" alt="description" width=auto height=auto /></p><br>
+ <p><img src="/imagesA6/cmds3.jpg" alt="description" width=auto height=auto /></p><br>           
 <p>Router 2</p>
-<p><img src="/imagesA6/cmds4.jpg" alt="description" width="400" height="200" /></p><br>
+<p><img src="/imagesA6/cmds4.jpg" alt="description" width=auto height=auto /></p><br>
 <h2>Licencia de seguridad habilitada</h2>
 <p>Esto activa las funciones de seguridad necesarias para IPSec.<br>
 Para router 1 y 2</p>
-<p><img src="/imagesA6/cmds5.jpg" alt="description" width="400" height="200" /></p><br>
+<p><img src="/imagesA6/cmds5.jpg" alt="description" width=auto height=auto /></p><br>
 <h2>Implementación de ACL’s</h2>
 <p>La ACL identifica el tráfico que debe pasar por el túnel seguro.<br>
 Router 1</p>
-<p><img src="/imagesA6/cmds6.jpg" alt="description" width="400" height="200" /></p><br>
+<p><img src="/imagesA6/cmds6.jpg" alt="description" width=auto height=auto /></p><br>
 <p>Router 2</p>
-<p><img src="/imagesA6/cmds7.jpg" alt="description" width="400" height="200" /></p><br>
+<p><img src="/imagesA6/cmds7.jpg" alt="description" width=auto height=auto /></p><br>
 <h2>Phase 01: ISAKMP policy (para cifrar el encabezado)</h2>
 <p>Define cómo se establecerá el canal seguro inicial (algoritmos de cifrado, autenticación,
 etc.).<br>
 Router 1</p>
-<p><img src="/imagesA6/cmds8.jpg" alt="description" width="400" height="200" /></p><br>
+<p><img src="/imagesA6/cmds8.jpg" alt="description" width=auto height=auto /></p><br>
 <p>Router 2</p>
-<p><img src="/imagesA6/cmds9.jpg" alt="description" width="400" height="200" /></p><br>    
+<p><img src="/imagesA6/cmds9.jpg" alt="description" width=auto height=auto /></p><br>    
 <h2>Phase 2: IPSec transform-se (para cifrar el contenido)</h2>
 <p>Indica los algoritmos de cifrado y autenticación para el tráfico dentro del túnel.<br>
 Router 1</p>
-<p><img src="/imagesA6/cmds10.jpg" alt="description" width="400" height="200" /></p><br>
+<p><img src="/imagesA6/cmds10.jpg" alt="description" width=auto height=auto /></p><br>
 <p>Router 2</p>
-<p><img src="/imagesA6/cmds11.jpg" alt="description" width="400" height="200" /></p><br> 
+<p><img src="/imagesA6/cmds11.jpg" alt="description" width=auto height=auto /></p><br> 
 <h2>Crear el mapa criptográfico</h2>
 <p>El mapa criptográfico une la ACL, el peer remoto y el conjunto de transformaciones.<br>
 Router 1</p>
-<p><img src="/imagesA6/cmds12.jpg" alt="description" width="400" height="200" /></p><br>
+<p><img src="/imagesA6/cmds12.jpg" alt="description" width=auto height=auto /></p><br>
 <p>Router 2</p>
 <p><img src="/imagesA6/cmds13.jpg" alt="description" width="400" height="200" /></p><br> 
 <h2>Aplicar el mapa criptográfico</h2>
 <p>Esto activa la VPN en la interfaz que conecta al ISP<br>
 Router 1</p>
-<p><img src="/imagesA6/cmds14.jpg" alt="description" width="400" height="200" /></p><br>
+<p><img src="/imagesA6/cmds14.jpg" alt="description" width=auto height=auto /></p><br>
 <p>Router 2</p>
-<p><img src="/imagesA6/cmds15.jpg" alt="description" width="400" height="200" /></p><br> 
-<p><img src="/imagesA6/cmds16.jpg" alt="description" width="400" height="200" /></p><br>             
+<p><img src="/imagesA6/cmds15.jpg" alt="description" width=auto height=auto /></p><br> 
+<p><img src="/imagesA6/cmds16.jpg" alt="description" width=auto height=auto /></p><br>             
 <h3>Conclusiones</h3>
 <p>Conclusión
 En la práctica de configuración de la VPN IPSec en Packet Tracer se intentó establecer un túnel seguro entre dos redes. 
   Sin embargo, al probar la conexión con ping, no hubo respuesta. Esto significa que la comunicación no funcionó y la VPN no se configuró correctamente. 
   El fallo muestra que es necesario revisar la configuración paso a paso para encontrar el error y lograr que el túnel funcione.</p>
 <div class="download-container">
-                <a href="Act04.pdf" download="173877-Act04.pdf" class="btn-download">
+                <a href="Act06.pdf" download="173877-Act06.pdf" class="btn-download">
                     📥 Descargar Versión Completa
                 </a>
             </div>
