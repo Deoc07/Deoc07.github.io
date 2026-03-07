@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 12 | Blind SQL injection with conditional errors</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Blind SQL injection with conditional errors</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>Blind SQL injection with conditional errors.</p>
+
+<h2>Nivel</h2>
+<p>Apprentice.</p>
+
+<h2>Tipo de SQLi</h2>
+<p>Blind SQL injection con errores condicionales.</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>
+  Obtener la contraseña del usuario administrador y usarla para iniciar sesión.
+</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  Este tipo de ataque de SQL Injection no muestra los resultados directamente en la pantalla. 
+  En su lugar, se infiere la información observando si la consulta inyectada provoca un error en la base de datos 
+  o si devuelve un código de estado 200. Al generar errores controlados basándose en condiciones verdaderas o falsas, 
+  se puede determinar la existencia de tablas, usuarios o caracteres específicos de la contraseña.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Acceso inicial</h3>
+<p>
+  Ingresar al laboratorio y observar que las categorías no son vulnerables.
+</p>
+<a href="lab11_img1">Imagen 1</a>
+
+<h3>Identificación de campo vulnerable</h3>
+<p>
+  Identificar que la inyección se realiza en el campo <code>TrackingId</code> de la cookie. 
+  Modificar el TrackingId y verificar que una comilla simple (<code>'</code>) genera un error, confirmando la vulnerabilidad.
+</p>
+<a href="lab11_img2">Imagen 2</a>
+
+<h3>Preparación en Burp Suite</h3>
+<p>
+  Interceptar la petición y enviarla al Repeater.
+</p>
+<a href="lab11_img3">Imagen 3</a>
+
+<h3>Determinación del tipo de base de datos</h3>
+<p>
+  Inyectar un payload de prueba como <code>' || (SELECT '') || '</code> y observar que genera un error 500.<br>
+  Añadir <code>FROM DUAL</code> al payload para Oracle: <code>' || (SELECT '' FROM DUAL) || '</code> y verificar que devuelve un código 200. 
+  Esto confirma que es una base de datos Oracle.
+</p>
+<a href="lab11_img4">Imagen 4</a>
+
+<h3>Confirmación de tabla users</h3>
+<p>
+  Payload: <code>' || (SELECT '' FROM users WHERE ROWNUM = 1) || '</code>. 
+  URL-codificar y enviar. Un código 200 confirma la existencia de la tabla users.
+</p>
+<a href="lab11_img5">Imagen 5</a>
+
+<h3>Confirmación de usuario administrator</h3>
+<p>
+  Payload: <code>' || (SELECT CASE WHEN (1=1) THEN 1/0 ELSE '' END FROM users WHERE username='administrator') || '</code>. 
+  Un error 500 indica que el usuario administrator existe.
+</p>
+<a href="lab11_img6">Imagen 6</a>
+
+<h3>Determinación de longitud de contraseña</h3>
+<p>
+  Payload: <code>' || (SELECT CASE WHEN (LENGTH(password) > X) THEN 1/0 ELSE '' END FROM users WHERE username='administrator') || '</code>. 
+  Ajustar X hasta encontrar el umbral correcto. Se confirma que la longitud es 20 caracteres.
+</p>
+<a href="lab11_img7">Imagen 7</a>
+<a href="lab11_img8">Imagen 8</a>
+
+<h3>Extracción de caracteres</h3>
+<p>
+  Payload: <code>' || (SELECT CASE WHEN (SUBSTR(password, {posicion}, 1) = '{caracter}') THEN 1/0 ELSE '' END FROM users WHERE username='administrator') || '</code>. 
+  Se prueba carácter por carácter usando Intruder o un script Python.
+</p>
+<a href="lab11_img9">Imagen 9</a>
+<a href="lab11_img10">Imagen 10</a>
+
+<h3>Automatización con script Python</h3>
+<p>
+  El script prueba cada posición de la contraseña y cada carácter posible. 
+  Si la respuesta es 500, el carácter es correcto; si es 200, no lo es.
+</p>
+<a href="lab11_img11">Imagen 11</a>
+
+<h3>Inicio de sesión</h3>
+<p>
+  Una vez obtenida la contraseña completa, ir a "My account". 
+  Ingresar <code>administrator</code> y la contraseña extraída.
+</p>
+<a href="lab11_img12">Imagen 12</a>
+<a href="lab11_img13">Imagen 13</a>
+
+<h2>Respuesta vulnerable</h2>
+<p>
+  El código de estado HTTP de la respuesta del servidor (500 o 200).
+</p>
+
+<h2>Confirmación</h2>
+<p>
+  Inicio de sesión exitoso como administrator.
+</p>
+
+<h2>Explicación del payload</h2>
+<p>
+  El payload utiliza la función <code>SUBSTR</code> de Oracle para extraer un carácter específico de la contraseña en una posición determinada. 
+  Luego, compara este carácter con uno de prueba. Si la comparación es verdadera, se provoca un error de división por cero (código 500). 
+  Si es falsa, devuelve una cadena vacía (código 200). Este comportamiento condicional permite inferir la contraseña carácter por carácter.
+</p>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  <strong>Validación estricta de entradas:</strong> Implementar validación de entradas para rechazar caracteres inesperados.<br>
+  <strong>Mensajes de error genéricos:</strong> Mostrar errores genéricos en lugar de detalles técnicos.<br>
+  <strong>Principio de Mínimo Privilegio:</strong> Configurar el usuario de la base de datos con permisos mínimos.<br>
+  <strong>Web Application Firewalls (WAFs):</strong> Implementar WAFs para detectar patrones de inyección SQL ciega.
+</p>
+
+
+
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

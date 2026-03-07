@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 13 | Inyección SQL basada en errores visibles</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Inyección SQL basada en errores visibles</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>Inyección SQL basada en errores visibles.</p>
+
+<h2>Nivel</h2>
+<p>Practitioner.</p>
+
+<h2>Tipo de SQLi</h2>
+<p>In-band SQLi (Error-based).</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>
+  Extraer la contraseña del usuario <code>administrator</code> de la tabla <code>users</code> 
+  y realizar un inicio de sesión exitoso con dichas credenciales.
+</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  El laboratorio presenta una vulnerabilidad en el manejo de cookies de rastreo (tracking cookies).<br>
+  <strong>Punto de Inyección:</strong> La aplicación concatena directamente el valor de la cookie en una consulta SQL.<br>
+  <strong>Mecanismo de Error:</strong> La aplicación muestra errores detallados de la base de datos cuando una consulta falla.<br>
+  <strong>Estrategia de Explotación:</strong> Se inyecta sintaxis SQL maliciosa que fuerce un error de conversión o tipo de dato.<br>
+  <strong>Fuga de Datos:</strong> El atacante obtiene información sensible al leer los mensajes de error generados.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Acceso inicial</h3>
+<p>
+  Acceder a la instancia desde el navegador integrado de BurpSuite y localizar la cookie <code>TrackingId</code> en el historial HTTP.
+</p>
+<a href="lab13_img1">Imagen 1</a>
+
+<h3>Confirmación de vulnerabilidad</h3>
+<p>
+  Enviar la petición al Repeater y añadir una comilla simple al valor de la cookie. 
+  Observar el error SQL en la respuesta.
+</p>
+<a href="lab13_img2">Imagen 2</a>
+
+<h3>Prueba con comentarios y CAST</h3>
+<p>
+  Añadir <code>--</code> y probar con <code>AND CAST((SELECT 1) AS int)--</code>. 
+  Ajustar la sintaxis para que sea válida: <code>AND 1=CAST((SELECT 1) AS int)--</code>.
+</p>
+<a href="lab13_img3">Imagen 3</a>
+<a href="lab13_img4">Imagen 4</a>
+
+<h3>Enumeración de usuarios</h3>
+<p>
+  Payload: <code>TrackingId=' AND 1=CAST((SELECT username FROM users LIMIT 1) AS int)--</code>. 
+  El primer usuario devuelto es <code>administrator</code>.
+</p>
+<a href="lab13_img5">Imagen 5</a>
+
+<h3>Extracción de contraseña</h3>
+<p>
+  Payload: <code>TrackingId=' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)--</code>. 
+  La contraseña filtrada es <code>n0qruhn61643ghsw146z</code>.
+</p>
+<a href="lab13_img6">Imagen 6</a>
+
+<h3>Inicio de sesión</h3>
+<p>
+  Usar las credenciales obtenidas (<code>administrator</code> / <code>n0qruhn61643ghsw146z</code>) para iniciar sesión y resolver el laboratorio.
+</p>
+<a href="lab13_img7">Imagen 7</a>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  <strong>Consultas Preparadas:</strong> Utilizar sentencias parametrizadas para evitar concatenación directa.<br>
+  <strong>Desactivar mensajes de error detallados:</strong> Configurar errores genéricos para el usuario final.<br>
+  <strong>Validación de entrada:</strong> Restringir el formato de la cookie de rastreo mediante expresiones regulares.
+</p>
+
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

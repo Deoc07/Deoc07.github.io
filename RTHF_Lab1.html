@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 01 | SQL injection vulnerability in WHERE clause allowing retrieval of hidden data </title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+   <h1>SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</h1>
+
+  <h2>Nombre del laboratorio</h2>
+  <p>SQL injection vulnerability in WHERE clause allowing retrieval of hidden data.</p>
+
+  <h2>Nivel</h2>
+  <p>Apprentice.</p>
+
+  <h2>Tipo de SQLi</h2>
+  <p>In-band (cláusula WHERE).</p>
+
+  <h2>Objetivo del laboratorio</h2>
+  <p>Modificar la consulta para mostrar productos que no han sido lanzados (donde released = 0).</p>
+
+  <h2>Explicación técnica</h2>
+  <p>
+    La vulnerabilidad ocurre porque el input del usuario en el parámetro <code>category</code> 
+    se concatena directamente en una consulta WHERE. Esto permite romper la lógica booleana original 
+    (<code>released = 1</code>) e insertar una condición que siempre sea verdadera (<code>1=1</code>), 
+    forzando al motor de base de datos a devolver todos los registros de la tabla.
+  </p>
+
+  <h2>Procedimiento paso a paso</h2>
+
+  <h3>Fase de Reconocimiento</h3>
+  <p>
+    Acceder a la página principal y navegar por las categorías de productos (en mi caso "Accessories"). 
+    Observar cómo la URL cambia añadiendo el parámetro <code>?category=</code>.
+  </p>
+  <a href="Lab1_img1">Imagen 1</a>
+
+  <h3>Intercepción Profesional</h3>
+  <p>
+    Activar Intercept en Burp Suite y recargar la página de la categoría seleccionada. 
+    Capturar la petición <code>GET /filter?category=Accessories HTTP/2</code>.
+  </p>
+  <a href="Lab1_img2">Imagen 2</a>
+
+  <h3>Análisis en Repeater</h3>
+  <p>
+    Enviar la petición al Repeater para realizar pruebas aisladas. 
+    Realizar una petición limpia para establecer una línea base de cuántos productos se muestran normalmente.
+  </p>
+  <a href="Lab1_img3">Imagen 3</a>
+
+  <h3>Inyección y Modificación</h3>
+  <p>
+    En la pestaña del Repeater, modificar el valor del parámetro a: 
+    <code>Accessories' OR 1=1--</code>.
+  </p>
+  <a href="Lab1_img4">Imagen 4</a>
+
+  <h3>Análisis de Respuesta</h3>
+  <p>
+    Hacer clic en Send. En el panel de Response verificar que el código de estado sea 200 OK.
+  </p>
+  <a href="Lab1_img5">Imagen 5</a>
+
+  <h3>Laboratorio resuelto</h3>
+  <a href="Lab1_img6">Imagen 6</a>
+  <a href="Lab1_img7">Imagen 7</a>
+
+  <h2>Explicación del payload</h2>
+  <p>
+    <code>' OR 1=1--</code><br>
+    El <code>'</code> termina prematuramente la cadena de texto de la categoría.<br>
+    <code>OR 1=1</code> altera la lógica de la consulta 
+    (<code>WHERE category = 'Accessories' OR 1=1</code>), 
+    haciendo que toda la fila sea seleccionada independientemente de si la categoría coincide o si está lanzada.<br>
+    <code>--</code> funciona como comentario para anular el resto de la sintaxis original.
+  </p>
+
+  <h2>Mitigación recomendada</h2>
+  <p>
+    Implementar Prepared Statements con parámetros tipados para evitar la interpretación de metacaracteres SQL.
+  </p>
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

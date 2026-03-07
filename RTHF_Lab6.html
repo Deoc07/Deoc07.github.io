@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 06 | Ataque UNION de inyección SQL, determinando el número de columnas devueltas por la consulta</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>SQL injection attack, listing the database contents on Oracle</h1>
+
+<h2>Nombre del Laboratorio</h2>
+<p>SQL injection attack, listing the database contents on Oracle.</p>
+
+<h2>Nivel</h2>
+<p>Practitioner (Nivel Intermedio).</p>
+
+<h2>Tipo de SQLi</h2>
+<p>UNION-based SQL Injection (Enumeración de metadatos en Oracle).</p>
+
+<h2>Objetivo del Laboratorio</h2>
+<p>
+  Extraer el nombre de la tabla de usuarios, identificar los nombres de las columnas, 
+  extraer la contraseña del usuario <code>administrator</code> en una base de datos Oracle 
+  y acceder a su cuenta para resolver el reto.
+</p>
+
+<h2>Explicación Técnica de la Vulnerabilidad</h2>
+<p>
+  La vulnerabilidad se encuentra en el filtro de categorías. Al ser una base de datos Oracle, 
+  la explotación tiene dos reglas críticas:<br>
+  <strong>SELECT obligatorio:</strong> Toda consulta SELECT debe tener una cláusula FROM. 
+  Se utiliza la tabla <code>dual</code> del sistema (<code>FROM DUAL</code>) para pruebas iniciales.<br>
+  <strong>Diccionario de Datos:</strong> Los metadatos de las tablas y columnas no están en <code>information_schema</code>, 
+  sino en las tablas del sistema <code>all_tables</code> y <code>all_tab_columns</code>. 
+  Además, Oracle suele manejar los nombres de objetos en MAYÚSCULAS.
+</p>
+
+<h2>Procedimiento Paso a Paso</h2>
+
+<h3>Intercepción</h3>
+<p>
+  Se capturó la petición <code>GET /filter?category=...</code> en el Proxy Interceptor de Burp Suite.
+</p>
+
+<h3>Confirmación de Columnas</h3>
+<p>
+  Se determinó que la consulta devuelve 2 columnas inyectando <code>' ORDER BY 2--</code>.
+</p>
+
+<h3>Enumeración de Tablas</h3>
+<p>
+  Se consultó la tabla <code>all_tables</code> para encontrar la tabla de usuarios generada aleatoriamente.<br>
+  Resultado: Se identificó la tabla <code>USERS_GGYPYC</code>.
+</p>
+
+<h3>Enumeración de Columnas</h3>
+<p>
+  Se consultó <code>all_tab_columns</code> filtrando por el nombre de la tabla encontrada.<br>
+  Resultado: Se identificaron las columnas <code>USERNAME_OCIROF</code> y <code>PASSWORD_CAPDCE</code>.
+</p>
+
+<h3>Extracción de Credenciales</h3>
+<p>
+  Se realizó el UNION SELECT final para obtener la contraseña de la cuenta <code>administrator</code>.
+</p>
+
+<h3>Acceso</h3>
+<p>
+  Inicio de sesión exitoso en el navegador Firefox (reemplazando la contraseña por la extraída).
+</p>
+
+<h2>Capturas de Pantalla Obligatorias</h2>
+
+<h3>A. Request Interceptado (Proxy)</h3>
+<p>Inicio del ataque interceptando la petición legítima para modificar el parámetro de categoría.</p>
+<a href="lab6_img1">Imagen 1</a>
+
+<p>Request interceptado en Burp Proxy</p>
+
+<h3>B. Respuesta Vulnerable: Tabla Encontrada</h3>
+<p>Visualización del nombre de la tabla de usuarios (<code>USERS_GGYPYC</code>) tras inyectar la consulta sobre <code>all_tables</code>.</p>
+<a href="lab6_img2">Imagen 2</a>
+
+<p>Lista de tablas en Oracle</p>
+
+<h3>C. Respuesta Vulnerable: Columnas Encontradas</h3>
+<p>Identificación de los campos <code>USERNAME_OCIROF</code> y <code>PASSWORD_CAPDCE</code> mediante la consulta a <code>all_tab_columns</code>.</p>
+<a href="lab6_img3">Imagen 3</a>
+
+<p>Columnas extraídas</p>
+
+<h3>D. Extracción de Datos (Credenciales)</h3>
+<p>Exfiltración exitosa de la contraseña del administrador: <code>gbyugz3w22nqr2x9ey9e</code>.</p>
+<a href="lab6_img4">Imagen 4</a>
+
+<p>Credenciales administrador Oracle</p>
+
+<h3>E. Confirmación de “Lab Solved”</h3>
+<p>Captura final tras el inicio de sesión exitoso como administrator.</p>
+<a href="lab6_img5">Imagen 5</a>
+
+<p>Laboratorio Oracle Resuelto</p>
+
+<h2>Explicación del Payload Final</h2>
+<p>
+  <code>' UNION SELECT USERNAME_OCIROF, PASSWORD_CAPDCE FROM USERS_GGYPYC--</code><br>
+  <strong>'</strong>: Cierra la comilla simple del parámetro category.<br>
+  <strong>UNION SELECT</strong>: Combina nuestra consulta personalizada con los resultados originales.<br>
+  <strong>USERNAME_OCIROF, PASSWORD_CAPDCE</strong>: Son los nombres específicos de las columnas que contienen la información sensible en Oracle.<br>
+  <strong>FROM USERS_GGYPYC</strong>: La tabla de usuarios específica identificada durante la fase de enumeración.<br>
+  <strong>--</strong>: Operador de comentario para anular el resto de la consulta SQL original.
+</p>
+
+<h2>Mitigación Recomendada</h2>
+<p>
+  <strong>Sentencias Preparadas:</strong> Utilizar consultas parametrizadas para asegurar que el input del usuario sea tratado siempre como dato y no como parte del comando ejecutable.<br>
+  <strong>Restricción de Metadatos:</strong> Configurar los permisos de la base de datos para que el usuario web no tenga privilegios de lectura sobre tablas de sistema como <code>all_tables</code> o <code>all_tab_columns</code>.<br>
+  <strong>Validación Estricta:</strong> Implementar una arquitectura de "deny-by-default" para parámetros de entrada, permitiendo únicamente valores alfanuméricos simples.
+</p>
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

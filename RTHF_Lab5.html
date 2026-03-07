@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 05 | SQL injection attack, listing the database contents on non-Oracle databases </title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>SQL injection attack, listing the database contents on non-Oracle databases</h1>
+
+<h2>Nombre del Laboratorio</h2>
+<p>SQL injection attack, listing the database contents on non-Oracle databases.</p>
+
+<h2>Nivel</h2>
+<p>Practitioner (Nivel Intermedio).</p>
+
+<h2>Tipo de SQLi</h2>
+<p>UNION-based SQL Injection (Enumeración de esquema).</p>
+
+<h2>Objetivo del Laboratorio</h2>
+<p>
+  Extraer los nombres de las tablas y columnas sistemáticamente para localizar la tabla de usuarios, 
+  obtener la contraseña del usuario <code>administrator</code> e iniciar sesión en su cuenta.
+</p>
+
+<h2>Explicación Técnica de la Vulnerabilidad</h2>
+<p>
+  La vulnerabilidad reside en el parámetro <code>category</code>, el cual es vulnerable a inyecciones basadas en UNION. 
+  Al ser una base de datos PostgreSQL, la aplicación permite consultar el catálogo de metadatos <code>information_schema</code>. 
+  Esto es crítico porque permite a un atacante reconstruir toda la estructura de la base de datos (nombres de tablas y columnas) 
+  aunque estos hayan sido ofuscados o generados aleatoriamente por el sistema.
+</p>
+
+<h2>Procedimiento Paso a Paso</h2>
+
+<h3>Intercepción</h3>
+<p>
+  Capturar la petición GET del filtro de categorías en Burp Suite y enviarla al Repeater.
+</p>
+
+<h3>Determinación de Columnas</h3>
+<p>
+  Se confirmó que la consulta devuelve 2 columnas usando <code>' ORDER BY 2--</code> y que ambas aceptan texto.
+</p>
+
+<h3>Enumeración de Tablas</h3>
+<p>
+  Se consultó la tabla de metadatos para buscar la tabla de usuarios del laboratorio.<br>
+  Payload: <code>' UNION SELECT table_name, NULL FROM information_schema.tables--</code><br>
+  Resultado: Se identificó la tabla <code>users_faborn</code>.
+</p>
+
+<h3>Enumeración de Columnas</h3>
+<p>
+  Se buscaron los nombres de las columnas dentro de la tabla encontrada.<br>
+  Payload: <code>' UNION SELECT column_name, NULL FROM information_schema.columns WHERE table_name='users_faborn'--</code><br>
+  Resultado: Columnas <code>username_ifjekb</code> y <code>password_enyhpp</code>.
+</p>
+
+<h3>Extracción de Credenciales</h3>
+<p>
+  Se ejecutó el SELECT final para obtener los datos de la cuenta <code>administrator</code>.
+</p>
+
+<h3>Acceso</h3>
+<p>
+  Inicio de sesión exitoso en el navegador de Kali.
+</p>
+
+<h2>Capturas de Pantalla</h2>
+
+<p>En esta captura de Burp Suite se observa el payload final inyectado para extraer el usuario y la contraseña directamente de la tabla <code>users_faborn</code>.</p>
+<a href="lab5_img1">Imagen 1</a>
+
+<p>Request y Payload de Extracción</p>
+<a href="lab5_img2">Imagen 2</a>
+
+<p>En el panel derecho de la misma captura se observa la respuesta del servidor con la contraseña exfiltrada: <code>arv7ur48f02fnluilaa5</code>.</p>
+<a href="lab5_img3">Imagen 3</a>
+
+<p>Respuesta con credenciales exfiltradas</p>
+<a href="lab5_img4">Imagen 4</a>
+
+<p>Captura del navegador Firefox en Kali mostrando el banner naranja de éxito tras ingresar como administrador.</p>
+<a href="lab5_img5">Imagen 5</a>
+
+<p>Confirmación de Laboratorio Resuelto</p>
+<a href="lab5_img6">Imagen 6</a>
+
+<h2>Explicación del Payload</h2>
+<p>
+  <code>' UNION SELECT username_ifjekb, password_enyhpp FROM users_faborn--</code><br>
+  <strong>'</strong>: Rompe el cierre de la cadena original en la consulta SQL.<br>
+  <strong>UNION SELECT</strong>: Permite añadir una segunda consulta a la principal.<br>
+  <strong>username_ifjekb, password_enyhpp</strong>: Son los alias internos que la base de datos asignó a las columnas de usuario y contraseña.<br>
+  <strong>FROM users_faborn</strong>: Indica la tabla específica donde reside el registro de administrador.<br>
+  <strong>--</strong>: Comenta el resto de la consulta original para evitar errores de sintaxis en el servidor.
+</p>
+
+<h2>Mitigación Recomendada</h2>
+<p>
+  <strong>Uso de Sentencias Preparadas (Prepared Statements):</strong> Es la defensa más efectiva, ya que separa los datos del comando SQL.<br>
+  <strong>Validación de Entradas:</strong> Aplicar un filtrado estricto (Whitelist) para que el parámetro <code>category</code> solo acepte valores predefinidos.<br>
+  <strong>Hardening de Base de Datos:</strong> Limitar los privilegios del usuario de la aplicación para que no pueda consultar tablas del sistema como <code>information_schema</code>.
+</p>
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

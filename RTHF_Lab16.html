@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 16 | Blind SQL injection with out-of-band interaction</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Blind SQL injection with out-of-band interaction</h1>
+
+<h2>Nombre del Laboratorio</h2>
+<p>Blind SQL injection with out-of-band interaction.</p>
+
+<h2>Nivel</h2>
+<p>Practitioner (Nivel Intermedio).</p>
+
+<h2>Tipo de SQLi</h2>
+<p>Out-of-band SQL Injection (OAST).</p>
+
+<h2>Objetivo del Laboratorio</h2>
+<p>
+  Explotar la vulnerabilidad de inyección SQL para forzar una consulta DNS hacia el servidor de Burp Collaborator.
+</p>
+
+<h2>Explicación Técnica de la Vulnerabilidad</h2>
+<p>
+  La aplicación utiliza una cookie de rastreo (<code>TrackingId</code>) que es procesada por la base de datos de forma asíncrona. 
+  Debido a esto, la aplicación no devuelve errores ni cambios en el contenido de la página (Blind). 
+  Sin embargo, Oracle permite el uso de funciones como <code>EXTRACTVALUE</code> y <code>xmltype</code> que pueden ser manipuladas para realizar peticiones externas. 
+  Al inyectar un ataque de XXE dentro del SQLi, se obliga al servidor a interactuar con un dominio externo controlado por el atacante.
+</p>
+
+<h2>Procedimiento Paso a Paso</h2>
+
+<h3>Intercepción</h3>
+<p>
+  Abrir el navegador integrado de Burp Suite, acceder al laboratorio y capturar la petición GET inicial para enviarla al Repeater.
+</p>
+<a href="lab16_img1">Imagen 1</a>
+
+<h3>Acceso al laboratorio</h3>
+<p>
+  Abrir el browser y pegar la URL del laboratorio.
+</p>
+<a href="lab16_img2">Imagen 2</a>
+
+<h3>Activar intercept</h3>
+<p>
+  Encender la opción <code>Intercept on</code>.
+</p>
+<a href="lab16_img3">Imagen 3</a>
+
+<h3>Interceptar señales</h3>
+<p>
+  Refrescar la página e interceptar las señales en Burp Suite.
+</p>
+<a href="lab16_img4">Imagen 4</a>
+
+<h3>Inyección del payload</h3>
+<p>
+  Copiar y pegar el payload en la cookie <code>TrackingId</code>. 
+  Codificarlo en formato URL y enviarlo desde el Repeater.
+</p>
+<a href="lab16_img5">Imagen 5</a>
+<a href="lab16_img6">Imagen 6</a>
+
+<h3>Confirmación de vulnerabilidad</h3>
+<p>
+  Tras inyectar el payload OAST en la cookie y aplicar codificación URL, el servidor responde con estado 200 OK. 
+  Esto confirma que la base de datos procesó la inyección y ejecutó la interacción externa solicitada.
+</p>
+<a href="lab16_img7">Imagen 7</a>
+
+<h2>Confirmación de Laboratorio Resuelto</h2>
+<p>
+  En Burp Suite Repeater se observa que tras enviar la petición con el payload codificado, el servidor responde con HTTP/2 200 OK. 
+  Esto confirma la vulnerabilidad y la capacidad de provocar interacciones externas.
+</p>
+
+<h2>Explicación del Payload</h2>
+<p>
+  <strong>x' UNION SELECT...</strong>: Rompe la cadena original y añade una consulta personalizada.<br>
+  <strong>EXTRACTVALUE()</strong>: Función de Oracle que extrae datos de un XML, usada aquí como disparador.<br>
+  <strong>xmltype()</strong>: Crea un documento XML con una entidad externa.<br>
+  <strong>http://BURP-COLLABORATOR-SUBDOMAIN/</strong>: Dirección del atacante para forzar la petición DNS.<br>
+  <strong>--</strong>: Comenta el resto de la consulta original para evitar errores de sintaxis.
+</p>
+
+<h2>Mitigación Recomendada</h2>
+<p>
+  <strong>Sentencias Preparadas:</strong> Usar consultas parametrizadas para tratar la cookie como texto.<br>
+  <strong>Validación y Saneamiento:</strong> Filtrar cookies para que solo contengan caracteres alfanuméricos.<br>
+  <strong>Hardening de la Base de Datos:</strong> Configurar Oracle para que el usuario de la aplicación no tenga permisos de ejecutar funciones XML ni peticiones externas.
+</p>
+
+
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

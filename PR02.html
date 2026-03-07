@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PR02 - Ingeniería Social Avanzada</title>
+    <link rel="stylesheet" href="estilos_PR.css">
+</head>
+<body>
+    <nav class="nav-top">
+        <a href="index.html" class="btn-back">← Volver al Inicio</a>
+    </nav>
+
+    <div class="wrapper">
+        <header>
+            <h1>PR02: Gestión del Riesgo Humano</h1>
+            <p>Análisis de plataformas y simulador de concientización ética.</p>
+        </header>
+
+        <section class="section-card">
+            <h2>1. Investigación de Plataformas Profesionales</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plataforma</th>
+                            <th>Capacidades Técnicas e Integración</th>
+                            <th>Métricas de Riesgo y Telemetría</th>
+                            <th>Enfoque Ético y Cumplimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>KnowBe4</strong></td>
+                            <td>Sincronización con AD/Azure. Utiliza algoritmos AIDA para ajustar la dificultad del phishing según el comportamiento previo.</td>
+                            <td>Phish-Prone %: Compara el riesgo de la empresa contra el promedio global de su sector industrial.</td>
+                            <td>Cumplimiento SOC2/RGPD. Se enfoca en la formación masiva con la biblioteca de contenido más grande del mundo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hoxhunt</strong></td>
+                            <td>IA adaptativa que genera correos únicos por empleado. Integración nativa mediante plugins en Outlook y Gmail.</td>
+                            <td>Reporting Rate: La métrica de éxito es cuántos usuarios reportan el correo, no cuántos evitan el clic.</td>
+                            <td>Gamificación positiva. Recompensa el reporte exitoso con puntos y niveles, eliminando el enfoque punitivo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proofpoint</strong></td>
+                            <td>Análisis de URLs en tiempo real mediante sandboxing. Aísla clics sospechosos en contenedores virtuales seguros.</td>
+                            <td>VAP (Very Attacked People): Identifica qué empleados son los objetivos principales de los atacantes reales.</td>
+                            <td>Privacidad de datos estricta. Enfocado en la detección temprana antes de que el correo llegue al buzón.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cofense</strong></td>
+                            <td>Basado en inteligencia colectiva. Los reportes de un usuario pueden activar alertas automáticas para toda la red.</td>
+                            <td>Resiliency Rate: Relación entre usuarios que clican vs. los que reportan amenazas detectadas.</td>
+                            <td>"Momento Pedagógico": Si un usuario falla, recibe una micro-capacitación instantánea de 30 segundos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phished</strong></td>
+                            <td>Simulaciones de Phishing, Smishing y QR-shing 100% automatizadas sin necesidad de administración manual.</td>
+                            <td>Nivel de riesgo individual (AI-driven) que evoluciona dinámicamente según la mejora del usuario.</td>
+                            <td>Enfoque en la creación de hábitos subconscientes. No invasivo y diseñado para no interrumpir el flujo laboral.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ninjio</strong></td>
+                            <td>Micro-aprendizaje basado en episodios de animación estilo anime basados en brechas de seguridad reales.</td>
+                            <td>Engagement Rate: Mide la retención de conocimientos a través de la interacción con la narrativa del video.</td>
+                            <td>Enfoque psicológico. Utiliza la narrativa para crear un impacto emocional que mejora la memoria a largo plazo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mimecast</strong></td>
+                            <td>Seguridad de correo a nivel de Gateway. Detecta suplantación de identidad mediante análisis de cabeceras.</td>
+                            <td>CyberGraph: Visualiza gráficamente las relaciones de confianza para detectar anomalías de comunicación.</td>
+                            <td>Transparencia corporativa. Provee evidencia técnica sólida para auditorías de cumplimiento (ISO 27001).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infosec IQ</strong></td>
+                            <td>Contenido personalizado por departamento (Finanzas, Legal, IT). Más de 2,000 módulos de entrenamiento.</td>
+                            <td>IQ Score: Evaluación periódica del coeficiente de seguridad del usuario frente a nuevas amenazas.</td>
+                            <td>Cumplimiento normativo guiado. Permite mapear el progreso del usuario con marcos como NIST o HIPAA.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2>2. Simulador Interactivo</h2>
+            <div id="quiz-container" class="quiz-box">
+                <div id="loading-message">
+                    <p>⏳ Iniciando entorno de simulación...</p>
+                    <button onclick="forzarInicio()" class="btn-manual">Forzar Carga</button>
+                </div>
+                <div id="quiz-content" style="display: none;">
+                    <div class="scenario-display">
+                        <h3 id="scenario-title"></h3>
+                        <p id="scenario-description"></p>
+                    </div>
+                    <div class="button-group">
+                        <button id="btn-choice-phishing" class="btn btn-red">Es Phishing</button>
+                        <button id="btn-choice-legit" class="btn btn-green">Es Legítimo</button>
+                    </div>
+                    <div id="feedback-panel" class="feedback"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2>3. Ranking Global</h2>
+            <table>
+                <thead>
+                    <tr><th>Pos</th><th>Usuario</th><th>Score</th><th>Fallo Crítico</th></tr>
+                </thead>
+                <tbody id="leaderboard-body"></tbody>
+            </table>
+            <button id="btn-clear-ranking" class="btn-clear">Borrar Historial</button>
+        </section>
+
+        <section class="section-card">
+            <h2>4. Conclusiones</h2>
+            <p>La investigación demuestra que la tecnología por sí sola no es suficiente; el <strong>factor humano</strong> sigue siendo el vector principal de ataque. Las plataformas más exitosas son aquellas que fomentan una <strong>Cultura de Reporte</strong> en lugar de castigar el error, convirtiendo a cada empleado en un sensor activo de seguridad dentro de la organización.</p>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

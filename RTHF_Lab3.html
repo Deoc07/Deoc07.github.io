@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 03 | SQL injection attack, querying the database type and version on Oracle </title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>SQL injection attack, querying the database type and version on Oracle</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>SQL injection attack, querying the database type and version on Oracle.</p>
+
+<h2>Nivel</h2>
+<p>Practitioner.</p>
+
+<h2>Tipo de SQLi</h2>
+<p>In-band (UNION-based).</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>Ejecutar un ataque de unión para extraer metadatos del sistema (versión) en una base de datos Oracle.</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  Oracle requiere una estructura de consulta UNION muy precisa: el número de columnas debe coincidir exactamente con la consulta original 
+  y toda sentencia debe incluir la cláusula <code>FROM</code>. Se utiliza la tabla <code>v$version</code> para obtener la información del banner del sistema.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Determinación de Columnas y Prueba de Compatibilidad de Datos</h3>
+<p>
+  Enviar la petición de categoría al Repeater. Probar la cantidad de columnas inyectando <code>' ORDER BY 1--</code>, <code>' ORDER BY 2--</code>, etc., 
+  para recibir un error 500. Esto confirma que existen 2 columnas. Para confirmar que las columnas aceptan datos de tipo cadena, inyectar: 
+  <code>category=Accessories' UNION SELECT NULL, NULL FROM DUAL--</code>. El uso de <code>DUAL</code> es obligatorio en Oracle para consultas que no apuntan a una tabla de usuario.
+</p>
+<a href="lab3_img1">Imagen 1</a>
+
+<h3>Extracción de Metadatos</h3>
+<p>
+  Una vez establecida la estructura, sustituir el primer valor de prueba por el nombre de la columna de sistema: 
+  <code>' UNION SELECT banner, NULL FROM v$version--</code>.
+</p>
+<a href="lab3_img2">Imagen 2</a>
+
+<h3>Análisis de Resultados</h3>
+<p>
+  Revisar el cuerpo de la respuesta en Burp Suite para localizar la cadena de texto que describe la versión específica de Oracle instalada.
+</p>
+<a href="lab3_img3">Imagen 3</a>
+
+<h3>Laboratorio resuelto</h3>
+<a href="lab3_img4">Imagen 4</a>
+
+<h2>Explicación del payload</h2>
+<p>
+  <code>' UNION SELECT banner, NULL FROM v$version--</code><br>
+  <strong>banner:</strong> Es el nombre de la columna predefinida en Oracle que contiene la versión.<br>
+  <strong>v$version:</strong> Vista de rendimiento fija que contiene información sobre la versión de los componentes del servidor.
+</p>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  Aplicar el principio de Mínimo Privilegio, asegurando que el usuario de conexión de la base de datos no tenga permisos de lectura sobre las vistas <code>v$</code> ni tablas de catálogo.
+</p>
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

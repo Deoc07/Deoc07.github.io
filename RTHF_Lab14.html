@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 14 | Blind SQL injection with time delays </title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Blind SQL injection with time delays</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>Blind SQL injection with time delays (Inyección SQL ciega con retrasos de tiempo).</p>
+
+<h2>Tipo de SQLi</h2>
+<p>Inferential SQLi (Blind / Time-based).</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>
+  Explotar la vulnerabilidad para pausar la ejecución de la consulta y provocar un retraso de 10 segundos en la respuesta de la aplicación.
+</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  A diferencia de otros tipos de SQLi, en este caso el servidor ha sido configurado para no mostrar diferencias visuales si la consulta falla o tiene éxito. 
+  La lógica de ataque se basa en:<br>
+  <strong>Inyección en la Cookie:</strong> El punto de entrada es la tracking cookie.<br>
+  <strong>Uso de Funciones de Tiempo:</strong> Se insertan comandos como <code>pg_sleep(10)</code>, <code>WAITFOR DELAY '0:0:10'</code> o <code>SLEEP(10)</code>.<br>
+  <strong>Confirmación:</strong> Si la página tarda exactamente 10 segundos adicionales en cargar, se confirma la ejecución del código inyectado.<br>
+  <strong>Extracción Teórica:</strong> Esta técnica permite condicionar retrasos para inferir datos carácter por carácter.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Acceso inicial</h3>
+<p>
+  Acceder a la instancia del laboratorio con BurpSuite, buscar la petición con la cookie <code>TrackingId</code> y enviarla al Repeater.
+</p>
+<a href="lab14_img1">Imagen 1</a>
+
+<h3>Inyección de retraso</h3>
+<p>
+  Modificar el valor de la cookie a <code>TrackingId=x'||pg_sleep(10)--</code> y enviar la solicitud. 
+  La respuesta tardará 10 segundos en cargarse.
+</p>
+<a href="lab14_img2">Imagen 2</a>
+
+<h3>Confirmación</h3>
+<p>
+  Una vez cargada la solicitud, el laboratorio aparecerá como completado.
+</p>
+<a href="lab14_img3">Imagen 3</a>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  <strong>Uso estricto de ORMs o Sentencias Preparadas:</strong> Evitar que funciones como <code>pg_sleep()</code> sean interpretadas.<br>
+  <strong>Limitación de Privilegios:</strong> El usuario de la base de datos no debe tener permisos para ejecutar funciones de sistema.<br>
+  <strong>Web Application Firewall (WAF):</strong> Detectar patrones sospechosos en cookies y bloquearlos.<br>
+  <strong>Timeouts en Consultas:</strong> Configurar un tiempo máximo de espera para cortar consultas que excedan lo normal.
+</p>
+
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

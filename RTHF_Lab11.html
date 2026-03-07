@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 11 | Ataque UNION de inyección SQL, recuperando datos de otras tablas</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Blind SQL injection con respuestas condicionales</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>Blind SQL injection con respuestas condicionales.</p>
+
+<h2>Nivel</h2>
+<p>Apprentice.</p>
+
+<h2>Tipo de SQLi</h2>
+<p>Blind SQL injection (con respuestas condicionales).</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>
+  Obtener el usuario y la contraseña del administrador de la tabla <code>users</code>.
+</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  Este tipo de ataque de inyección SQL no muestra errores o información directamente en la página. 
+  En su lugar, el atacante deduce la información a través de la respuesta del servidor a consultas condicionales, 
+  como la aparición o ausencia de un mensaje específico en la página ("Welcome Back" en este caso) o diferencias en el tiempo de respuesta. 
+  Esto permite al atacante extraer datos carácter por carácter.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Acceso inicial</h3>
+<p>
+  Acceder al laboratorio y observar el comportamiento de la aplicación: navegar por las categorías (ej. "Accessories").
+</p>
+
+<h3>Identificación del campo vulnerable</h3>
+<p>
+  Utilizar Burp Suite para interceptar la solicitud y modificar el valor de la cookie <code>TrackingId</code>. 
+  Insertar una comilla simple <code>'</code> en el valor de TrackingId y enviar la solicitud.
+</p>
+<a href="lab11_img1">Imagen 1</a>
+
+<h3>Confirmación de tabla users</h3>
+<p>
+  Inyectar el siguiente payload en el valor de la cookie TrackingId: 
+  <code>' AND (SELECT 'a' FROM users WHERE 'a'='a' LIMIT 1)--</code>.
+</p>
+<a href="lab11_img2">Imagen 2</a>
+
+<h3>Confirmación de usuario administrator</h3>
+<p>
+  Inyectar el siguiente payload: 
+  <code>' AND (SELECT username FROM users WHERE username = 'administrator') = 'administrator'--</code>.
+</p>
+<a href="lab11_img3">Imagen 3</a>
+
+<h3>Determinación de longitud de contraseña</h3>
+<p>
+  Inyectar payloads para probar la longitud de la contraseña. Ejemplo: 
+  <code>' AND (SELECT username FROM users WHERE username = 'administrator' AND LENGTH(password) > 19) = 'administrator'--</code>.
+</p>
+<a href="lab11_img4">Imagen 4</a>
+
+<h3>Extracción carácter por carácter</h3>
+<p>
+  El payload base para cada carácter es: 
+  <code>' AND (SELECT SUBSTRING(password, {posición_caracter}, 1) FROM users WHERE username = 'administrator') = '{caracter_a_probar}'--</code>.
+</p>
+<a href="lab11_img5">Imagen 5</a>
+
+<h3>Automatización con script Python</h3>
+<p>
+  Se usará un script de Python que automatiza este proceso, probando cada carácter y registrando la contraseña completa.
+</p>
+<a href="lab11_img6">Imagen 6</a>
+
+<h3>Inicio de sesión</h3>
+<p>
+  Una vez obtenida la contraseña, ir a la sección "My account" del laboratorio. 
+  Ingresar <code>administrator</code> como nombre de usuario y la contraseña extraída.
+</p>
+<a href="lab11_img7">Imagen 7</a>
+<a href="lab11_img8">Imagen 8</a>
+
+<h2>Respuesta vulnerable</h2>
+<p>
+  La vulnerabilidad se manifiesta en el cambio en el contenido de la página (aparición/desaparición del mensaje "Welcome Back") 
+  en función de la veracidad de las condiciones inyectadas.
+</p>
+
+<h2>Confirmación</h2>
+<p>
+  Inicio de sesión exitoso como administrador.
+</p>
+
+<h2>Explicación del payload</h2>
+<p>
+  Los payloads utilizan operadores lógicos (<code>AND</code>) y funciones SQL (<code>SELECT</code>, <code>LENGTH</code>, <code>SUBSTRING</code>) 
+  dentro de la sección de la cookie <code>TrackingId</code>. Esto permite al atacante construir consultas que, aunque no devuelven datos directamente, 
+  alteran el comportamiento de la página (el mensaje "Welcome Back") de una manera que revela información sobre la base de datos de forma ciega.
+</p>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  <strong>Validación de entradas y consultas parametrizadas:</strong> Utilizar sentencias preparadas o consultas parametrizadas para separar el código SQL de los datos de entrada.<br>
+  <strong>Sanitización estricta de entradas:</strong> Validar las entradas del usuario contra formatos esperados y rechazar caracteres maliciosos.<br>
+  <strong>Principio de mínimo privilegio:</strong> Configurar las cuentas de base de datos utilizadas por la aplicación web con los permisos mínimos necesarios.<br>
+  <strong>Manejo de errores no detallado:</strong> Evitar mostrar errores detallados de la base de datos a los usuarios.<br>
+  <strong>Web Application Firewalls (WAFs):</strong> Implementar WAFs con análisis de comportamiento para detectar patrones indicativos de inyecciones SQL ciegas.
+</p>
+
+
+
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

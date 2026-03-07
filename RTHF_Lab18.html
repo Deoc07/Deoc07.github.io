@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 18 | SQL injection with filter bypass via XML encoding </title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>SQL injection with filter bypass via XML encoding</h1>
+
+<h2>Nombre del Laboratorio</h2>
+<p>SQL injection with stock check feature.</p>
+
+<h2>Nivel</h2>
+<p>Practitioner (Nivel Intermedio).</p>
+
+<h2>Tipo de SQLi</h2>
+<p>SQL Injection con evasión de filtros (WAF bypass) mediante codificación XML.</p>
+
+<h2>Introducción y Contexto Técnico</h2>
+<p>
+  En este escenario, la aplicación implementa la funcionalidad "Check stock". 
+  Los datos se envían en formato XML dentro de una petición POST. 
+  El WAF bloquea patrones comunes de SQLi, pero se evade mediante codificación hexadecimal en el XML.
+</p>
+
+<h2>Objetivo del Laboratorio</h2>
+<p>
+  Vulnerar la consulta SQL que procesa el stock de productos para extraer las credenciales del usuario <code>administrator</code>, 
+  evadiendo el WAF con una inyección UNION codificada en XML.
+</p>
+
+<h2>Explicación Técnica de la Vulnerabilidad</h2>
+<p>
+  La vulnerabilidad se encuentra en la etiqueta <code>&lt;storeId&gt;</code>. 
+  El servidor decodifica entidades XML antes de ejecutar la consulta SQL. 
+  Al enviar palabras clave codificadas (ej. <code>&amp;#x53;</code> en lugar de S), el WAF no detecta el ataque, 
+  pero la base de datos ejecuta el comando completo tras la decodificación.
+</p>
+
+<h2>Procedimiento Paso a Paso</h2>
+
+<h3>Captura y Análisis</h3>
+<p>
+  Navegar a un producto y presionar "Check stock". Interceptar la petición en el Proxy y enviarla al Repeater.
+</p>
+<a href="lab18_img1">Imagen 1</a>
+<a href="lab18_img2">Imagen 2</a>
+
+<h3>Prueba de Inyección Inicial</h3>
+<p>
+  Modificar <code>&lt;storeId&gt;</code> con <code>1+1</code>. 
+  El servidor devuelve el stock de la tienda ID 2, confirmando que el campo es procesado numéricamente.
+</p>
+<a href="lab18_img3">Imagen 3</a>
+<a href="lab18_img4">Imagen 4</a>
+
+<h3>Detección del Filtro (WAF)</h3>
+<p>
+  Intentar <code>1 UNION SELECT NULL</code> provoca error de seguridad, confirmando la presencia del WAF.
+</p>
+
+<h3>Codificación para Bypass</h3>
+<p>
+  Reemplazar las palabras clave por entidades hexadecimales XML. Ejemplo: <code>&amp;#x55;NION &amp;#x53;ELECT</code>.
+</p>
+<a href="lab18_img5">Imagen 5</a>
+
+<h3>Construcción del Exploit Final</h3>
+<p>
+  Payload: <code>1 &amp;#x55;NION &amp;#x53;ELECT username || '~' || password FROM users--</code><br>
+  Se concatena usuario y contraseña en una sola columna.
+</p>
+
+<h3>Ejecución y Extracción</h3>
+<p>
+  Enviar la petición codificada. El servidor responde con 200 OK y muestra <code>administrator~contraseña</code>.
+</p>
+<a href="lab18_img6">Imagen 6</a>
+<a href="lab18_img7">Imagen 7</a>
+
+<h2>Análisis de Resultados</h2>
+<p>
+  La respuesta demuestra que el WAF fue evadido mediante codificación XML. 
+  La base de datos ejecutó la consulta maliciosa y devolvió las credenciales del administrador, 
+  permitiendo iniciar sesión y resolver el laboratorio.
+</p>
+
+<h2>Mitigación Recomendada</h2>
+<p>
+  <strong>Uso de Parsers XML Seguros:</strong> Configurar el parser para no resolver entidades externas.<br>
+  <strong>Consultas Parametrizadas:</strong> Implementar sentencias preparadas para evitar ejecución de comandos SQL.<br>
+  <strong>Mejora del WAF:</strong> Configurar el firewall para decodificar datos antes de aplicar reglas de filtrado.
+</p>
+
+
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

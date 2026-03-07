@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 08 | Hallar una columna que contenga texto mediante un ataque UNION</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Hallar una columna que contenga texto mediante un ataque UNION</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>Hallar una columna que contenga texto mediante un ataque UNION.</p>
+
+<h2>Nivel</h2>
+<p>Apprentice.</p>
+
+<h2>Tipo de SQLi</h2>
+<p>In-band (Union-based).</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>
+  Una vez determinado el número de columnas, identificar cuál de ellas es capaz de procesar 
+  y mostrar datos de tipo cadena (string).
+</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  No todas las columnas de una base de datos aceptan texto (algunas son solo numéricas o fechas). 
+  El atacante debe probar inyectando una cadena de caracteres constante en cada posición de la sentencia UNION 
+  hasta que la aplicación la renderice en la pantalla.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Acceder a la categoría de productos</h3>
+<p>(ej. "Corporate gifts").</p>
+<a href="lab8_img1">Imagen 1</a>
+
+<h3>Intercepción</h3>
+<p>
+  Al igual que con el anterior laboratorio: Interceptar la petición con Burp Suite y mandar el código de la página 
+  obtenido en el Proxy a Repeater.
+</p>
+<a href="lab8_img2">Imagen 2</a>
+
+<h3>Confirmación de número de columnas</h3>
+<p>
+  Comprobar el número de columnas hallado como en el lab anterior (igualmente, 3 columnas en este caso).
+</p>
+<a href="lab8_img3">Imagen 3</a>
+
+<h3>Prueba de payloads</h3>
+<p>
+  Probar payloads moviendo una cadena única (ej. 'abc') entre las posiciones:<br>
+  <code>' UNION SELECT 'abc', NULL, NULL--</code><br>
+  <code>' UNION SELECT NULL, 'abc', NULL--</code><br>
+  <code>' UNION SELECT NULL, NULL, 'abc'--</code><br>
+  Observar en qué caso la cadena 'abc' aparece en la respuesta HTML.<br>
+  Payload utilizado: <code>' UNION SELECT NULL, 'tj2vPi', NULL--</code> (valor solicitado por el lab).
+</p>
+<a href="lab8_img4">Imagen 4</a>
+
+<h3>Respuesta vulnerable</h3>
+<p>
+  Visualización del código aleatorio en la página.
+</p>
+
+<h3>Confirmación</h3>
+<p>
+  Estado "Solved".
+</p>
+<a href="lab8_img5">Imagen 5</a>
+
+<h2>Explicación del payload</h2>
+<p>
+  Al colocar una cadena en la segunda posición ('abc'), le pedimos a la base de datos que concatene ese texto en los resultados de la búsqueda. 
+  Si la segunda columna es de tipo VARCHAR o similar, el texto se mostrará.
+</p>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  Implementar validación de tipos de datos en el lado del servidor, asegurando que el parámetro <code>category</code> 
+  sea tratado estrictamente como un literal.
+</p>
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

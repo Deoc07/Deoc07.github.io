@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 09 | Ataque UNION de inyección SQL, recuperando datos de otras tablas </title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Ataque UNION de inyección SQL, recuperando datos de otras tablas</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>Ataque UNION de inyección SQL, recuperando datos de otras tablas.</p>
+
+<h2>Nivel</h2>
+<p>Apprentice.</p>
+
+<h2>Tipo de SQLi</h2>
+<p>In-band (Union-based).</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>
+  Exfiltrar los nombres de usuario y contraseñas de la tabla <code>users</code> y utilizarlos para iniciar sesión como administrador.
+</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  Este ataque permite acceder a tablas que no tienen relación directa con la funcionalidad original (catálogo de productos). 
+  El atacante "roba" el flujo de datos de la página para redirigir información de la tabla de credenciales hacia la interfaz pública.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Acceder a una categoría</h3>
+<p>(ej. "Tech gifts").</p>
+<a href="lab9_img1">Imagen 1</a>
+
+<h3>Intercepción</h3>
+<p>
+  Utilizar Burp Suite para interceptar y modificar la solicitud que establece el filtro de categoría de producto.
+</p>
+<a href="lab9_img2">Imagen 2</a>
+
+<h3>Confirmación de columnas</h3>
+<p>
+  Determinar que hay 2 columnas disponibles y que ambas aceptan texto.
+</p>
+<a href="lab9_img3">Imagen 3</a>
+
+<h3>Inyección del payload</h3>
+<p>
+  Inyectar el payload para extraer datos: <code>' UNION SELECT username, password FROM users--</code>.
+</p>
+<a href="lab9_img4">Imagen 4</a>
+
+<h3>Localización de credenciales</h3>
+<p>
+  Localizar en la respuesta del navegador la lista de usuarios y contraseñas.<br>
+  Identificar la credencial del usuario “administrador”.
+</p>
+<a href="lab9_img5">Imagen 5</a>
+
+<h3>Acceso</h3>
+<p>
+  Ir a la sección "My account" y loguearse con la contraseña obtenida.
+</p>
+<a href="lab9_img6">Imagen 6</a>
+
+<h3>Respuesta vulnerable</h3>
+<p>
+  Lista de credenciales en el HTML.
+</p>
+
+<h3>Confirmación</h3>
+<p>
+  Inicio de sesión exitoso como administrador y banner de "Lab Solved".
+</p>
+<a href="lab9_img7">Imagen 7</a>
+
+<h2>Explicación del payload</h2>
+<p>
+  La parte <code>SELECT username, password FROM users</code> solicita a la base de datos que busque en la tabla <code>users</code> 
+  (una tabla común en estos sistemas) y traiga los valores de las columnas de identificación. 
+  La unión hace que estos datos aparezcan donde normalmente estarían los nombres de los productos.
+</p>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  Aplicar el Principio de Mínimo Privilegio. El usuario de la base de datos que utiliza la aplicación web no debería tener permisos de lectura 
+  sobre la tabla <code>users</code> o tablas administrativas del sistema.
+</p>
+
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

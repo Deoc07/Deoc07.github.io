@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio 02 | SQL injection vulnerability allowing login bypass </title>
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <a href="index.html">← Volver al Inicio</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <article class="white-paper">
+      <h1>SQL injection vulnerability allowing login bypass</h1>
+
+      <h2>Nombre del laboratorio</h2>
+      <p>SQL injection vulnerability allowing login bypass.</p>
+
+      <h2>Nivel</h2>
+      <p>Apprentice.</p>
+
+      <h2>Tipo de SQLi</h2>
+      <p>In-band (Autenticación).</p>
+
+      <h2>Objetivo del laboratorio</h2>
+      <p>Acceder a la cuenta de <code>administrator</code> sin poseer la credencial de acceso.</p>
+
+      <h2>Explicación técnica</h2>
+      <p>
+        El mecanismo de autenticación es vulnerable a la manipulación de la consulta lógica de login.
+        Al comentar la parte de la consulta que verifica el password, se engaña al servidor para que valide
+        el inicio de sesión basándose únicamente en la existencia del nombre de usuario en la base de datos.
+      </p>
+
+      <h2>Procedimiento paso a paso</h2>
+
+      <h3>Mapeo del Formulario</h3>
+      <p>
+        Navegar a <code>/login</code> e intentar un inicio de sesión fallido para identificar los nombres de los
+        parámetros.
+      </p>
+      <a href="lab2_img1">Imagen 1</a>
+
+      <h3>Captura de Tráfico POST</h3>
+      <p>
+        En Burp Proxy, interceptar la petición de login. Identificar que los datos se envían en el cuerpo del mensaje
+        como
+        <code>username=test&amp;password=test</code>.
+      </p>
+      <a href="lab2_img2">Imagen 2</a>
+
+      <h3>Inyección de Bypass</h3>
+      <p>
+        Modificar el parámetro de usuario por <code>administrator'--</code>.
+        No es necesario modificar el campo de contraseña, ya que será ignorado por el motor SQL.
+      </p>
+      <a href="lab2_img3">Imagen 3</a>
+
+      <h3>Gestión de Redirecciones</h3>
+      <p>
+        Al presionar Forward la aplicación ha aceptado la sesión y nos redirige al panel de administración.
+      </p>
+
+      <h3>Validación de Sesión y laboratorio resuelto</h3>
+      <p>
+        Desactivar el Intercept y confirmar que la sesión actual corresponde al usuario administrador.
+      </p>
+      <a href="lab2_img4">Imagen 4</a>
+
+      <h2>Explicación del payload</h2>
+      <p>
+        <code>administrator'--</code><br>
+        Cierra la comilla simple del campo de usuario y utiliza <code>--</code> para convertir el resto de la consulta
+        (<code>AND password = '...'</code>) en un comentario inofensivo que no se ejecuta.
+      </p>
+
+      <h2>Mitigación recomendada</h2>
+      <p>
+        Utilizar funciones de hash seguras combinadas con consultas parametrizadas para la validación de credenciales.
+      </p>
+
+      <div class="download-container">
+        <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+          📥 Descargar Versión Completa (PDF/HTML)
+        </a>
+      </div>
+
+      <section id="comentarios-seccion">
+        <h3 style="color: #111827;">Comentarios Técnicos</h3>
+        <div id="display-comments"></div>
+        <form id="comment-form">
+          <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+          <button type="submit" id="button">Publicar Comentario</button>
+        </form>
+      </section>
+    </article>
+  </div>
+
+  <script src="comentarios.js"></script>
+</body>
+
+</html>

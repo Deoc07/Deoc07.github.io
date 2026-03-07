@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 10 | Ataque UNION de inyección SQL, recuperando múltiples valores en una sola columna</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Ataque UNION de inyección SQL, recuperando múltiples valores en una sola columna</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>Ataque UNION de inyección SQL, recuperando múltiples valores en una sola columna.</p>
+
+<h2>Nivel</h2>
+<p>Apprentice.</p>
+
+<h2>Tipo de SQLi</h2>
+<p>In-band (Union-based).</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>
+  Exfiltrar los nombres de usuario y contraseñas de la tabla <code>users</code> y utilizarlos para iniciar sesión como administrador.
+</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  Este ataque permite al atacante "robar" el flujo de datos de la página para redirigir información de la tabla de credenciales hacia la interfaz pública, 
+  en este caso, mostrando los usuarios y contraseñas donde normalmente se verían los productos.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Acceder a una categoría</h3>
+<p>(ej. "Accesorios" o "Regalos").</p>
+<a href="lab10_img1">Imagen 1</a>
+
+<h3>Confirmación de columnas</h3>
+<p>
+  Determinar el número de columnas de la tabla, utilizando un <code>' UNION SELECT NULL, NULL--</code> y probando hasta que no haya error. 
+  En este caso, se confirma que hay dos columnas.
+</p>
+<a href="lab10_img2">Imagen 2</a>
+
+<h3>Determinación de tipos de datos</h3>
+<p>
+  Probar con un <code>'string'</code> en la primera columna y ver que da error, indicando que es numérica. 
+  Probar con <code>'string'</code> en la segunda columna y ver que no da error, indicando que acepta texto.
+</p>
+<a href="lab10_img3">Imagen 3</a>
+
+<h3>Inyección del payload</h3>
+<p>
+  Inyectar el payload para extraer datos. Se recomienda usar la concatenación de la primera columna (<code>username</code>) y la segunda (<code>password</code>) de la tabla <code>users</code>. 
+  El payload sería similar a: <code>UNION SELECT NULL, username || ':' || password FROM users--</code>. 
+  Se introduce un punto y coma como separador entre el usuario y la contraseña.
+</p>
+<a href="lab10_img4">Imagen 4</a>
+
+<h3>Localización de credenciales</h3>
+<p>
+  Localizar en la respuesta del navegador la lista de usuarios y contraseñas.<br>
+  Identificar la credencial del usuario “administrador”.
+</p>
+
+<h3>Acceso</h3>
+<p>
+  Ir a la sección "My account" y loguearse con la contraseña obtenida.
+</p>
+
+<h3>Confirmación</h3>
+<p>
+  Inicio de sesión exitoso como administrador y el laboratorio se marca como resuelto.
+</p>
+<a href="lab10_img5">Imagen 5</a>
+
+<h2>Explicación del payload</h2>
+<p>
+  La parte <code>SELECT NULL, username || ':' || password FROM users</code> solicita a la base de datos que busque en la tabla <code>users</code> 
+  y traiga los valores de las columnas <code>username</code> y <code>password</code>, concatenados y separados por un carácter. 
+  La cláusula <code>UNION</code> hace que estos datos se añadan a la consulta original y aparezcan donde normalmente estarían los nombres de los productos, 
+  en la segunda columna que acepta strings.
+</p>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  Aplicar el Principio de Mínimo Privilegio. El usuario de la base de datos que utiliza la aplicación web no debería tener permisos de lectura 
+  sobre la tabla <code>users</code> o tablas administrativas del sistema.
+</p>
+
+
+
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>

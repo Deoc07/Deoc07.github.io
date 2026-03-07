@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 07 | Ataque UNION de inyección SQL, determinando el número de columnas devueltas por la consulta </title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">← Volver al Inicio</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <article class="white-paper">
+<h1>Ataque UNION de inyección SQL, determinando el número de columnas devueltas por la consulta</h1>
+
+<h2>Nombre del laboratorio</h2>
+<p>Ataque UNION de inyección SQL, determinando el número de columnas devueltas por la consulta.</p>
+
+<h2>Nivel</h2>
+<p>Apprentice.</p>
+
+<h2>Tipo de SQLi</h2>
+<p>In-band (Union-based).</p>
+
+<h2>Objetivo del laboratorio</h2>
+<p>
+  Identificar cuántas columnas está recuperando la consulta original en la categoría de filtros 
+  para poder realizar un ataque UNION exitoso.
+</p>
+
+<h2>Explicación técnica</h2>
+<p>
+  Para que una sentencia UNION funcione, ambas consultas deben devolver el mismo número de columnas. 
+  Si el atacante intenta unir una consulta con un número distinto de columnas, la base de datos devolverá un error. 
+  Se utilizan sentencias <code>ORDER BY</code> o <code>UNION SELECT NULL</code> de forma incremental para hallar el límite.
+</p>
+
+<h2>Procedimiento paso a paso</h2>
+
+<h3>Acceder a la categoría de productos</h3>
+<p>(ej. "Gifts").</p>
+<a href="lab7_img1">Imagen 1</a>
+
+<h3>Intercepción</h3>
+<p>Interceptar la petición con Burp Suite.</p>
+<a href="lab7_img2">Imagen 2</a>
+
+<h3>Mandar al Repeater</h3>
+<p>Mandar el código de la página obtenido en el Proxy a Repeater.</p>
+<a href="lab7_img3">Imagen 3</a>
+
+<h3>Inyección inicial</h3>
+<p>
+  Inyectar en el parámetro <code>category</code> el payload 
+  <code>' UNION SELECT NULL, NULL--</code>.
+</p>
+<a href="lab7_img4">Imagen 4</a>
+
+<h3>Prueba con más columnas</h3>
+<p>
+  Cuando la página devuelva un error o falte contenido, el número de columnas será el valor anterior al error.<br>
+  Payload actualizado: <code>' UNION SELECT NULL, NULL, NULL--</code>.
+</p>
+<a href="lab7_img5">Imagen 5</a>
+
+<h3>Respuesta vulnerable</h3>
+<p>
+  Respuesta HTTP 200 OK cuando el número de <code>NULLs</code> es correcto.
+</p>
+
+<h3>Confirmación</h3>
+<p>
+  Banner de "Congratulations, you solved the lab!".
+</p>
+<a href="lab7_img6">Imagen 6</a>
+
+<h2>Explicación del payload</h2>
+<p>
+  El payload <code>' UNION SELECT NULL, NULL, NULL--</code> intenta fusionar la consulta original con una fila de tres valores nulos. 
+  Si la consulta original devuelve exactamente 3 columnas, la operación es válida y la página carga. 
+  Los guiones <code>--</code> comentan el resto de la consulta original para evitar errores sintácticos.
+</p>
+
+<h2>Mitigación recomendada</h2>
+<p>
+  Uso de consultas parametrizadas para evitar que el valor del filtro de categoría sea interpretado como código SQL.
+</p>
+
+
+
+
+
+<div class="download-container">
+                <a href="RTHF.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                    📥 Descargar Versión Completa (PDF/HTML)
+                </a>
+            </div>
+
+            <section id="comentarios-seccion">
+                <h3 style="color: #111827;">Comentarios Técnicos</h3>
+                <div id="display-comments"></div>
+                <form id="comment-form">
+                    <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este ataque..." required></textarea>
+                    <button type="submit" id="button">Publicar Comentario</button>
+                </form>
+            </section>
+        </article>
+    </div>
+
+    <script src="comentarios.js"></script>
+</body>
+</html>
