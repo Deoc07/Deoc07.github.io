@@ -10,8 +10,8 @@ html {
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(180deg, #020617, #020617);
-  color: #e5e7eb;
+  background: #f1f5f9;
+  color: #334155;
 }
 
 /* NAV */
@@ -19,16 +19,17 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(2, 6, 23, 0.9);
+  background: #383636;
   display: flex;
   justify-content: center;
   gap: 25px;
   padding: 15px;
   backdrop-filter: blur(6px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .nav a {
-  color: #e5e7eb;
+  color: #f1f5f9;
   text-decoration: none;
   font-weight: 500;
 }
@@ -79,17 +80,19 @@ body {
 
 .card {
   text-decoration: none;
-  background: rgba(255,255,255,0.05);
+  background: #ffffff;
   padding: 2rem;
   border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #e6e9ff;
-  transition: transform 0.3s, border 0.3s;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .card:hover {
   transform: translateY(-8px);
-  border-color: #7aa2ff;
+  border-color: #383636;
+  box-shadow: 0 10px 24px rgba(56,54,54,0.12);
 }
 
 .placeholder {
@@ -103,20 +106,25 @@ body {
 }
 
 .section.dark {
-  background: rgba(15, 23, 42, 0.6);
+  background: #ffffff;
   border-radius: 20px;
   margin-top: 40px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
 }
 
 .section h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #38bdf8;
+  color: #0f172a;
+  border-bottom: 3px solid #383636;
+  padding-bottom: 10px;
 }
 
 .section p {
   line-height: 1.7;
   margin-bottom: 15px;
+  color: #334155;
 }
 
 /* PROJECTS */
@@ -129,7 +137,7 @@ body {
 }
 
 .project-list a {
-  color: #e5e7eb;
+  color: #0f172a;
   text-decoration: underline;
 }
 
@@ -146,27 +154,37 @@ body {
 .field label {
   display: block;
   margin-bottom: 5px;
+  color: #334155;
 }
 
 .field input {
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
 }
 
 #button {
   width: 100%;
   padding: 12px;
-  background: #38bdf8;
+  background: #383636;
+  color: #f1f5f9;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
+  transition: background 0.2s;
+}
+
+#button:hover {
+  background: #4a4848;
 }
 
 #respuesta {
   margin-top: 15px;
+  color: #334155;
 }
 
 /* FOOTER */
@@ -174,7 +192,8 @@ body {
   text-align: center;
   padding: 30px;
   font-size: 0.9rem;
-  opacity: 0.8;
+  background: #383636;
+  color: #cbd5e1;
 }
 /*Roadmap*/
 /* ROADMAP */
@@ -187,7 +206,7 @@ text-align:center;
 max-width:700px;
 margin:auto;
 margin-bottom:60px;
-color:#b8c2d1;
+color:#64748b;
 }
 
 /* TIMELINE */
@@ -204,7 +223,7 @@ margin:auto;
 content:'';
 position:absolute;
 width:4px;
-background:#2b6cff;
+background:#383636;
 top:0;
 bottom:0;
 left:50%;
@@ -218,7 +237,7 @@ padding:20px 40px;
 position:relative;
 width:50%;
 text-decoration:none;
-color:white;
+color:#0f172a;
 }
 
 /* circulo */
@@ -229,10 +248,10 @@ position:absolute;
 width:20px;
 height:20px;
 right:-10px;
-background:#1ec8ff;
+background:#383636;
 border-radius:50%;
 top:30px;
-box-shadow:0 0 15px #1ec8ff;
+box-shadow:0 0 10px rgba(56,54,54,0.4);
 }
 
 /* lado izquierdo */
@@ -257,14 +276,19 @@ left:-10px;
 
 .content{
 padding:20px;
-background:#061b3a;
+background:#ffffff;
 border-radius:10px;
+border: 1px solid #e2e8f0;
+border-left: 4px solid #383636;
+box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 transition:0.3s;
+color: #334155;
 }
 
 .content:hover{
 transform:scale(1.05);
-background:#0b2a58;
+background:#f8fafc;
+box-shadow: 0 6px 20px rgba(56,54,54,0.12);
 }
 
 /* responsive */
@@ -297,7 +321,7 @@ left:0;
             display: flex;
             justify-content: center;
             padding: 40px 20px;
-            background: #020617; /* Mantiene el fondo de tu web */
+            background: #f1f5f9;
         }
 
         /* El "Papel" blanco centrado */
@@ -396,16 +420,13 @@ table.minimalistBlack tbody td {
   font-size: 13px;
 }
 table.minimalistBlack thead {
-  background: #CFCFCF;
-  background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-  background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-  background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-  border-bottom: 3px solid #000000;
+  background: #383636;
+  border-bottom: 3px solid #222020;
 }
 table.minimalistBlack thead th {
   font-size: 15px;
   font-weight: bold;
-  color: #000000;
+  color: #f1f5f9;
   text-align: left;
 }
 table.minimalistBlack tfoot {
