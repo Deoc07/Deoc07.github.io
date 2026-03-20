@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>PR02 - Ingeniería Social Avanzada</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR02 - Análisis y Simulación de Phishing</title>
     <link rel="stylesheet" href="estilos_PR.css">
 </head>
 <body>
@@ -12,12 +13,45 @@
 
     <div class="wrapper">
         <header>
-            <h1>PR02: Gestión del Riesgo Humano</h1>
-            <p>Análisis de plataformas y simulador de concientización ética.</p>
+            <h1>Gestión del Riesgo Humano y Ciberseguridad Conductual</h1>
+            <p>Diseño, implementación y evaluación ética de un entorno de simulación de phishing corporativo.</p>
         </header>
 
         <section class="section-card">
-            <h2>1. Investigación de Plataformas Profesionales</h2>
+            <h2>Objetivos del Proyecto</h2>
+            
+            <h3>Objetivo General</h3>
+            <p>Diseñar, desarrollar, implementar y evaluar de manera estrictamente ética una plataforma educativa de simulación de ataques de phishing en formato web. Este proyecto se sustenta en una investigación exhaustiva y el análisis comparativo de las principales soluciones profesionales del mercado (Security Awareness Training). El producto final generará los artefactos de software necesarios (HTML5, CSS3, JavaScript) para construir una interfaz interactiva que permita cuantificar el nivel de reconocimiento de amenazas de ingeniería social en los usuarios, interpretar los datos mediante un sistema persistente de puntuación global (Leaderboard) y promover una reflexión profunda sobre la gestión responsable y formativa del riesgo humano en la seguridad de la información.</p>
+            
+            <h3>Objetivos Específicos</h3>
+            <ul>
+                <li><strong>Analizar y contrastar</strong> de forma crítica ocho plataformas profesionales de simulación de phishing (Hoxhunt, Proofpoint, KnowBe4, Cofense, Phished, NINJIO, Mimecast e Infosec IQ), evaluando meticulosamente sus arquitecturas técnicas, metodologías de telemetría de riesgo, filosofías de entrenamiento continuo y marcos de cumplimiento ético.</li>
+                <li><strong>Arquitectar y codificar</strong> un Phishing Quiz web dinámico que exponga al usuario a 10 escenarios realistas de ingeniería social (Business Email Compromise, Smishing, Typosquatting, etc.), integrando mecanismos de retroalimentación formativa inmediata (Momento Pedagógico) para maximizar la retención del conocimiento.</li>
+                <li><strong>Implementar</strong> un motor de persistencia de datos local (Web Storage API) para desarrollar un sistema de score global que consolide los resultados históricos, permitiendo visualizar rankings, identificar los escenarios de mayor vulnerabilidad (Fallo Crítico) y extraer analíticas básicas de desempeño.</li>
+                <li><strong>Garantizar y auditar</strong> que la arquitectura de la plataforma respete los principios rectores de ética digital y privacidad de datos (RGPD/CCPA), asegurando el consentimiento informado, la anonimización de los participantes y la imposibilidad técnica de capturar o transmitir credenciales reales de los usuarios.</li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <h2>Marco Teórico</h2>
+            <p>La ciberseguridad contemporánea ha experimentado un cambio de paradigma: las defensas perimetrales y los firewalls de última generación son insuficientes frente a ataques que no buscan vulnerar sistemas de silicio, sino la psicología humana. La <strong>ingeniería social</strong> se define como el arte de manipular a las personas para que eludan las medidas de seguridad, siendo el <strong>phishing</strong> su vector más prominente.</p>
+            <p>Según reportes de la industria, más del 74% de las brechas de datos exitosas involucran el elemento humano (errores, credenciales robadas o ingeniería social). Los atacantes explotan sesgos cognitivos como el sentido de urgencia, la obediencia a la autoridad, la curiosidad o el miedo. En este contexto, la capacitación estática anual en ciberseguridad ha demostrado ser ineficaz. Las organizaciones líderes han adoptado el modelo de <strong>Security Awareness Training (SAT)</strong> y <strong>Human Risk Management (HRM)</strong>, cuyo objetivo no es alcanzar una utópica "tasa de clic cero", sino desarrollar una cultura organizacional resiliente donde el empleado actúe como un sensor de seguridad activo, reportando anomalías antes de que se conviertan en incidentes mayores.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Fundamentación Técnica</h2>
+            <p>Para materializar un entorno de simulación seguro, escalable y ético sin depender de infraestructuras de backend complejas que comprometan la privacidad de los datos, este proyecto se fundamenta en las siguientes tecnologías del lado del cliente (Frontend):</p>
+            <ul>
+                <li><strong>HTML5 (HyperText Markup Language):</strong> Proporciona la estructura semántica y accesible del DOM (Document Object Model). Se utilizan etiquetas estructurales que garantizan que el contenido sea interpretado correctamente por los navegadores y lectores de pantalla.</li>
+                <li><strong>CSS3 (Cascading Style Sheets):</strong> Encargado de la capa de presentación y la experiencia de usuario (UX/UI). Implementa un diseño responsivo (Mobile-First) y utiliza variables de color para mantener la coherencia visual. La retroalimentación visual (verde para éxito, rojo para alerta) es crucial en la psicología del aprendizaje.</li>
+                <li><strong>JavaScript (ES6+):</strong> Constituye el motor lógico de la aplicación. Gestiona el estado del simulador, la iteración asíncrona sobre los escenarios de ataque (mediante temporizadores como `setTimeout`), la validación booleana de las decisiones del usuario y la manipulación dinámica del DOM en tiempo de ejecución.</li>
+                <li><strong>Web Storage API (LocalStorage):</strong> Permite la persistencia de datos a través de sesiones del navegador. Se utiliza para almacenar el histórico de puntuaciones de forma local, simulando una base de datos sin necesidad de transmitir telemetría a servidores externos, cumpliendo con los estándares éticos de privacidad "By Design".</li>
+                <li><strong>JSON (JavaScript Object Notation):</strong> Formato ligero de intercambio de datos utilizado para serializar la estructura de los 10 escenarios de phishing y para codificar/decodificar el ranking histórico guardado en el LocalStorage.</li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <h2>Tabla Técnica Comparativa de Plataformas</h2>
             <div class="table-container">
                 <table>
                     <thead>
@@ -26,56 +60,65 @@
                             <th>Capacidades Técnicas e Integración</th>
                             <th>Métricas de Riesgo y Telemetría</th>
                             <th>Enfoque Ético y Cumplimiento</th>
+                            <th>Limitaciones Identificadas</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><strong>KnowBe4</strong></td>
-                            <td>Sincronización con AD/Azure. Utiliza algoritmos AIDA para ajustar la dificultad del phishing según el comportamiento previo.</td>
+                            <td>Sincronización robusta con AD/Azure. Algoritmos AIDA para personalizar la dificultad del phishing según el comportamiento previo.</td>
                             <td>Phish-Prone %: Compara el riesgo de la empresa contra el promedio global de su sector industrial.</td>
-                            <td>Cumplimiento SOC2/RGPD. Se enfoca en la formación masiva con la biblioteca de contenido más grande del mundo.</td>
+                            <td>Cumplimiento SOC2/RGPD. Formación masiva con la biblioteca de contenido más grande del mundo.</td>
+                            <td>La enorme cantidad de módulos puede generar fatiga de entrenamiento en los empleados.</td>
                         </tr>
                         <tr>
                             <td><strong>Hoxhunt</strong></td>
-                            <td>IA adaptativa que genera correos únicos por empleado. Integración nativa mediante plugins en Outlook y Gmail.</td>
-                            <td>Reporting Rate: La métrica de éxito es cuántos usuarios reportan el correo, no cuántos evitan el clic.</td>
-                            <td>Gamificación positiva. Recompensa el reporte exitoso con puntos y niveles, eliminando el enfoque punitivo.</td>
+                            <td>IA adaptativa que genera correos únicos por empleado en tiempo real. Plugins nativos en Outlook/Gmail.</td>
+                            <td>Reporting Rate: Evalúa principalmente cuántos usuarios reportan la amenaza, midiendo la resiliencia real.</td>
+                            <td>Gamificación altamente positiva. Recompensa el reporte con puntos, eliminando enfoques punitivos.</td>
+                            <td>Costo de licenciamiento elevado, barrera de entrada para pequeñas empresas.</td>
                         </tr>
                         <tr>
                             <td><strong>Proofpoint</strong></td>
-                            <td>Análisis de URLs en tiempo real mediante sandboxing. Aísla clics sospechosos en contenedores virtuales seguros.</td>
-                            <td>VAP (Very Attacked People): Identifica qué empleados son los objetivos principales de los atacantes reales.</td>
-                            <td>Privacidad de datos estricta. Enfocado en la detección temprana antes de que el correo llegue al buzón.</td>
+                            <td>Sandboxing en tiempo real de URLs. Aísla clics sospechosos en contenedores virtuales en la nube.</td>
+                            <td>VAP (Very Attacked People): Identifica con precisión qué empleados son objetivos de atacantes reales.</td>
+                            <td>Privacidad estricta y protección de la identidad antes de que el correo llegue a la bandeja.</td>
+                            <td>Curva de aprendizaje pronunciada para la configuración del panel de administración.</td>
                         </tr>
                         <tr>
                             <td><strong>Cofense</strong></td>
-                            <td>Basado en inteligencia colectiva. Los reportes de un usuario pueden activar alertas automáticas para toda la red.</td>
-                            <td>Resiliency Rate: Relación entre usuarios que clican vs. los que reportan amenazas detectadas.</td>
-                            <td>"Momento Pedagógico": Si un usuario falla, recibe una micro-capacitación instantánea de 30 segundos.</td>
+                            <td>Plataforma basada en inteligencia colectiva. Los reportes activan automatización SOAR para toda la red.</td>
+                            <td>Resiliency Rate: Relación matemática entre usuarios comprometidos vs. reportes tempranos.</td>
+                            <td>Micro-capacitación (Momento Pedagógico) inmediata al fallar una simulación.</td>
+                            <td>Requiere un equipo SOC o analistas dedicados para procesar la telemetría colaborativa.</td>
                         </tr>
                         <tr>
                             <td><strong>Phished</strong></td>
-                            <td>Simulaciones de Phishing, Smishing y QR-shing 100% automatizadas sin necesidad de administración manual.</td>
-                            <td>Nivel de riesgo individual (AI-driven) que evoluciona dinámicamente según la mejora del usuario.</td>
-                            <td>Enfoque en la creación de hábitos subconscientes. No invasivo y diseñado para no interrumpir el flujo laboral.</td>
+                            <td>Automatización 100% autónoma (Zero-Touch) para Email, SMS y códigos QR sin intervención de IT.</td>
+                            <td>BRS (Behavioural Risk Score): Nivel de riesgo que evoluciona dinámicamente según la mejora del usuario.</td>
+                            <td>Creación de hábitos subconscientes. Metodología no invasiva en el flujo laboral.</td>
+                            <td>Menor adopción global y comunidad de usuarios comparada con los gigantes del sector.</td>
                         </tr>
                         <tr>
-                            <td><strong>Ninjio</strong></td>
-                            <td>Micro-aprendizaje basado en episodios de animación estilo anime basados en brechas de seguridad reales.</td>
-                            <td>Engagement Rate: Mide la retención de conocimientos a través de la interacción con la narrativa del video.</td>
-                            <td>Enfoque psicológico. Utiliza la narrativa para crear un impacto emocional que mejora la memoria a largo plazo.</td>
+                            <td><strong>NINJIO</strong></td>
+                            <td>Episodios animados estilo Hollywood de 3-4 minutos basados en brechas y hackeos documentados.</td>
+                            <td>Engagement Rate: Mide la retención de conocimientos mediante la interacción con la narrativa.</td>
+                            <td>Impacto emocional y empatía. Busca que el usuario se identifique con el factor humano del error.</td>
+                            <td>Carencia de métricas de red profundas y telemetría técnica avanzada de end-points.</td>
                         </tr>
                         <tr>
                             <td><strong>Mimecast</strong></td>
-                            <td>Seguridad de correo a nivel de Gateway. Detecta suplantación de identidad mediante análisis de cabeceras.</td>
-                            <td>CyberGraph: Visualiza gráficamente las relaciones de confianza para detectar anomalías de comunicación.</td>
-                            <td>Transparencia corporativa. Provee evidencia técnica sólida para auditorías de cumplimiento (ISO 27001).</td>
+                            <td>Gateway de correo integrado (SEG). Detecta anomalías y suplantaciones a nivel de cabeceras SMTP.</td>
+                            <td>CyberGraph: Mapeo visual impulsado por IA de las relaciones de confianza interpersonales.</td>
+                            <td>Trazabilidad absoluta de correos para auditorías de cumplimiento normativo (ISO 27001, HIPAA).</td>
+                            <td>Enfoque marcadamente defensivo/técnico, dejando la pedagogía formativa en segundo plano.</td>
                         </tr>
                         <tr>
                             <td><strong>Infosec IQ</strong></td>
-                            <td>Contenido personalizado por departamento (Finanzas, Legal, IT). Más de 2,000 módulos de entrenamiento.</td>
-                            <td>IQ Score: Evaluación periódica del coeficiente de seguridad del usuario frente a nuevas amenazas.</td>
-                            <td>Cumplimiento normativo guiado. Permite mapear el progreso del usuario con marcos como NIST o HIPAA.</td>
+                            <td>Entrenamiento segmentado por roles (Legal, Finanzas, Devs). Integración profunda con sistemas LMS.</td>
+                            <td>IQ Score: Evaluación periódica del coeficiente de conocimiento frente a amenazas de día cero.</td>
+                            <td>Alineación estricta con marcos de cumplimiento (NIST, CIS Controls) garantizando ética formativa.</td>
+                            <td>La interfaz y los simuladores pueden resultar menos orgánicos que las soluciones basadas en IA pura.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -83,16 +126,29 @@
         </section>
 
         <section class="section-card">
-            <h2>2. Simulador Interactivo</h2>
+            <h2>Análisis Crítico y Comparativo Detallado</h2>
+            <p>El escrutinio de las herramientas líderes revela enfoques diametralmente opuestos para resolver el mismo problema: la vulnerabilidad humana.</p>
+            <ul>
+                <li><strong>Hoxhunt y Phished (El Enfoque Conductual):</strong> Ambas plataformas entienden que reprender a un empleado no mejora la seguridad. Al utilizar Inteligencia Artificial para ajustar la dificultad y gamificar la experiencia, logran tasas de reporte ("Reporting Rate") superiores. Son ideales para empresas modernas que priorizan la cultura corporativa.</li>
+                <li><strong>Proofpoint y Mimecast (El Enfoque Defensivo-Técnico):</strong> Tratan la ingeniería social como un problema técnico que el usuario desencadena. Destacan en entornos de alta seguridad (banca, defensa) donde la prioridad es aislar el enlace malicioso (Sandboxing) antes de que el usuario incluso deba decidir si es phishing o no.</li>
+                <li><strong>KnowBe4 e Infosec IQ (El Enfoque Educativo y de Cumplimiento):</strong> Son los gigantes de la capacitación estructurada. Su fortaleza radica en la inmensidad de sus bibliotecas de contenido y su capacidad para generar reportes que satisfacen a los auditores de normativas (ISO, SOC). Sin embargo, la estandarización excesiva puede provocar desinterés en el usuario final.</li>
+                <li><strong>Cofense (El Enfoque Colaborativo):</strong> Representa el concepto de "Defensa en Enjambre". Se destaca porque transforma el reporte de un solo usuario común en una regla de bloqueo automático (SOAR) para los demás miles de empleados de la red.</li>
+                <li><strong>NINJIO (El Enfoque Narrativo):</strong> Entiende que el cerebro humano retiene historias, no diapositivas. Su estrategia basada en animación captura la atención ("Engagement") y es altamente efectiva en sectores donde el nivel de conocimiento técnico base de los empleados es bajo.</li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <h2>Simulador Interactivo de Ingeniería Social</h2>
             <div id="quiz-container" class="quiz-box">
                 <div id="loading-message">
-                    <p>⏳ Iniciando entorno de simulación...</p>
-                    <button onclick="forzarInicio()" class="btn-manual">Forzar Carga</button>
+                    <p>Preparando entorno virtual seguro...</p>
+                    <button id="btn-force-start" class="btn-manual">Forzar Carga del Simulador</button>
                 </div>
+                
                 <div id="quiz-content" style="display: none;">
                     <div class="scenario-display">
-                        <h3 id="scenario-title"></h3>
-                        <p id="scenario-description"></p>
+                        <h3 id="scenario-title">--</h3>
+                        <p id="scenario-description">--</p>
                     </div>
                     <div class="button-group">
                         <button id="btn-choice-phishing" class="btn btn-red">Es Phishing</button>
@@ -104,21 +160,36 @@
         </section>
 
         <section class="section-card">
-            <h2>3. Ranking Global</h2>
-            <table>
-                <thead>
-                    <tr><th>Pos</th><th>Usuario</th><th>Score</th><th>Fallo Crítico</th></tr>
-                </thead>
-                <tbody id="leaderboard-body"></tbody>
-            </table>
-            <button id="btn-clear-ranking" class="btn-clear">Borrar Historial</button>
+            <h2>Telemetría: Score Global de Participantes</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>Pos</th><th>Identificador Anonimizado</th><th>Precisión</th><th>Vector de Falla Crítica</th></tr>
+                    </thead>
+                    <tbody id="leaderboard-body"></tbody>
+                </table>
+            </div>
+            <button id="btn-clear-ranking" class="btn-clear">Purgar Registros Locales</button>
         </section>
-
+        
         <section class="section-card">
-            <h2>4. Conclusiones</h2>
-            <p>La investigación demuestra que la tecnología por sí sola no es suficiente; el <strong>factor humano</strong> sigue siendo el vector principal de ataque. Las plataformas más exitosas son aquellas que fomentan una <strong>Cultura de Reporte</strong> en lugar de castigar el error, convirtiendo a cada empleado en un sensor activo de seguridad dentro de la organización.</p>
+            <h2>Conclusiones</h2>
+            <p>El ecosistema de herramientas analizado confirma que no existe una solución de "talla única". La estrategia óptima combina la defensa técnica perimetral (Proofpoint/Mimecast) con un acondicionamiento humano positivo y constante (Hoxhunt). La conclusión técnica y ética de este proyecto es clara: <strong>el usuario no es el eslabón más débil, sino la primera y última línea de defensa</strong>. Implementar simuladores castigadores daña la confianza, mientras que los entornos formativos inmediatos y anónimos (como el desarrollado en esta página) construyen resiliencia cibernética real.</p>
+        </section>
+        <section class="section-card">
+            <h2>Referencias Bibliográficas (APA 7)</h2>
+            <ul class="references" style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 15px;">Cofense. (2024). <em>The 2024 annual state of phishing report</em>. https://cofense.com/state-of-phishing-2024/</li>
+                <li style="margin-bottom: 15px;">Hadnagy, C. (2018). <em>Social engineering: The science of human hacking</em> (2nd ed.). John Wiley & Sons.</li>
+                <li style="margin-bottom: 15px;">Hoxhunt. (2024). <em>Behavioural cybersecurity statistics: Human risk and reporting</em>. https://www.hoxhunt.com/resource/cybersecurity-statistics</li>
+                <li style="margin-bottom: 15px;">KnowBe4. (2024). <em>Phishing industry benchmarking report</em>. https://www.knowbe4.com/phishing-resource-center</li>
+                <li style="margin-bottom: 15px;">Mitnick, K. D., & Simon, W. L. (2011). <em>The art of deception: Controlling the human element of security</em>. John Wiley & Sons.</li>
+                <li style="margin-bottom: 15px;">NIST. (2023). <em>Security awareness training and the human factor in cybersecurity (SP 800-50 Rev. 1)</em>. National Institute of Standards and Technology.</li>
+                <li style="margin-bottom: 15px;">Proofpoint. (2024). <em>State of the phish: An analysis of global cybersecurity trends</em>. https://www.proofpoint.com/us/resources/threat-reports/state-of-the-phish</li>
+            </ul>
         </section>
     </div>
-    <script src="script.js"></script>
+
+    <script src="quiz.js"></script>
 </body>
 </html>
