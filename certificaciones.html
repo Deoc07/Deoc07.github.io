@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="estilos_PR.css">
+    <style>
+        .seccion-item { margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white; }
+        .titulo-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; font-weight: bold; }
+        .contenido-seccion { display: none; padding: 20px; border-top: 1px solid #e2e8f0; }
+        .btn-desplegar { width: 30px; height: 30px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<nav class="nav-top">
+    <a href="index.html" class="btn-back">← Volver</a>
+</nav>
+
+<div class="wrapper">
+    <header>
+        <h1>Certificaciones Profesionales</h1>
+        <p>Resumen de competencias y evidencias</p>
+    </header>
+
+    <div class="seccion-item">
+    <div class="titulo-header" onclick="toggleSeccion(this)">
+        <span>1. Título de la Certificación</span>
+        <img src="desplegar.jpg" class="btn-desplegar" data-abierto="false">
+    </div>
+    <div class="contenido-seccion">
+        <p>Aquí va el resumen de 250 palabras de tu certificación...</p>
+        
+        <a href="badge_link.com" target="_blank">Ver Badge</a> | 
+        <a href="evidencia.pdf" target="_blank" rel="noopener noreferrer">Ver Evidencia PDF</a>
+    </div>
+</div>
+
+    </div>
+
+<script>
+    function toggleSeccion(element) {
+        const contenido = element.nextElementSibling;
+        const img = element.querySelector('.btn-desplegar');
+        const estaAbierto = img.getAttribute('data-abierto') === 'true';
+
+        if (estaAbierto) {
+            contenido.style.display = 'none';
+            img.src = 'desplegar.jpg';
+            img.setAttribute('data-abierto', 'false');
+        } else {
+            contenido.style.display = 'block';
+            img.src = 'desplegar2.jpg';
+            img.setAttribute('data-abierto', 'true');
+        }
+    }
+</script>
+
+</body>
+</html>
