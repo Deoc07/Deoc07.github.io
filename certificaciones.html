@@ -2,33 +2,95 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="estilos_PR.css">
+    <link rel="stylesheet" href="estilos_unificado.css">
     <style>
-        .seccion-item { margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white; }
-        .titulo-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; font-weight: bold; }
-        .contenido-seccion { display: none; padding: 20px; border-top: 1px solid #e2e8f0; }
-        .btn-desplegar { width: 30px; height: 30px; cursor: pointer; }
-        img {transition: transform 0.3s ease;}
-        .rotada {transform: rotate(180deg);transition: transform 0.3s ease;}
+        /* Acordeón — compatible con tema oscuro */
+        .seccion-item {
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-card);
+            transition: border-color 0.3s;
+        }
+        .seccion-item:hover {
+            border-color: rgba(220,38,38,0.4);
+        }
+
+        .titulo-header {
+            padding: 18px 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card-alt);
+            font-weight: 700;
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--text);
+            letter-spacing: 0.04em;
+            border-left: 3px solid var(--primary);
+            transition: background 0.2s, color 0.2s;
+        }
+        .titulo-header:hover {
+            background: rgba(220,38,38,0.07);
+            color: var(--accent);
+        }
+
+        .contenido-seccion {
+            display: none;
+            padding: 24px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+
+        /* Ícono desplegar — invertido (blanco) para fondo oscuro */
+        .btn-desplegar {
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            filter: invert(1) brightness(0.7);
+            transition: transform 0.3s ease, filter 0.2s;
+        }
+        .titulo-header:hover .btn-desplegar {
+            filter: invert(1) brightness(1) sepia(1) hue-rotate(310deg) saturate(5);
+        }
+        .rotada { transform: rotate(180deg); }
+
+        /* Layout de dos columnas dentro del acordeón */
         .contenido-flex {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+        }
 
-/* IZQUIERDA */
-.col-izquierda {
-    flex: 2; /* ocupa más espacio */
-}
+        .col-izquierda {
+            flex: 2;
+        }
+        .col-izquierda p {
+            color: var(--text-muted);
+            font-size: 0.97rem;
+            line-height: 1.75;
+            margin: 0;
+        }
 
-/* DERECHA */
-.col-derecha {
-    flex: 1;
-    display: flex;
-    flex-direction: column; /* 🔥 uno encima del otro */
-    align-items: center; /* centra horizontal */
-    gap: 10px;
-}
+        .col-derecha {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* Responsive acordeón */
+        @media (max-width: 640px) {
+            .contenido-flex {
+                flex-direction: column;
+            }
+            .col-derecha {
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>
@@ -288,8 +350,6 @@
         }
     }
 </script>
-<script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
-<script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 </body>
 </html>
