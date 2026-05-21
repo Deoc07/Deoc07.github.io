@@ -10,6 +10,25 @@
         .btn-desplegar { width: 30px; height: 30px; cursor: pointer; }
         img {transition: transform 0.3s ease;}
         .rotada {transform: rotate(180deg);transition: transform 0.3s ease;}
+        .contenido-flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* IZQUIERDA */
+.col-izquierda {
+    flex: 2; /* ocupa más espacio */
+}
+
+/* DERECHA */
+.col-derecha {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* 🔥 uno encima del otro */
+    align-items: center; /* centra horizontal */
+    gap: 10px;
+}
     </style>
 </head>
 <body>
@@ -30,10 +49,31 @@
         <img src="desplegar.png" class="btn-desplegar" data-abierto="false">
     </div>
     <div class="contenido-seccion">
-        <p>Aquí va el resumen de 250 palabras de tu certificación...</p>
-        <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="544c38d8-e527-4aba-8eb8-aad9aff4579a" data-share-badge-host="https://www.credly.com"></div>
-        <a href="actividades/Introduction_to_Cybersecurity_certificate_173877-upslp-edu-mx_ca90a3fa-4721-462b-855e-fc113337c19e.pdf" target="_blank" rel="noopener noreferrer"  class="btn-back" >Ver Evidencia PDF</a>
+    
+    <div class="contenido-flex"> <!-- 🔥 contenedor principal -->
+
+        <!-- IZQUIERDA -->
+        <div class="col-izquierda">
+            <p>Aquí va el resumen de 250 palabras de tu certificación...</p>
+        </div>
+
+        <!-- DERECHA -->
+        <div class="col-derecha">
+            <div data-iframe-width="150" data-iframe-height="270"
+                 data-share-badge-id="544c38d8-e527-4aba-8eb8-aad9aff4579a"
+                 data-share-badge-host="https://www.credly.com">
+            </div>
+
+            <a href="actividades/Introduction_to_Cybersecurity_certificate_173877-upslp-edu-mx_ca90a3fa-4721-462b-855e-fc113337c19e.pdf"
+               target="_blank" rel="noopener noreferrer"
+               class="btn-back">
+               Ver Evidencia PDF
+            </a>
+        </div>
+
     </div>
+
+</div>
 </div>
 
     </div>
