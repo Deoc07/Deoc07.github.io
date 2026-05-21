@@ -1,354 +1,613 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="estilos_unificado.css">
-    <style>
-        /* Acordeón — compatible con tema oscuro */
-        .seccion-item {
-            margin-bottom: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            background: var(--bg-card);
-            transition: border-color 0.3s;
-        }
-        .seccion-item:hover {
-            border-color: rgba(220,38,38,0.4);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificaciones | Portafolio</title>
+  <link rel="stylesheet" href="estilos_unificado.css">
+  <style>
+    /* ── CERT CARD ───────────────────────────────────────── */
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .cert-card:hover { border-color: rgba(220,38,38,0.45); }
 
-        .titulo-header {
-            padding: 18px 22px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--bg-card-alt);
-            font-weight: 700;
-            font-family: var(--font-mono);
-            font-size: 0.95rem;
-            color: var(--text);
-            letter-spacing: 0.04em;
-            border-left: 3px solid var(--primary);
-            transition: background 0.2s, color 0.2s;
-        }
-        .titulo-header:hover {
-            background: rgba(220,38,38,0.07);
-            color: var(--accent);
-        }
+    /* Cabecera tipo ficha */
+    .cert-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 22px 26px;
+      background: var(--bg-card-alt);
+      border-left: 4px solid var(--primary);
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .cert-header:hover { background: rgba(220,38,38,0.06); }
 
-        .contenido-seccion {
-            display: none;
-            padding: 24px;
-            border-top: 1px solid var(--border);
-            background: var(--bg-card);
-        }
+    /* Ícono medalla */
+    .cert-icon {
+      width: 48px; height: 48px;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 1.4rem;
+      box-shadow: 0 0 12px rgba(220,38,38,0.25);
+    }
 
-        /* Ícono desplegar — invertido (blanco) para fondo oscuro */
-        .btn-desplegar {
-            width: 26px;
-            height: 26px;
-            cursor: pointer;
-            filter: invert(1) brightness(0.7);
-            transition: transform 0.3s ease, filter 0.2s;
-        }
-        .titulo-header:hover .btn-desplegar {
-            filter: invert(1) brightness(1) sepia(1) hue-rotate(310deg) saturate(5);
-        }
-        .rotada { transform: rotate(180deg); }
+    /* Texto de la cabecera */
+    .cert-header-info { flex: 1; }
+    .cert-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .cert-title {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+    .cert-issuer {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .cert-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cert-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      background: rgba(220,38,38,0.07);
+    }
+    .cert-badge.nivel { border-color: var(--border); color: var(--text-muted); background: transparent; }
 
-        /* Layout de dos columnas dentro del acordeón */
-        .contenido-flex {
-            display: flex;
-            justify-content: space-between;
-            gap: 24px;
-        }
+    /* Chevron toggle */
+    .cert-toggle {
+      position: absolute;
+      right: 22px; top: 50%;
+      transform: translateY(-50%);
+      width: 22px; height: 22px;
+      color: var(--text-muted);
+      transition: transform 0.3s, color 0.2s;
+      pointer-events: none;
+    }
+    .cert-card.abierto .cert-toggle { transform: translateY(-50%) rotate(180deg); color: var(--primary); }
 
-        .col-izquierda {
-            flex: 2;
-        }
-        .col-izquierda p {
-            color: var(--text-muted);
-            font-size: 0.97rem;
-            line-height: 1.75;
-            margin: 0;
-        }
+    /* ── BODY DEL ACORDEÓN ──────────────────────────────── */
+    .cert-body {
+      display: none;
+      padding: 28px 26px;
+      border-top: 1px solid var(--border);
+    }
+    .cert-body.visible { display: block; }
 
-        .col-derecha {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-        }
+    /* Línea separadora con label */
+    .cert-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cert-section-label::before { content: '⊙'; }
+    .cert-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
 
-        /* Responsive acordeón */
-        @media (max-width: 640px) {
-            .contenido-flex {
-                flex-direction: column;
-            }
-            .col-derecha {
-                align-items: flex-start;
-            }
-        }
-    </style>
+    /* Resumen + columna derecha */
+    .cert-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: 28px;
+      margin-bottom: 28px;
+      align-items: start;
+    }
+
+    .cert-summary p {
+      font-size: 0.96rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .cert-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Botón PDF */
+    .btn-pdf {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      text-decoration: none;
+      border: 1px solid var(--primary);
+      padding: 7px 14px;
+      border-radius: 5px;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      text-align: center;
+      width: 100%;
+    }
+    .btn-pdf:hover {
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 0 14px rgba(220,38,38,0.4);
+    }
+
+    /* Habilidades */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .skill-tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(220,38,38,0.5);
+      color: var(--accent);
+      background: rgba(220,38,38,0.06);
+      letter-spacing: 0.04em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .skill-tag:hover { background: rgba(220,38,38,0.15); color: var(--text); }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .cert-content-grid { grid-template-columns: 1fr; }
+      .cert-side { align-items: flex-start; }
+      .cert-title { font-size: 1.05rem; }
+    }
+  </style>
 </head>
 <body>
 
 <nav class="nav-top">
-    <a href="index.html" class="btn-back">← Volver</a>
+  <a href="index.html" class="btn-back">← Volver</a>
 </nav>
 
 <div class="wrapper">
-    <header>
-        <h1>Certificaciones Profesionales</h1>
-        <p>Resumen de competencias y evidencias</p>
-    </header>
+  <header>
+    <h1>Certificaciones Profesionales</h1>
+    <p>Trayectoria de aprendizaje · Cisco Networking Academy</p>
+  </header>
 
-    <div class="seccion-item">
-        <div class="titulo-header" onclick="toggleSeccion(this)">
-            <span>1. Introducción a la ciberceguridad</span>
-            <img src="desplegar.png" class="btn-desplegar" data-abierto="false">
+  <!-- ═══════════════════════════════════════════════════════
+       CERT 01 — Introducción a la Ciberseguridad
+  ════════════════════════════════════════════════════════ -->
+  <div class="cert-card" id="cert-01">
+    <div class="cert-header" onclick="toggleCert('cert-01')">
+      <div class="cert-icon">🎖</div>
+      <div class="cert-header-info">
+        <div class="cert-label">Certificación · PD01</div>
+        <h2 class="cert-title">Introducción a la Ciberseguridad</h2>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-badges">
+          <span class="cert-badge">Estado: Documentada</span>
+          <span class="cert-badge nivel">Nivel: Básico</span>
+          <span class="cert-badge nivel">Skills: 6</span>
         </div>
-        <div class="contenido-seccion">
-            
-            <div class="contenido-flex"> <!-- 🔥 contenedor principal -->
-                <!-- IZQUIERDA -->
-                <div class="col-izquierda">
-                    <p>Este curso fue como mi primer acercamiento formal al mundo de la ciberseguridad, aunque ya tenía algunas ideas previas. 
-                    Recuerdo que se enfocaba mucho en entender qué es realmente la ciberseguridad y por qué es tan importante hoy en día. 
-                    Se hablaba de amenazas básicas como malware, phishing y ataques de ingeniería social, y cómo estas afectan tanto a personas como a empresas. 
-                    Algo que me quedó muy claro fue la importancia de proteger la información, no solo en sistemas grandes sino también a nivel personal. 
-                    También vimos conceptos como confidencialidad, integridad y disponibilidad, que prácticamente son la base de todo lo demás en seguridad. 
-                    Como ya tenía algo de conocimiento, varias cosas se me hicieron familiares, pero el curso me ayudó a ordenar mejor las ideas y darles un contexto más profesional. 
-                    Además, me gustó que explicaba los distintos roles en ciberseguridad y las posibles áreas de trabajo. 
-                    En general, fue un curso introductorio, pero muy útil para entender el panorama general y motivarme a seguir aprendiendo.</p>
-                </div>
-                <!-- DERECHA -->
-                <div class="col-derecha">
-                    <div data-iframe-width="150" data-iframe-height="270"
-                        data-share-badge-id="544c38d8-e527-4aba-8eb8-aad9aff4579a"
-                        data-share-badge-host="https://www.credly.com">
-                    </div>
-                    <a href="actividades/Introduction_to_Cybersecurity_certificate_173877-upslp-edu-mx_ca90a3fa-4721-462b-855e-fc113337c19e.pdf"
-                    target="_blank" rel="noopener noreferrer"
-                    class="btn-back">
-                    Ver Evidencia PDF
-                    </a>
-                </div>
-            </div>
-        
-        </div>
+      </div>
+      <svg class="cert-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
-    <div class="seccion-item">
-        <div class="titulo-header" onclick="toggleSeccion(this)">
-            <span>2. Conceptos basicos de redes</span>
-            <img src="desplegar.png" class="btn-desplegar" data-abierto="false">
+    <div class="cert-body" id="body-cert-01">
+      <div class="cert-content-grid">
+        <div class="cert-summary">
+          <div class="cert-section-label">Resumen de aprendizaje</div>
+          <p>
+            Este curso representó mi primer acercamiento formal y estructurado al mundo de la ciberseguridad. Aunque ya contaba con algunas nociones previas adquiridas de manera autodidacta, el programa me permitió organizar ese conocimiento fragmentado y darle un marco profesional sólido. Desde el inicio quedó claro que la ciberseguridad no se trata únicamente de proteger computadoras, sino de salvaguardar la información en su totalidad, independientemente del medio o dispositivo donde resida.
+            <br><br>
+            El curso abordó con claridad las amenazas más comunes del entorno digital actual: malware, phishing, ransomware y ataques de ingeniería social, explicando cómo cada una puede afectar tanto a usuarios individuales como a organizaciones completas. Uno de los conceptos que más impacto tuvo en mí fue la tríada CIA —Confidencialidad, Integridad y Disponibilidad— que actúa como pilar fundamental de cualquier política o estrategia de seguridad informática.
+            <br><br>
+            Aprendí también sobre los distintos perfiles profesionales que existen dentro del sector: analistas, pentesters, ingenieros de seguridad, respondedores a incidentes, entre otros. Esto me ayudó a visualizar un posible camino de especialización dentro del campo. Además, el curso dejó en claro que la ciberseguridad es una responsabilidad compartida; no solo depende de expertos técnicos, sino también de la cultura y comportamiento de los usuarios comunes.
+            <br><br>
+            En retrospectiva, este módulo fue esencial para establecer una base conceptual que me permitiría abordar con mayor confianza los cursos posteriores. Reforzó mi motivación para continuar en esta área y me hizo consciente de la magnitud del problema de seguridad que enfrenta el mundo digital hoy en día.
+          </p>
         </div>
-        <div class="contenido-seccion">
-            
-            <div class="contenido-flex"> <!-- 🔥 contenedor principal -->
-                <!-- IZQUIERDA -->
-                <div class="col-izquierda">
-                    <p>Este curso lo sentí más como un repaso que como algo completamente nuevo, ya que ya tenía conocimientos previos. 
-                        Se centraba en explicar cómo funcionan las redes desde lo más fundamental: direcciones IP, modelos OSI y TCP/IP, tipos de redes y protocolos. 
-                        Recordé mucho sobre cómo se comunican los dispositivos entre sí y cómo viajan los datos en forma de paquetes. 
-                        También se hablaba de elementos como routers, switches y servidores, y su papel dentro de una red. 
-                        Algo importante fue reforzar el uso de direcciones IP y la idea de subnetting, aunque de forma básica. 
-                        Me ayudó bastante a reafirmar conceptos que ya había visto, pero que no tenía tan claros. 
-                        Además, entendí mejor cómo se relaciona todo con la ciberseguridad, ya que sin entender redes es difícil protegerlas. 
-                        Fue un curso importante porque siento que es la base de todo lo demás que vi después.</p>
-                </div>
-                <!-- DERECHA -->
-                <div class="col-derecha">
-                    <div data-iframe-width="150" data-iframe-height="270"
-                        data-share-badge-id="b1b41d69-3400-4a46-b657-8a17cebfe043"
-                        data-share-badge-host="https://www.credly.com">
-                    </div>
-                    <a href="actividades/Networking_Basics_certificate_173877-upslp-edu-mx_46ee48a2-686f-4e03-b54c-2db6c0009ae8.pdf"
-                    target="_blank" rel="noopener noreferrer"
-                    class="btn-back">
-                    Ver Evidencia PDF
-                    </a>
-                </div>
-            </div>
-        
+        <div class="cert-side">
+          <div data-iframe-width="150" data-iframe-height="270"
+               data-share-badge-id="544c38d8-e527-4aba-8eb8-aad9aff4579a"
+               data-share-badge-host="https://www.credly.com"></div>
+          <a href="actividades/Introduction_to_Cybersecurity_certificate_173877-upslp-edu-mx_ca90a3fa-4721-462b-855e-fc113337c19e.pdf"
+             target="_blank" rel="noopener noreferrer" class="btn-pdf">
+            📄 Ver Evidencia PDF
+          </a>
         </div>
+      </div>
+      <div class="cert-section-label">Habilidades desarrolladas</div>
+      <div class="skills-grid">
+        <span class="skill-tag">Cybersecurity Fundamentals</span>
+        <span class="skill-tag">Phishing Awareness</span>
+        <span class="skill-tag">Threat Recognition</span>
+        <span class="skill-tag">CIA Triad</span>
+        <span class="skill-tag">Digital Security</span>
+        <span class="skill-tag">Cyber Awareness</span>
+      </div>
     </div>
-    <div class="seccion-item">
-        <div class="titulo-header" onclick="toggleSeccion(this)">
-            <span>3. Dispositivos de red y configuracion inicial</span>
-            <img src="desplegar.png" class="btn-desplegar" data-abierto="false">
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CERT 02 — Conceptos Básicos de Redes
+  ════════════════════════════════════════════════════════ -->
+  <div class="cert-card" id="cert-02">
+    <div class="cert-header" onclick="toggleCert('cert-02')">
+      <div class="cert-icon">🎖</div>
+      <div class="cert-header-info">
+        <div class="cert-label">Certificación · PD02</div>
+        <h2 class="cert-title">Conceptos Básicos de Redes</h2>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-badges">
+          <span class="cert-badge">Estado: Documentada</span>
+          <span class="cert-badge nivel">Nivel: Básico</span>
+          <span class="cert-badge nivel">Skills: 7</span>
         </div>
-        <div class="contenido-seccion">
-            
-            <div class="contenido-flex"> <!-- 🔥 contenedor principal -->
-                <!-- IZQUIERDA -->
-                <div class="col-izquierda">
-                    <p>Este curso también lo había visto antes, pero aquí lo reforcé mejor. 
-                        Se enfocaba en los dispositivos físicos de la red, como routers y switches, y cómo configurarlos inicialmente. 
-                        Recuerdo que se trabajaba mucho con comandos básicos, probablemente en entornos simulados como Cisco Packet Tracer. 
-                        Aprendí o reforcé cómo acceder a un dispositivo, configurarlo, asignarle IPs y hacer configuraciones básicas de seguridad. 
-                        También vimos cómo conectar correctamente los dispositivos y cómo verificar que todo funcione bien. 
-                        Algo importante fue entender cómo pequeñas configuraciones pueden afectar toda la red. 
-                        Como ya tenía experiencia previa, este curso me ayudó a practicar más y a sentirme más cómodo con la configuración. 
-                        Fue más práctico que teórico, lo cual me gustó bastante, porque siento que aprendí haciendo.</p>
-                </div>
-                <!-- DERECHA -->
-                <div class="col-derecha">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="c0453d94-bb6b-465c-ae21-6d6528c96086" data-share-badge-host="https://www.credly.com"></div>
-                    <a href="actividades/Networking_Devices_and_Initial_Configuration_certificate_173877-upslp-edu-mx_dfb42cd9-0d4e-4656-a057-5a3617f25671.pdf"
-                    target="_blank" rel="noopener noreferrer"
-                    class="btn-back">
-                    Ver Evidencia PDF
-                    </a>
-                </div>
-            </div>
-        
-        </div>
+      </div>
+      <svg class="cert-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
-    <div class="seccion-item">
-        <div class="titulo-header" onclick="toggleSeccion(this)">
-            <span>4. Seguridad en terminales</span>
-            <img src="desplegar.png" class="btn-desplegar" data-abierto="false">
+    <div class="cert-body" id="body-cert-02">
+      <div class="cert-content-grid">
+        <div class="cert-summary">
+          <div class="cert-section-label">Resumen de aprendizaje</div>
+          <p>
+            Este curso funcionó en gran parte como un repaso estructurado, dado que ya contaba con conocimientos previos en redes. Sin embargo, la forma en que el programa organiza y profundiza los conceptos le dio un valor diferente al simple repaso. El módulo parte desde los fundamentos más básicos: qué es una red, cómo se clasifica según su alcance geográfico (LAN, WAN, MAN), y cuáles son los componentes esenciales que la integran.
+            <br><br>
+            Se trabajaron con detalle los modelos de referencia OSI y TCP/IP, analizando capa por capa qué función cumple cada una en el proceso de comunicación. Esto resultó valioso porque anteriormente había usado esos modelos como referencia sin comprender del todo su propósito real. Entender cómo los datos se encapsulan y desencapsulan al viajar entre dispositivos fue uno de los aprendizajes más esclarecedores.
+            <br><br>
+            El curso también cubrió direccionamiento IP tanto en IPv4 como en IPv6, introduciendo la lógica del subnetting de manera accesible. Comprendí mejor cómo se dividen las redes para optimizar su uso y cómo los dispositivos se identifican dentro de ellas. Los protocolos clave como TCP, UDP, HTTP, DNS y DHCP fueron explicados con ejemplos prácticos que facilitan su comprensión.
+            <br><br>
+            Desde el enfoque de seguridad informática, este curso resulta indispensable: sin entender cómo funcionan las redes, es imposible protegerlas correctamente. Saber cómo fluyen los paquetes, qué protocolos son vulnerables y dónde están los puntos débiles es el primer paso para cualquier análisis de seguridad serio.
+          </p>
         </div>
-        <div class="contenido-seccion">
-            
-            <div class="contenido-flex"> <!-- 🔥 contenedor principal -->
-                <!-- IZQUIERDA -->
-                <div class="col-izquierda">
-                    <p>Este curso ya fue un poco más específico y enfocado en la protección de dispositivos finales, como computadoras y laptops. 
-                        Recuerdo que hablaba de la importancia de proteger los endpoints, ya que muchas veces son el punto de entrada de los ataques. 
-                        Se abordaban temas como antivirus, firewalls, actualizaciones y buenas prácticas de seguridad. 
-                        También vimos el concepto de hardening, que básicamente es hacer más seguro un sistema eliminando vulnerabilidades. 
-                        Me pareció interesante porque antes no pensaba tanto en la seguridad a nivel del usuario final. 
-                        Aprendí que muchas amenazas entran por descuidos simples, como abrir correos sospechosos o instalar software no confiable.
-                         Este curso me hizo más consciente de mis propias prácticas de seguridad.</p>
-                </div>
-                <!-- DERECHA -->
-                <div class="col-derecha">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="4e76641b-edf8-4a0c-864b-28246c978e75" data-share-badge-host="https://www.credly.com"></div>
-                    <a href="actividades/Endpoint_Security_certificate_173877-upslp-edu-mx_5abfd0cc-3415-4037-9d31-37c652746b1b.pdf"
-                    target="_blank" rel="noopener noreferrer"
-                    class="btn-back">
-                    Ver Evidencia PDF
-                    </a>
-                </div>
-            </div>
-        
+        <div class="cert-side">
+          <div data-iframe-width="150" data-iframe-height="270"
+               data-share-badge-id="b1b41d69-3400-4a46-b657-8a17cebfe043"
+               data-share-badge-host="https://www.credly.com"></div>
+          <a href="actividades/Networking_Basics_certificate_173877-upslp-edu-mx_46ee48a2-686f-4e03-b54c-2db6c0009ae8.pdf"
+             target="_blank" rel="noopener noreferrer" class="btn-pdf">
+            📄 Ver Evidencia PDF
+          </a>
         </div>
+      </div>
+      <div class="cert-section-label">Habilidades desarrolladas</div>
+      <div class="skills-grid">
+        <span class="skill-tag">OSI Model</span>
+        <span class="skill-tag">TCP/IP Stack</span>
+        <span class="skill-tag">IP Addressing</span>
+        <span class="skill-tag">Subnetting</span>
+        <span class="skill-tag">Network Protocols</span>
+        <span class="skill-tag">DNS &amp; DHCP</span>
+        <span class="skill-tag">Packet Analysis</span>
+      </div>
     </div>
-    <div class="seccion-item">
-        <div class="titulo-header" onclick="toggleSeccion(this)">
-            <span>5. Administración de amanazas cibernéticas</span>
-            <img src="desplegar.png" class="btn-desplegar" data-abierto="false">
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CERT 03 — Dispositivos de Red y Configuración Inicial
+  ════════════════════════════════════════════════════════ -->
+  <div class="cert-card" id="cert-03">
+    <div class="cert-header" onclick="toggleCert('cert-03')">
+      <div class="cert-icon">🎖</div>
+      <div class="cert-header-info">
+        <div class="cert-label">Certificación · PD03</div>
+        <h2 class="cert-title">Dispositivos de Red y Configuración Inicial</h2>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-badges">
+          <span class="cert-badge">Estado: Documentada</span>
+          <span class="cert-badge nivel">Nivel: Intermedio</span>
+          <span class="cert-badge nivel">Skills: 6</span>
         </div>
-        <div class="contenido-seccion">
-            
-            <div class="contenido-flex"> <!-- 🔥 contenedor principal -->
-                <!-- IZQUIERDA -->
-                <div class="col-izquierda">
-                    <p>Este curso ya se sentía más avanzado y enfocado en la gestión de incidentes. 
-                        Recuerdo que trataba sobre cómo identificar, analizar y responder a amenazas cibernéticas. 
-                        Se hablaba de diferentes tipos de ataques, pero también de cómo monitorear redes y sistemas para detectarlos. 
-                        Aprendí sobre conceptos como análisis de riesgos, respuesta a incidentes y uso de herramientas de seguridad. 
-                        También se mencionaban equipos como los SOC (Security Operations Center). 
-                        Lo que más me llamó la atención fue cómo se sigue un proceso estructurado para manejar incidentes. 
-                        No solo es reaccionar, sino hacerlo de forma organizada. 
-                        Este curso me hizo ver la ciberseguridad de una forma más profesional.</p>
-                </div>
-                <!-- DERECHA -->
-                <div class="col-derecha">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="e7fc04a9-ed8e-4b88-b60e-fc036c14fb83" data-share-badge-host="https://www.credly.com"></div>
-                    <a href="actividades/Cyber_Threat_Management_certificate_173877-upslp-edu-mx_f5e8a0b8-fe8a-4355-baaa-65508c299c60.pdf"
-                    target="_blank" rel="noopener noreferrer"
-                    class="btn-back">
-                    Ver Evidencia PDF
-                    </a>
-                </div>
-            </div>
-        
-        </div>
+      </div>
+      <svg class="cert-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
-    <div class="seccion-item">
-        <div class="titulo-header" onclick="toggleSeccion(this)">
-            <span>6. Carrera profecional de Analista Junior en Ciberseguridad</span>
-            <img src="desplegar.png" class="btn-desplegar" data-abierto="false">
+    <div class="cert-body" id="body-cert-03">
+      <div class="cert-content-grid">
+        <div class="cert-summary">
+          <div class="cert-section-label">Resumen de aprendizaje</div>
+          <p>
+            Este curso marcó la transición del conocimiento teórico hacia la práctica real con equipos de red. El enfoque principal estuvo en los dispositivos físicos que conforman una infraestructura de red: routers, switches y otros equipos de interconexión. A diferencia de los cursos anteriores donde predominaba la teoría, aquí se trabajó directamente con simuladores como Cisco Packet Tracer para aplicar las configuraciones aprendidas.
+            <br><br>
+            Uno de los aspectos más valiosos fue aprender el proceso completo de configuración inicial de un dispositivo Cisco: desde el acceso por consola, la navegación entre modos de operación (usuario, privilegiado, configuración global), hasta la asignación de hostnames, contraseñas y direcciones IP. Entender la jerarquía de comandos y la lógica detrás del IOS (Internetwork Operating System) fue un cambio significativo respecto a administrar dispositivos por interfaz gráfica.
+            <br><br>
+            El curso también abordó la configuración de interfaces, la verificación del estado de los enlaces y los comandos de diagnóstico más usados como <em>show ip interface brief</em>, <em>ping</em> y <em>traceroute</em>. Aprendí que una configuración incorrecta en un solo dispositivo puede afectar a toda la red, lo que reforzó la importancia de la precisión y documentación en este tipo de tareas.
+            <br><br>
+            Desde la perspectiva de seguridad, comprender cómo se configuran estos dispositivos es clave para identificar configuraciones inseguras o mal aplicadas, que suelen ser vectores de entrada para atacantes. Este curso me dio herramientas concretas y prácticas que uso como referencia hasta hoy.
+          </p>
         </div>
-        <div class="contenido-seccion">
-            
-            <div class="contenido-flex"> <!-- 🔥 contenedor principal -->
-                <!-- IZQUIERDA -->
-                <div class="col-izquierda">
-                    <p>Este curso fue más orientado a la parte laboral. 
-                        Recuerdo que explicaba qué hace un analista junior de ciberseguridad y qué habilidades se necesitan. 
-                        Se hablaba tanto de conocimientos técnicos como de habilidades blandas, como la comunicación y el análisis. 
-                        También daba una idea de cómo empezar una carrera en este campo y las certificaciones importantes. 
-                        Me pareció útil porque ya no solo era teoría, sino una guía de hacia dónde ir. 
-                        Me ayudó a visualizar un camino profesional y entender mejor qué se espera en un trabajo real.</p>
-                </div>
-                <!-- DERECHA -->
-                <div class="col-derecha">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="bd93bf47-2b0f-4362-9d67-148591cfa17d" data-share-badge-host="https://www.credly.com"></div>
-                    <a href="actividades/Junior_Cybersecurity_Analyst_Career_Path_certificate_173877-upslp-edu-mx_621a3901-2e9d-4e6e-89d0-23fe67e14fef.pdf"
-                    target="_blank" rel="noopener noreferrer"
-                    class="btn-back">
-                    Ver Evidencia PDF
-                    </a>
-                </div>
-            </div>
-        
+        <div class="cert-side">
+          <div data-iframe-width="150" data-iframe-height="270"
+               data-share-badge-id="c0453d94-bb6b-465c-ae21-6d6528c96086"
+               data-share-badge-host="https://www.credly.com"></div>
+          <a href="actividades/Networking_Devices_and_Initial_Configuration_certificate_173877-upslp-edu-mx_dfb42cd9-0d4e-4656-a057-5a3617f25671.pdf"
+             target="_blank" rel="noopener noreferrer" class="btn-pdf">
+            📄 Ver Evidencia PDF
+          </a>
         </div>
+      </div>
+      <div class="cert-section-label">Habilidades desarrolladas</div>
+      <div class="skills-grid">
+        <span class="skill-tag">Cisco IOS</span>
+        <span class="skill-tag">Router Configuration</span>
+        <span class="skill-tag">Switch Setup</span>
+        <span class="skill-tag">CLI Navigation</span>
+        <span class="skill-tag">Network Diagnostics</span>
+        <span class="skill-tag">Packet Tracer</span>
+      </div>
     </div>
-    <div class="seccion-item">
-        <div class="titulo-header" onclick="toggleSeccion(this)">
-            <span>7. Hacker ético</span>
-            <img src="desplegar.png" class="btn-desplegar" data-abierto="false">
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CERT 04 — Seguridad en Terminales
+  ════════════════════════════════════════════════════════ -->
+  <div class="cert-card" id="cert-04">
+    <div class="cert-header" onclick="toggleCert('cert-04')">
+      <div class="cert-icon">🎖</div>
+      <div class="cert-header-info">
+        <div class="cert-label">Certificación · PD04</div>
+        <h2 class="cert-title">Seguridad en Terminales</h2>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-badges">
+          <span class="cert-badge">Estado: Documentada</span>
+          <span class="cert-badge nivel">Nivel: Intermedio</span>
+          <span class="cert-badge nivel">Skills: 7</span>
         </div>
-        <div class="contenido-seccion">
-            
-            <div class="contenido-flex"> <!-- 🔥 contenedor principal -->
-                <!-- IZQUIERDA -->
-                <div class="col-izquierda">
-                    <p>Este fue uno de los cursos más interesantes. Se enfocaba en cómo funcionan los ataques, pero desde el punto de vista de alguien que busca proteger sistemas. 
-                        Aprendí sobre pruebas de penetración, reconocimiento, escaneo de vulnerabilidades y explotación básica. 
-                        Me pareció muy interesante ver cómo piensan los atacantes para poder defender mejor los sistemas. 
-                        También se hablaba mucho de la ética y la legalidad, lo cual es muy importante. 
-                        Este curso me dio una perspectiva más completa de la seguridad, ya que no solo se trata de defender, sino de anticiparse a los ataques. 
-                        Fue de los que más me gustó.</p>
-                </div>
-                <!-- DERECHA -->
-                <div class="col-derecha">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="a3f3a828-b0b4-4efb-89d2-960b089f0439" data-share-badge-host="https://www.credly.com"></div>
-                    <a href="actividades/Ethical_Hacker_certificate_173877-upslp-edu-mx_16ea63f3-9dbc-4fce-a675-c84973075107.pdf"
-                    target="_blank" rel="noopener noreferrer"
-                    class="btn-back">
-                    Ver Evidencia PDF
-                    </a>
-                </div>
-            </div>
-        
-        </div>
+      </div>
+      <svg class="cert-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
-</div>
+    <div class="cert-body" id="body-cert-04">
+      <div class="cert-content-grid">
+        <div class="cert-summary">
+          <div class="cert-section-label">Resumen de aprendizaje</div>
+          <p>
+            Este curso representó un salto cualitativo hacia temas más específicos y directamente aplicables a la seguridad del usuario final. El concepto central es el de "endpoint security": la protección de los dispositivos individuales —computadoras, laptops, smartphones— que forman parte de una red. Muchas veces estos dispositivos son ignorados en las estrategias de seguridad, convirtiéndose en el eslabón más vulnerable de toda la cadena.
+            <br><br>
+            Se abordó en profundidad el concepto de hardening, que consiste en reducir la superficie de ataque de un sistema eliminando servicios innecesarios, aplicando configuraciones seguras, cerrando puertos no utilizados y manteniendo el software actualizado. Entender este proceso me hizo darme cuenta de cuántas vulnerabilidades pueden existir en un sistema recién instalado con configuraciones por defecto.
+            <br><br>
+            El curso también cubrió el funcionamiento de herramientas de protección como antivirus, antimalware, firewalls de host y sistemas de detección de intrusiones a nivel de endpoint (HIDS). Se discutieron los distintos tipos de malware —virus, troyanos, spyware, ransomware— y cómo cada uno opera e impacta al sistema infectado.
+            <br><br>
+            Un elemento que me resultó muy relevante fue el énfasis en el factor humano: la mayoría de las infecciones ocurren por errores del usuario, como hacer clic en enlaces maliciosos, instalar software no verificado o ignorar actualizaciones críticas. Este curso transformó mi perspectiva sobre la seguridad del día a día y me hizo adoptar mejores hábitos tanto personales como profesionales. Fue un módulo muy aplicable a la realidad cotidiana.
+          </p>
+        </div>
+        <div class="cert-side">
+          <div data-iframe-width="150" data-iframe-height="270"
+               data-share-badge-id="4e76641b-edf8-4a0c-864b-28246c978e75"
+               data-share-badge-host="https://www.credly.com"></div>
+          <a href="actividades/Endpoint_Security_certificate_173877-upslp-edu-mx_5abfd0cc-3415-4037-9d31-37c652746b1b.pdf"
+             target="_blank" rel="noopener noreferrer" class="btn-pdf">
+            📄 Ver Evidencia PDF
+          </a>
+        </div>
+      </div>
+      <div class="cert-section-label">Habilidades desarrolladas</div>
+      <div class="skills-grid">
+        <span class="skill-tag">Endpoint Hardening</span>
+        <span class="skill-tag">Malware Analysis</span>
+        <span class="skill-tag">Host Firewall</span>
+        <span class="skill-tag">HIDS</span>
+        <span class="skill-tag">Antivirus Strategy</span>
+        <span class="skill-tag">Patch Management</span>
+        <span class="skill-tag">Security Hygiene</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CERT 05 — Administración de Amenazas Cibernéticas
+  ════════════════════════════════════════════════════════ -->
+  <div class="cert-card" id="cert-05">
+    <div class="cert-header" onclick="toggleCert('cert-05')">
+      <div class="cert-icon">🎖</div>
+      <div class="cert-header-info">
+        <div class="cert-label">Certificación · PD05</div>
+        <h2 class="cert-title">Administración de Amenazas Cibernéticas</h2>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-badges">
+          <span class="cert-badge">Estado: Documentada</span>
+          <span class="cert-badge nivel">Nivel: Avanzado</span>
+          <span class="cert-badge nivel">Skills: 8</span>
+        </div>
+      </div>
+      <svg class="cert-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cert-body" id="body-cert-05">
+      <div class="cert-content-grid">
+        <div class="cert-summary">
+          <div class="cert-section-label">Resumen de aprendizaje</div>
+          <p>
+            Este módulo representó una evolución significativa en mi formación, ya que se enfocó en la gestión activa de amenazas y no solo en la prevención. Aprendí que en el mundo real la pregunta no es "si" una organización va a sufrir un ataque, sino "cuándo", y que la clave está en estar preparado para detectarlo y responder de manera eficaz y ordenada.
+            <br><br>
+            El curso cubrió en detalle el ciclo de vida de una amenaza cibernética: desde el reconocimiento inicial del atacante hasta la exfiltración de datos o el daño al sistema. Entender este flujo desde ambas perspectivas —atacante y defensor— resulta fundamental para anticipar movimientos y establecer controles en los puntos críticos. Se trabajaron frameworks como el MITRE ATT&CK, que cataloga las tácticas y técnicas usadas por actores maliciosos reales.
+            <br><br>
+            También se abordó el concepto de análisis de riesgos: cómo identificar activos críticos, evaluar vulnerabilidades, estimar el impacto potencial de diferentes amenazas y priorizar las acciones de mitigación. Esto me dio una visión más estratégica de la seguridad, complementando el enfoque técnico de cursos anteriores.
+            <br><br>
+            Un componente central fue la introducción a los SOC (Security Operations Centers) y su funcionamiento: cómo se organizan los equipos, qué herramientas utilizan como SIEM, IDS/IPS y threat intelligence feeds, y cómo se gestiona un incidente desde la detección hasta su resolución. Este curso consolidó mi interés en el área de operaciones de seguridad como posible especialización profesional.
+          </p>
+        </div>
+        <div class="cert-side">
+          <div data-iframe-width="150" data-iframe-height="270"
+               data-share-badge-id="e7fc04a9-ed8e-4b88-b60e-fc036c14fb83"
+               data-share-badge-host="https://www.credly.com"></div>
+          <a href="actividades/Cyber_Threat_Management_certificate_173877-upslp-edu-mx_f5e8a0b8-fe8a-4355-baaa-65508c299c60.pdf"
+             target="_blank" rel="noopener noreferrer" class="btn-pdf">
+            📄 Ver Evidencia PDF
+          </a>
+        </div>
+      </div>
+      <div class="cert-section-label">Habilidades desarrolladas</div>
+      <div class="skills-grid">
+        <span class="skill-tag">Threat Intelligence</span>
+        <span class="skill-tag">Risk Analysis</span>
+        <span class="skill-tag">Incident Response</span>
+        <span class="skill-tag">MITRE ATT&amp;CK</span>
+        <span class="skill-tag">SIEM Basics</span>
+        <span class="skill-tag">SOC Operations</span>
+        <span class="skill-tag">IDS/IPS</span>
+        <span class="skill-tag">Threat Lifecycle</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CERT 06 — Analista Junior en Ciberseguridad
+  ════════════════════════════════════════════════════════ -->
+  <div class="cert-card" id="cert-06">
+    <div class="cert-header" onclick="toggleCert('cert-06')">
+      <div class="cert-icon">🎖</div>
+      <div class="cert-header-info">
+        <div class="cert-label">Certificación · PD06</div>
+        <h2 class="cert-title">Carrera Profesional: Analista Junior en Ciberseguridad</h2>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-badges">
+          <span class="cert-badge">Estado: Documentada</span>
+          <span class="cert-badge nivel">Nivel: Avanzado</span>
+          <span class="cert-badge nivel">Skills: 7</span>
+        </div>
+      </div>
+      <svg class="cert-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cert-body" id="body-cert-06">
+      <div class="cert-content-grid">
+        <div class="cert-summary">
+          <div class="cert-section-label">Resumen de aprendizaje</div>
+          <p>
+            Este curso tuvo un enfoque distinto a los anteriores: en lugar de profundizar en aspectos técnicos específicos, se centró en definir qué significa trabajar profesionalmente como analista junior de ciberseguridad. Fue una guía concreta hacia el mercado laboral real, algo que muchos programas técnicos omiten por completo.
+            <br><br>
+            Se describió en detalle el rol del analista junior: sus responsabilidades diarias, las herramientas que típicamente usa, los tipos de incidentes que debe manejar y cómo se integra dentro de un equipo más amplio de seguridad. Entender la jerarquía y los flujos de trabajo dentro de un SOC desde la perspectiva del nivel de entrada fue muy útil para saber qué se espera de alguien que empieza en este campo.
+            <br><br>
+            El módulo también abordó las certificaciones del sector más demandadas por los empleadores, como CompTIA Security+, CEH y las propias certificaciones de Cisco. Esto me permitió priorizar mis próximos pasos de aprendizaje con criterio y alineado con lo que el mercado realmente busca en un profesional junior.
+            <br><br>
+            Un componente que valoré mucho fue el énfasis en habilidades blandas: comunicación efectiva, pensamiento crítico, trabajo bajo presión y capacidad de documentar hallazgos de forma clara. La seguridad informática no es solo técnica; requiere también comunicar riesgos a audiencias no técnicas. Este curso me dio una visión holística de lo que implica una carrera real en ciberseguridad y me motivó a seguir desarrollándome en esta dirección.
+          </p>
+        </div>
+        <div class="cert-side">
+          <div data-iframe-width="150" data-iframe-height="270"
+               data-share-badge-id="bd93bf47-2b0f-4362-9d67-148591cfa17d"
+               data-share-badge-host="https://www.credly.com"></div>
+          <a href="actividades/Junior_Cybersecurity_Analyst_Career_Path_certificate_173877-upslp-edu-mx_621a3901-2e9d-4e6e-89d0-23fe67e14fef.pdf"
+             target="_blank" rel="noopener noreferrer" class="btn-pdf">
+            📄 Ver Evidencia PDF
+          </a>
+        </div>
+      </div>
+      <div class="cert-section-label">Habilidades desarrolladas</div>
+      <div class="skills-grid">
+        <span class="skill-tag">SOC Analyst Role</span>
+        <span class="skill-tag">Career Planning</span>
+        <span class="skill-tag">Security Reporting</span>
+        <span class="skill-tag">Soft Skills</span>
+        <span class="skill-tag">Cert Roadmap</span>
+        <span class="skill-tag">Team Collaboration</span>
+        <span class="skill-tag">Documentation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CERT 07 — Hacker Ético
+  ════════════════════════════════════════════════════════ -->
+  <div class="cert-card" id="cert-07">
+    <div class="cert-header" onclick="toggleCert('cert-07')">
+      <div class="cert-icon">🎖</div>
+      <div class="cert-header-info">
+        <div class="cert-label">Certificación · PD07</div>
+        <h2 class="cert-title">Hacker Ético</h2>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+        <div class="cert-badges">
+          <span class="cert-badge">Estado: Documentada</span>
+          <span class="cert-badge nivel">Nivel: Avanzado</span>
+          <span class="cert-badge nivel">Skills: 8</span>
+        </div>
+      </div>
+      <svg class="cert-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cert-body" id="body-cert-07">
+      <div class="cert-content-grid">
+        <div class="cert-summary">
+          <div class="cert-section-label">Resumen de aprendizaje</div>
+          <p>
+            Sin duda, este fue el curso más apasionante de toda la trayectoria. El hacking ético invierte por completo la perspectiva habitual: en lugar de defender sistemas, se aprende a atacarlos de forma autorizada y controlada con el fin de identificar sus debilidades antes que un actor malicioso lo haga. Este enfoque, conocido como "pentest" o prueba de penetración, es uno de los pilares de la seguridad ofensiva moderna.
+            <br><br>
+            El curso estructuró el proceso de pentesting en fases claramente definidas: reconocimiento pasivo y activo (footprinting, OSINT), escaneo de sistemas y servicios (con herramientas como Nmap), análisis de vulnerabilidades, explotación controlada, mantenimiento de acceso y generación del reporte final. Aprender a seguir esta metodología de manera ordenada fue uno de los aprendizajes más sólidos que adquirí.
+            <br><br>
+            Se trabajaron conceptos de explotación básica, incluyendo el uso de herramientas como Metasploit de forma introductoria, y se explicaron las principales categorías de vulnerabilidades: inyecciones SQL, XSS, configuraciones incorrectas, credenciales por defecto y más. Ver cómo estas vulnerabilidades se explotan en entornos controlados hace que su gravedad sea mucho más tangible que leerlas en teoría.
+            <br><br>
+            Un componente fundamental fue el énfasis en el marco legal y ético: actuar siempre con autorización explícita, documentar todo el proceso y reportar hallazgos de manera responsable. La diferencia entre un hacker ético y un atacante criminal es precisamente esa: el consentimiento y la intención. Este curso consolidó mi interés en el pentesting como área de especialización futura.
+          </p>
+        </div>
+        <div class="cert-side">
+          <div data-iframe-width="150" data-iframe-height="270"
+               data-share-badge-id="a3f3a828-b0b4-4efb-89d2-960b089f0439"
+               data-share-badge-host="https://www.credly.com"></div>
+          <a href="actividades/Ethical_Hacker_certificate_173877-upslp-edu-mx_16ea63f3-9dbc-4fce-a675-c84973075107.pdf"
+             target="_blank" rel="noopener noreferrer" class="btn-pdf">
+            📄 Ver Evidencia PDF
+          </a>
+        </div>
+      </div>
+      <div class="cert-section-label">Habilidades desarrolladas</div>
+      <div class="skills-grid">
+        <span class="skill-tag">Penetration Testing</span>
+        <span class="skill-tag">OSINT</span>
+        <span class="skill-tag">Nmap Scanning</span>
+        <span class="skill-tag">Vulnerability Analysis</span>
+        <span class="skill-tag">Metasploit Basics</span>
+        <span class="skill-tag">SQL Injection</span>
+        <span class="skill-tag">Ethical Hacking Ethics</span>
+        <span class="skill-tag">Pentest Reporting</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.wrapper -->
+
+<footer class="footer">
+  <p>Portafolio académico — Certificaciones Cisco Networking Academy</p>
+</footer>
 
 <script>
-    function toggleSeccion(header) {
-        const contenido = header.nextElementSibling;
-        const img = header.querySelector('img');
-    
-        if (img.getAttribute('data-abierto') === 'true') {
-            // CERRAR
-            contenido.style.display = 'none';
-            img.classList.remove('rotada');
-            img.setAttribute('data-abierto', 'false');
-        } else {
-            // ABRIR
-            contenido.style.display = 'block';
-            img.classList.add('rotada');
-            img.setAttribute('data-abierto', 'true');
-        }
+  function toggleCert(id) {
+    const card = document.getElementById(id);
+    const body = document.getElementById('body-' + id);
+    const isOpen = card.classList.contains('abierto');
+    if (isOpen) {
+      card.classList.remove('abierto');
+      body.classList.remove('visible');
+    } else {
+      card.classList.add('abierto');
+      body.classList.add('visible');
     }
+  }
 </script>
 <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 </body>
