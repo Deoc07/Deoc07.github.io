@@ -39,20 +39,20 @@
     </div>
 
 <script>
-        function toggleContenido(img) {
-            const contenido = img.nextElementSibling;
-        
-            if (img.getAttribute('data-abierto') === 'true') {
-                // 🔻 CERRAR
-                contenido.style.display = 'none';
-                img.classList.remove('rotada');
-                img.setAttribute('data-abierto', 'false');
-            } else {
-                // 🔺 ABRIR
-                contenido.style.display = 'block';
-                img.classList.add('rotada');
-                img.setAttribute('data-abierto', 'true');
-            }
+    function toggleSeccion(header) {
+        const contenido = header.nextElementSibling;
+        const img = header.querySelector('img');
+    
+        if (img.getAttribute('data-abierto') === 'true') {
+            // CERRAR
+            contenido.style.display = 'none';
+            img.classList.remove('rotada');
+            img.setAttribute('data-abierto', 'false');
+        } else {
+            // ABRIR
+            contenido.style.display = 'block';
+            img.classList.add('rotada');
+            img.setAttribute('data-abierto', 'true');
         }
     }
 </script>
