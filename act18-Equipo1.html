@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>Actividad 18 · Análisis de Intrusiones con el Modelo Diamante</title>
+    <link rel="stylesheet" href="estilos_unificado.css" />
+    <style>
+        /* Ajustes adicionales para respetar el contenido original sin modificar su estructura */
+        .white-paper {
+            max-width: 1000px;
+        }
+        .white-paper table {
+            width: 100%;
+            margin: 1.2em 0;
+            background-color: #0f0f17;
+            border-collapse: collapse;
+            display: table;
+            overflow-x: visible;
+        }
+        .white-paper th,
+        .white-paper td {
+            border: 1px solid #2a2a3a;
+            padding: 10px 12px;
+            vertical-align: top;
+            color: #cbd5e1;
+        }
+        .white-paper th {
+            background-color: #1e1e2c;
+            color: #ff6060;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 600;
+        }
+        .white-paper tr:hover td {
+            background-color: rgba(220, 38, 38, 0.08);
+        }
+        .white-paper h1 {
+            font-size: 1.8rem;
+            text-align: left;
+            border-bottom: 2px solid #ff2e2e;
+            padding-bottom: 10px;
+        }
+        .white-paper h2 {
+            border-left: 4px solid #ff2e2e;
+            padding-left: 14px;
+            margin-top: 28px;
+        }
+        .white-paper h3 {
+            color: #ff6060;
+            margin-top: 24px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .white-paper blockquote {
+            background: #0a0a12;
+            border-left: 4px solid #dc2626;
+            padding: 0.8rem 1.2rem;
+            margin: 1rem 0;
+            color: #94a3b8;
+            font-style: normal;
+            border-radius: 0 6px 6px 0;
+        }
+        .white-paper code {
+            background: #1a1a2a;
+            color: #ff7b7b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85em;
+        }
+        /* Para que los colgroup y tablas complejas se vean bien */
+        .white-paper colgroup {
+            display: table-column-group;
+        }
+        .white-paper col {
+            display: table-column;
+        }
+        .white-paper .title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        /* Ajuste para imágenes */
+        .white-paper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 16px 0;
+            border: 1px solid #2a2a3a;
+        }
+        /* Tarjeta para destacar elementos del modelo diamante */
+        .diamond-card {
+            background: linear-gradient(135deg, #0f0f1a, #12121f);
+            border-left: 4px solid #ff2e2e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .diamond-card h4 {
+            color: #ff6060;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .diamond-card p {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            color: #ff6060;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .thread-box {
+            background: #0a0a12;
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .thread-box strong {
+            color: #ff6060;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="index.html">← Volver al Inicio</a>
+</nav>
+
+<div class="page-wrapper">
+    <article class="white-paper">
+        <h1 class="title">Actividad 18</h1>
+        <blockquote>
+            <p>Análisis de Intrusiones con el Modelo Diamante</p>
+        </blockquote>
+
+        <table style="width:100%;">
+            <colgroup>
+                <col style="width: 23%" />
+                <col style="width: 76%" />
+            </colgroup>
+            <thead>
+                <tr><th><strong>Institución</strong></th><th>Universidad Politécnica de San Luis Potosí (UPSLP)</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+            
+    
+    <strong>Materia</strong>
+    </td>
+            
+    CNO V – Seguridad Informática
+    </td>
+                </tr>
+                <tr>
+            
+    
+    <strong>Fecha</strong>
+    </td>
+            
+    15 de mayo de 2026
+    </td>
+                </tr>
+                <tr>
+            
+    
+    <strong>Equipo 1</strong>
+    </td>
+            
+    Aguilar Espinoza Juan Diego — 173877<br />
+    Jasso Dávila Pedro Damián — 176658<br />
+    Moreno Solís Gisela Geraldine — 176522<br />
+    Palomo Cerdá José Armando — 17593<br />
+    Zarate Domínguez David — 175842<br />
+    Zorrilla Rivera Eduardo — 175877
+    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Parte 01 — Comprensión del Modelo</h2>
+
+        <table style="width:100%;">
+            <colgroup>
+                <col style="width: 23%" />
+                <col style="width: 41%" />
+                <col style="width: 35%" />
+            </colgroup>
+            <thead>
+                <tr><th style="text-align: center;"><strong>Elemento</strong></th><th style="text-align: center;"><strong>Descripción</strong></th><th><strong>Ejemplo Práctico</strong></th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="text-align: center;">Adversario</td><td>El actor o grupo responsable de llevar a cabo el ataque.</td><td>Un grupo de ciberdelincuencia o una APT (Amenaza Persistente Avanzada).</td></tr>
+                <tr><td style="text-align: center;">Capacidad</td><td>Herramientas, técnicas, software o conocimientos utilizados por el atacante.</td><td>Un malware tipo troyano (RAT) o un exploit de día cero.</td></tr>
+                <tr><td style="text-align: center;">Infraestructura</td><td>Los recursos físicos o lógicos que permiten la comunicación entre el adversario y la víctima.</td><td>Direcciones IP, servidores de Comando y Control (C2) o nombres de dominio.</td></tr>
+                <tr><td style="text-align: center;">Víctima</td><td>El objetivo del ataque, que puede ser una persona, un dispositivo o una organización entera.</td><td>El servidor de base de datos de una institución financiera o el equipo de un administrador.</td></tr>
+            </tbody>
+        </table>
+
+        <h2>Parte 02 — Análisis de Evento (Modelo Diamante)</h2>
+
+        <blockquote>
+            <p><strong>Escenario:</strong></p>
+            <p>Una organización detecta comportamiento anómalo en un equipo. El análisis revela:</p>
+        </blockquote>
+        <ul>
+            <li>La víctima detecta malware.</li>
+            <li>El malware contiene dominios de Comando y Control (C2).</li>
+            <li>Los dominios resuelven a direcciones IP externas.</li>
+            <li>Logs muestran múltiples hosts conectándose a esas IP.</li>
+            <li>WHOIS/IP revela posible origen del atacante.</li>
+        </ul>
+
+        <div class="diamond-card">
+            <h4>📊 Metacaracterísticas del Evento</h4>
+            <p><span class="highlight">Marca de tiempo:</span> Momento exacto de la detección del comportamiento anómalo en el equipo.</p>
+            <p><span class="highlight">Fase:</span> Comando y Control (C2) / Instalación (según la etapa del ataque detectada).</p>
+            <p><span class="highlight">Resultado:</span> Éxito (el malware logró establecer contacto con infraestructura externa).</p>
+            <p><span class="highlight">Dirección:</span> De la red interna (Víctima) hacia la red externa (Infraestructura del Atacante).</p>
+            <p><span class="highlight">Metodología:</span> Comunicación mediante dominios C2 específicos integrados en el código del malware.</p>
+            <p><span class="highlight">Recursos:</span> Dominios de C2, direcciones IP externas identificadas y binarios de malware.</p>
+        </div>
+
+        <h3>Preguntas clave del análisis</h3>
+        <blockquote>
+            <p><strong>¿Quién es el adversario?</strong> El actor identificado a través de la investigación de WHOIS/IP.</p>
+            <p><strong>¿Cuál es la capacidad utilizada?</strong> Malware con funciones de conexión remota a centros de mando.</p>
+            <p><strong>¿Qué tipo de infraestructura se emplea?</strong> Dominios de Comando y Control (C2) y servidores externos con IP públicas.</p>
+            <p><strong>¿Quién es la víctima primaria?</strong> El host inicial donde se detectó la presencia del malware.</p>
+            <p><strong>¿Existe evidencia de movimiento lateral?</strong> Sí, ya que los logs muestran que múltiples hosts se conectan a esas mismas IPs externas sospechosas.</p>
+        </blockquote>
+
+        <h2>Parte 03 — Relación con la Kill Chain</h2>
+
+        <table style="width:100%;">
+            <colgroup>
+                <col style="width: 39%" />
+                <col style="width: 60%" />
+            </colgroup>
+            <thead>
+                <tr><th style="text-align: center;"><strong>Evento</strong></th><th style="text-align: center;"><strong>Fase Kill Chain</strong></th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="text-align: center;">Envío de phishing</td><td>Distribución (Delivery)</td></tr>
+                <tr><td style="text-align: center;">Ejecución del malware</td><td>Explotación / Instalación</td></tr>
+                <tr><td style="text-align: center;">Conexión a C2</td><td>Comando y Control (C2)</td></tr>
+                <tr><td style="text-align: center;">Detección de malware</td><td>Acciones sobre objetivos (etapa de post-compromiso)</td></tr>
+            </tbody>
+        </table>
+
+        <h2>Parte 04 — Hilos de Actividad</h2>
+
+        <blockquote>
+            <p>Con base en el siguiente escenario tipo APT:</p>
+        </blockquote>
+        <ul>
+            <li>Phishing dirigido a administrador.</li>
+            <li>Ejecución de malware.</li>
+            <li>Conexión a C2.</li>
+            <li>Uso del host comprometido como proxy.</li>
+            <li>Ataque a segunda víctima.</li>
+        </ul>
+
+        <div class="thread-box">
+            <strong>🎯 Hilo 1 (Víctima 1)</strong><br />
+            Inicia con un ataque de Phishing dirigido a un administrador, quien ejecuta el malware. El sistema establece exitosamente una conexión al C2.
+        </div>
+
+        <div class="thread-box">
+            <strong>🎯 Hilo 2 (Víctima 2)</strong><br />
+            Representa el objetivo interno subsiguiente del atacante una vez que ya tiene control dentro de la organización.
+        </div>
+
+        <div class="thread-box">
+            <strong>🔄 Relación (Pivoting)</strong><br />
+            El atacante utiliza el host comprometido (Víctima 1) como un proxy. Esto le permite ocultar su origen real y utilizar la confianza de la red interna para lanzar un ataque contra la segunda víctima, evadiendo controles perimetrales.
+        </div>
+
+        <p><img src="img/media/imagen1.png" style="width:100%; max-width:600px; height:auto;" alt="Diagrama de Hilos de Actividad" /></p>
+
+        <table style="width:100%;">
+            <colgroup>
+                <col style="width: 50%" />
+                <col style="width: 50%" />
+            </colgroup>
+            <thead>
+                <tr><th style="text-align: left;"><strong>Hilo 1 + Relación</strong><br />El administrador ejecuta el malware. Se crea un túnel (Proxy) que permite al atacante "saltar" desde fuera hacia dentro de la red confiable.</th><th style="text-align: left;"><strong>Hilo 2 — Impacto</strong><br />Ataque exitoso a la segunda víctima ocultando el origen del atacante, evadiendo los Firewalls perimetrales que ya confían en la Víctima 1.</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <!-- Sección de comentarios (igual que en RTHF_Lab18) -->
+        <div class="download-container">
+            <a href="act18-Equipo1.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                📥 Descargar Versión Completa (PDF/HTML)
+            </a>
+        </div>
+
+        <section id="comentarios-seccion">
+            <h3 style="color: #e2e8f0; margin-top: 2rem;">Comentarios Técnicos</h3>
+            <div id="display-comments"></div>
+            <form id="comment-form">
+                <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este análisis con modelo diamante..." required></textarea>
+                <button type="submit" id="button">Publicar Comentario</button>
+            </form>
+        </section>
+    </article>
+</div>
+
+<script src="comentarios.js"></script>
+<script>
+    if (typeof initComments === 'undefined') {
+        document.getElementById('comment-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Funcionalidad de comentarios disponible en el portfolio.");
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>Actividad 17 · Evaluación de Vulnerabilidades con CVSS v3.1</title>
+    <link rel="stylesheet" href="estilos_unificado.css" />
+    <style>
+        /* Ajustes adicionales para respetar el contenido original sin modificar su estructura */
+        .white-paper {
+            max-width: 1000px;
+        }
+        .white-paper table {
+            width: 100%;
+            margin: 1.2em 0;
+            background-color: #0f0f17;
+            border-collapse: collapse;
+            display: table;
+            overflow-x: visible;
+        }
+        .white-paper th,
+        .white-paper td {
+            border: 1px solid #2a2a3a;
+            padding: 10px 12px;
+            vertical-align: top;
+            color: #cbd5e1;
+        }
+        .white-paper th {
+            background-color: #1e1e2c;
+            color: #ff6060;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 600;
+        }
+        .white-paper tr:hover td {
+            background-color: rgba(220, 38, 38, 0.08);
+        }
+        .white-paper h1 {
+            font-size: 1.8rem;
+            text-align: left;
+            border-bottom: 2px solid #ff2e2e;
+            padding-bottom: 10px;
+        }
+        .white-paper h2 {
+            border-left: 4px solid #ff2e2e;
+            padding-left: 14px;
+            margin-top: 28px;
+        }
+        .white-paper blockquote {
+            background: #0a0a12;
+            border-left: 4px solid #dc2626;
+            padding: 0.8rem 1.2rem;
+            margin: 1rem 0;
+            color: #94a3b8;
+            font-style: normal;
+            border-radius: 0 6px 6px 0;
+        }
+        .white-paper code {
+            background: #1a1a2a;
+            color: #ff7b7b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85em;
+        }
+        /* Para que los colgroup y tablas complejas se vean bien */
+        .white-paper colgroup {
+            display: table-column-group;
+        }
+        .white-paper col {
+            display: table-column;
+        }
+        .white-paper .title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        /* Ajuste para imágenes */
+        .white-paper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 16px 0;
+            border: 1px solid #2a2a3a;
+        }
+        /* Vector CVSS destacado */
+        .cvss-vector {
+            background: #0a0a12;
+            border: 1px solid #ff2e2e;
+            border-radius: 8px;
+            padding: 16px 20px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1rem;
+            text-align: center;
+            margin: 20px 0;
+            color: #ff6060;
+            letter-spacing: 0.5px;
+        }
+        .score-badge {
+            display: inline-block;
+            background: #ff2e2e;
+            color: #000;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="index.html">← Volver al Inicio</a>
+</nav>
+
+<div class="page-wrapper">
+    <article class="white-paper">
+        <h1 class="title">Actividad 17</h1>
+        <blockquote>
+            <p>Evaluación de Vulnerabilidades con CVSS v3.1</p>
+        </blockquote>
+
+        <table style="width:100%;">
+            <colgroup>
+                <col style="width: 23%" />
+                <col style="width: 76%" />
+            </colgroup>
+            <thead>
+                <tr><th><strong>Institución</strong></th><th>Universidad Politécnica de San Luis Potosí (UPSLP)</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+            
+    
+    <strong>Materia</strong>
+   </td>
+            
+    CNO V – Seguridad Informática
+    </td>
+                </tr>
+                <tr>
+            
+    
+    <strong>Fecha</strong>
+    </td>
+            
+    15 de mayo de 2026
+    </td>
+                </tr>
+                <tr>
+            
+    
+    <strong>Equipo 1</strong>
+    </td>
+            
+    Aguilar Espinoza Juan Diego — 173877<br />
+    Jasso Dávila Pedro Damián — 176658<br />
+    Moreno Solís Gisela Geraldine — 176522<br />
+    Palomo Cerdá José Armando — 17593<br />
+    Zarate Domínguez David — 175842<br />
+    Zorrilla Rivera Eduardo — 175877
+    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><img src="img/media/image1.jpeg" style="width:100%; max-width:700px; height:auto;" alt="CVSS v3.1 Metrics" /></p>
+
+        <h1>1. Construcción del Vector CVSS</h1>
+
+        <table style="width:100%;">
+            <colgroup>
+                <col style="width: 12%" />
+                <col style="width: 29%" />
+                <col style="width: 57%" />
+            </colgroup>
+            <thead>
+                <tr><th style="text-align: center;"><strong>Métrica</strong></th><th><strong>Parámetro</strong></th><th><strong>Justificación</strong></th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="text-align: center;"><strong>AV:N</strong></td><td><strong>Attack Vector: Network</strong></td><td>La vulnerabilidad puede explotarse a través de la red.</td></tr>
+                <tr><td style="text-align: center;"><strong>AC:L</strong></td><td><strong>Attack Complexity: Low</strong></td><td>La explotación requiere baja complejidad.</td></tr>
+                <tr><td style="text-align: center;"><strong>PR:H</strong></td><td><strong>Privileges Required: High</strong></td><td>Se requieren privilegios elevados.</td></tr>
+                <tr><td style="text-align: center;"><strong>UI:N</strong></td><td><strong>User Interaction: None</strong></td><td>No requiere interacción del usuario.</td></tr>
+                <tr><td style="text-align: center;"><strong>S:U</strong></td><td><strong>Scope: Unchanged</strong></td><td>No cambia el alcance.</td></tr>
+                <tr><td style="text-align: center;"><strong>C:L</strong></td><td><strong>Confidentiality: Low</strong></td><td>Impacto bajo en confidencialidad.</td></tr>
+                <tr><td style="text-align: center;"><strong>I:L</strong></td><td><strong>Integrity: Low</strong></td><td>Impacto bajo en integridad.</td></tr>
+                <tr><td style="text-align: center;"><strong>A:L</strong></td><td><strong>Availability: Low</strong></td><td>Impacto bajo en disponibilidad.</td></tr>
+            </tbody>
+        </table>
+
+        <div class="cvss-vector">
+            🔍 <strong>Vector CVSS Final</strong><br />
+            CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L
+        </div>
+
+        <blockquote>
+            <p>La vulnerabilidad continúa siendo relevante porque, aunque el atacante necesita privilegios elevados para explotarla, una vez obtenidos dichos privilegios puede comprometer información, modificar datos o afectar servicios internos del sistema. En entornos corporativos, un atacante puede obtener privilegios mediante robo de credenciales, ataques internos o escalamiento previo, por lo que la vulnerabilidad representa un riesgo real para la organización.</p>
+        </blockquote>
+
+        <h2>B) ¿Qué tipo de atacante podría explotarla?</h2>
+        <blockquote>
+            <p>Podría ser explotada principalmente por un atacante interno, un administrador malicioso o un ciberdelincuente que previamente haya comprometido una cuenta con privilegios elevados. También podría aprovecharla un atacante externo que haya logrado acceso administrativo mediante phishing, robo de credenciales o escalamiento de privilegios.</p>
+        </blockquote>
+
+        <h2>C) ¿Qué significa que el impacto sea bajo en las tres dimensiones?</h2>
+        <blockquote>
+            <p>Significa que la vulnerabilidad produce afectaciones limitadas en la confidencialidad, integridad y disponibilidad del sistema. La información comprometida sería parcial o poco sensible, las modificaciones realizadas serían reducidas y el impacto sobre la operación o disponibilidad del servicio sería mínimo, sin causar una interrupción crítica de los sistemas.</p>
+        </blockquote>
+
+        <h1>3. Cálculo de Puntuación</h1>
+        <blockquote>
+            <p>La calculadora CVSS v3.1 arroja la siguiente puntuación para el vector indicado:</p>
+        </blockquote>
+
+        <table style="width:100%;">
+            <colgroup>
+                <col style="width: 25%" />
+                <col style="width: 25%" />
+                <col style="width: 48%" />
+            </colgroup>
+            <thead>
+                <tr><th style="text-align: center;"><strong>Categoría</strong></th><th style="text-align: center;"><strong>Rango</strong></th><th style="text-align: center;"><strong>Clasificación en este caso</strong></th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="text-align: center;">Baja</td><td>0.1 – 3.9</td><td></td></tr>
+                <tr><td style="text-align: center;"><strong>Media</strong></td><td>4.0 – 6.9</td><td style="text-align: center;"><strong>← Este caso (4.7)</strong></td></tr>
+                <tr><td style="text-align: center;">Alta</td><td>7.0 – 8.9</td><td></td></tr>
+                <tr><td style="text-align: center;">Crítica</td><td>9.0 – 10.0</td><td></td></tr>
+            </tbody>
+        </table>
+
+        <div class="cvss-vector" style="background: linear-gradient(135deg, #0a0a12, #1a1a2a);">
+            📊 <strong>Puntuación Base</strong><br />
+            4.7 — <span class="score-badge">MEDIA</span>
+        </div>
+
+        <!-- Sección de comentarios (igual que en RTHF_Lab18) -->
+        <div class="download-container">
+            <a href="act17-Equipo1.pdf" download="Laboratorios_RTHF_completos.pdf" class="btn-download">
+                📥 Descargar Versión Completa (PDF/HTML)
+            </a>
+        </div>
+
+        <section id="comentarios-seccion">
+            <h3 style="color: #e2e8f0; margin-top: 2rem;">Comentarios Técnicos</h3>
+            <div id="display-comments"></div>
+            <form id="comment-form">
+                <textarea id="user-comment" placeholder="Escribe tu opinión técnica sobre este análisis CVSS..." required></textarea>
+                <button type="submit" id="button">Publicar Comentario</button>
+            </form>
+        </section>
+    </article>
+</div>
+
+<script src="comentarios.js"></script>
+<script>
+    if (typeof initComments === 'undefined') {
+        document.getElementById('comment-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Funcionalidad de comentarios disponible en el portfolio.");
+        });
+    }
+</script>
+</body>
+</html>
